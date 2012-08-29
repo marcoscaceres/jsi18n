@@ -102,11 +102,12 @@
         }
 
 		//Check and patch if needed
-        if (date.toLocaleTimeString(lang, props) !== expectedTime) {
+        localizationTest = date.toLocaleTimeString(lang, props); 
+        if (localizationTest !== expectedTime) {
             defaults = Object.create(null);
             defaults['hour'] = defaults['minute'] = defaults['second'] = 'numeric';
             patch('toLocaleTimeString',
-                Date.prototype.toLocaleTimeString,
+                Date.prototype,
                 global.v8Intl.DateTimeFormat,
                 defaults);
 			if (date.toLocaleTimeString(lang, props) !== expectedTime) {
