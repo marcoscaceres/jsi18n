@@ -1,6 +1,25 @@
 /**
+* Howdy! This script "patches" Google Chrome's implementation of the i18n API
+* so that it conforms more fully with ECMAScript's Internationalization API.
+* In particular it makes Dates.toLocale[Date,Time]String(), and
+* Number.toLocaleString() work as defined by the ECMAScript specification.
+*
+* Simple usage examples:
+*   //dates
+*   date = new Date();
+*   date.toLocaleString("en-us", {weekday: 'long'}); //returns Monday
+*   date.toLocaleTimeString("ar"); //returns time in arabic
+*   //numbers
+*   (123456).toLocaleString("en-us"); // returns "123,456"
+*
+* Detailed documentation on how to use this script:
+*    http://marcoscaceres.github.com/jsi18n/
+*
+* See also the ECMAScript i18n specs page:
+*    http://wiki.ecmascript.org/doku.php?id=globalization:specification_drafts
+*
 * Copyright (c) 2012, Marcos Cáceres <marcos@marcosc.com>
-
+* MIT License
 * Permission is hereby granted, free of charge, to any person obtaining a copy
 * of this software and associated documentation files (the "Software"), to
 * deal in the Software without restriction, including without limitation the
@@ -56,41 +75,33 @@
      **/
     function patchV8() {
         var localizationTest,
-            defaults;
+            defaults,
+			msg;
 
         //create a reference to Intl
         global.Intl = global.v8Intl;
 
-        //Check if toLocaleDateString already supported
-        //if not, patch it
+        //Check and patch if needed
         localizationTest = date.toLocaleString(lang, props);
         if (localizationTest !== expectedDate) {
             patch('toLocaleString', Date.prototype, global.Intl.DateTimeFormat);
             if (date.toLocaleString(lang, props) !== expectedDate) {
-                console.warn('failed to patch Date.prototype.toLocaleString');
+                msg = 'Patched Date.toLocaleString, but browser implementation is buggy.';
+				console.warn(msg);
             }
         }
 
-        //test for support of toLocaleDateString
+		//Check and patch if needed
         localizationTest = date.toLocaleDateString(lang, props);
-        //Check if toLocaleDateString already supported
-        //if not, patch it
         if (localizationTest !== expectedDate) {
             patch('toLocaleDateString', Date.prototype, global.Intl.DateTimeFormat);
             if (date.toLocaleDateString(lang, props) !== expectedDate) {
-                console.warn('failed to patch Date.prototype.toLocaleDateString');
+				msg = 'Patched Date.toLocaleDateString, but browser implementation is buggy.';
+                console.warn(msg);
             }
         }
 
-        //check number formatting support
-        if (number.toLocaleString(lang) !== expectedNumber) {
-            patch('toLocaleString', Number.prototype, global.v8Intl.NumberFormat);
-            if (number.toLocaleString(lang) !== expectedNumber) {
-                console.warn('Failed to patch Number.prototype.toLocaleString');
-            }
-        }
-
-        //check Time Formatting support
+		//Check and patch if needed
         if (date.toLocaleTimeString(lang, props) !== expectedTime) {
             defaults = Object.create(null);
             defaults['hour'] = defaults['minute'] = defaults['second'] = 'numeric';
@@ -98,19 +109,38 @@
                 Date.prototype.toLocaleTimeString,
                 global.v8Intl.DateTimeFormat,
                 defaults);
+			if (date.toLocaleTimeString(lang, props) !== expectedTime) {
+				msg = 'Patched Date.toLocaleTimeString, but browser implementation is buggy.';
+                console.warn(msg);
+			}
+        }
+
+        //check number formatting support
+        if (number.toLocaleString(lang) !== expectedNumber) {
+            patch('toLocaleString', Number.prototype, global.v8Intl.NumberFormat);
+            if (number.toLocaleString(lang) !== expectedNumber) {
+				msg = 'Patched Number.toLocaleString, but browser implementation is buggy.';
+                console.warn(msg);
+            }
         }
 
         //monkey patch by keeping native functionality when needed
         function patch(functionName, ofPrototype, i18nformatter, i18nDefaults) {
-            ofPrototype[functionName] = (function(old, formatter, defaults) {
-                var patchedFunction = function(locales, options) {
+            //override native function of a given prototype
+			//(e.g., Number.prototype['toLocaleString'])
+			ofPrototype[functionName] = (function(old, formatter, defaults) {
+                //create the patched function, and then return it
+				var patchedFunction = function(locales, options) {
+					//Call the original "native code" function
                     if (locales === undefined && options === undefined) {
                         return old.call(this);
                     }
-                    //clean up and normalize;
+
+					//clean up and normalize values
                     locales = String(locales).split(',');
                     options = Object(options);
-                    //set defaults for output, as Chrome does not do this
+
+                    //set defaults for output, as Chrome does not do this sometimes
                     if (defaults) {
                         for (var i in defaults) {
                             if (!options.hasOwnProperty(i)) {
@@ -118,9 +148,11 @@
                             }
                         }
                     }
-                    //format and return result;
+
+                    //localize and format the object and return result
                     return (new formatter(locales, options)).format(this);
                 }
+				//monkey patch!
                 return patchedFunction;
             }(ofPrototype[functionName], i18nformatter, i18nDefaults));
         }
