@@ -33,27 +33,36 @@ body.unsupported .supported{
 
 <body>
 <article>
-<h1>Using the ECMAScript Internationalisation API</h1>
+<h1>Using the JavaScript Internationalization API</h1>
 
 <p>The new <cite>ECMAScript Internationalization API</cite> (or <abbr title="ECMAScript Internationalization API">i18n API</abbr> for short) helps you automagically localise the output of dates, numbers, currencies  in Javascript. </p>
 <p>This short intro  gives you a quick overview of some of the awesome things you will be able to do once the API becomes more widely supported in browsers and in other ECMAScript-based programming environments - like Node.js. </p>
-<p>Lets be clear before we start: the  <abbr title="ECMAScript Internationalization API">i18n API</abbr> is not a full internationalization framework, so obviously it won't translate your whole application to another language, but can be really useful for common localisation tasks involving dates, numbers, and currencies.</p>
+<p>Lets be clear before we start: the  <abbr title="ECMAScript Internationalization API">i18n API</abbr> is not a full internationalization framework, so obviously it won't translate your whole application to another language, but can be really useful for common localization tasks involving dates, numbers, and currencies.</p>
 <h2>Can I use? </h2>
 <p>If you want to follow along, please read this section! </p>
-<p><strong>The short:</strong> <span id="caniuse">sadly, your browser is not supported yet.</span> You can follow along, but you need <a href="https://www.google.com/intl/en/chrome/browser/">Chrome 21</a> (stable) or above and our custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">i18n monkey-patch</a>. <span class="supported">The patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up your browsers console, you are already good to go! </span></p>
+<p><strong>The short:</strong> <span id="caniuse">sadly, we just checked  and your browser is not supported (yet!).</span> You can follow along, but you need <a href="https://www.google.com/intl/en/chrome/browser/">Chrome 21</a> (stable) or above and our custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">i18n monkey-patch</a>. <span class="supported">The patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up your browsers console, you are already good to go! </span></p>
 <h3>Feature Detection</h3>
-<p>Before we can actually use the <cite>i18n API</cite>, we need to check if the browser supports it. This can be tricky, because, to date, the API is behind a unique verndor prefix (<code>v8</code>) and also &quot;supersedes&quot; existing Javascript functionality. At the time of writing, only partial support exists in Chrome 21 and above - and Chrome Canary 23 seems to have introduced some  bugs that make the API unreliable. </p>
-<p>Anyway, the <cite>i18n API</cite> defines the <code>Intl</code> object that should live in the browser's <code>window</code> object. This object is used to contain a bunch of useful other objects that we will make use of in this tutorial: </p>
+<p>Before we can actually use the <cite>i18n API</cite>, we need to check if the browser supports it. This can be tricky, because, to date, the API is behind a unique vendor prefix (<code>v8</code>) and also &quot;supersedes&quot; existing Javascript functionality. At the time of writing, only partial support exists in Chrome 21 and above - and Chrome Canary 23 seems to have introduced some  bugs that make the API unreliable. </p>
+<p>Anyway, the <cite>i18n API</cite> defines the <code>Intl</code> object that should be a property of the browser's <code>window</code> object. This object is used to contain a bunch of useful other objects that we will make use of in this article: </p>
 <pre>```javascript
-if(&quot;Intl&quot; in window){
+if(window.hasOwnProperty(&quot;Intl&quot;)){
    //It's supported, lets localize!
-}else if(&quot;v8Int&quot; in window){
+}else if(window.hasOwnProperty(&quot;v8Intl&quot;)){
    //check for V8 implementation
    window.Intl = v8Intl; 
 }
 ```</pre>
-<p>Generally speaking, that would be all you need. However, because of the experimental nature of this API, the Chrome team have only patially implemented the API: they have not implemented functionality that overrides existing functionality. Thankfully, it is easy to &quot;monkey-patch&quot;' with a simple script.</p>
-<h2>Simple date localisation</h2>
+
+<p>Generally speaking, that would be all you need. However, because of the experimental nature of this API, the Chrome team have only partially implemented the API: they have not implemented functionality that overrides existing functionality. Thankfully, it is easy to <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> (a software patch that does not change existing browser functionality) with a fairly simple script. </p>
+<h3>Using the patch in your own code</h3>
+<p>If you want to play with the patch, just put the following script into your HTML. Remember that the code is experimental:
+<pre>&lt;script src=&quot;//raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js&quot;&gt;&lt;/script&gt;
+</pre>
+<p>You can then confirm if it worked by doing &quot;inspect element&quot; and typing into your JavaScript console: </p>
+<pre>Intl 
+//returns an Object</pre>
+<p>You can also  <a href="https://github.com/marcoscaceres/jsi18n">get the code from github</a> to use in your own projects. </p>
+<h2>Simple date localization</h2>
 <p> 
   You've probably done this a hundred times:
 </p>
@@ -71,9 +80,9 @@ date.toLocaleDateString();
 <h3>The solution</h3>
   <aside>
   <h1>Language Tag Trivia</h1>
-  <p>A language tag, or more genenerally, they concept of a <dfn>locale</dfn>, doesn't just relate to a languages: it also dictate how dates, times, and currencies are formatted (and even how they are spoken by text-to-speech software!). </p>
+  <p>A language tag, or more generally, they concept of a <dfn>locale</dfn>, doesn't just relate to a languages: it also dictate how dates, times, and currencies are formatted (and even how they are spoken by text-to-speech software!). </p>
   <p>An example you have probably encountered before: 31st of January in the United States is written in short form as: 1/31/2012… while in Australia and the UK it is 31/1/2012 (i.e., days and months are swapped). Many a databases have broken thanks to this :) </p></aside>
-<p>Firstly, what we need is to convert what we know about the user's locale  to a <dfn>language tag: </dfn>  a simple string made up of the user's langauge and, optionally, where they are (or would like to pretend they are for the purposes of communication).</p>
+<p>Firstly, what we need is to convert what we know about the user's locale  to a <dfn>language tag: </dfn>  a simple string made up of the user's language and, optionally, where they are (or would like to pretend they are for the purposes of communication).</p>
 <p>You undoubtedly have encountered language tags before. for example 
   &quot;en-US&quot;, … which roughly translates to &quot;English as used in the US&quot;… as opposed to, say, &quot;en-AU&quot;, which would be English as used in Australia. </p>
 <h3>Getting the user's locale</h3>
@@ -87,15 +96,15 @@ date.toLocaleDateString(&quot;pt-PT&quot;);
 //returns &quot;24/8/2012&quot;
 
 ```</pre>
-<p> Ok, so the above output is not super useful (it's actually less pretty than what we originally had). But it's a start on our way to localising the date more fully! However, what the above does give us is a date formatted in a way that is more or less guaranteed to be understood in the given locale, even thought it is not a pretty as having the date in &quot;long&quot; form (i.e., as in &quot;Friday, 24 of August&quot; )</p>
+<p> Ok, so the above output is not super useful (it's actually less pretty than what we originally had). But it's a start on our way to localizing the date more fully! However, what the above does give us is a date formatted in a way that is more or less guaranteed to be understood in the given locale, even thought it is not a pretty as having the date in &quot;long&quot; form (i.e., as in &quot;Friday, 24 of August&quot; )</p>
 <p>Just so we can see the API do something more impressive, lets say our user is Chinese (language tag is &quot;za&quot;): </p>
 <pre>```javascript
-date.toLocalDateString(&quot;za&quot;)
+date.toLocaleDateString(&quot;za&quot;);
 //&quot;2012年8月24日&quot;
 ```</pre>
 <p>BOOM! So now we are getting somewhere! We've managed to convert our date object to Chinese without hardly doing any work (which we like!). </p>
 <p>Controlling the formatting
-As we pointed out above, the date format &quot;24/8/2012&quot; will be comprehended, but it's not the prettiest or most user friendly way to display dates. In particular, it's nice to see what day of the week it is (monday, tuesday, etc.) and what month. </p>
+As we pointed out above, the date format &quot;24/8/2012&quot; will be comprehended, but it's not the prettiest or most user friendly way to display dates. In particular, it's nice to see what day of the week it is (Monday, Tuesday, etc.) and what month. </p>
 <p>However, where it gets tricky is knowing how other cultures like to have their &quot;pretty dates&quot; formatted. This is where the i18n API really starts to show its usefulness - it has this knowledge built in, and gives programmers control of how to format a date through a set of options. These options are then passed to the <code>.toLocaleDateString()</code> or to the <code>.toLocaleString()</code> as an argument. </p>
 <p>For example:</p>
 <pre>```javascript
@@ -104,12 +113,12 @@ date.toLocaleDateString(&quot;pt&quot;, props);
 //returns &quot;sexta-feira&quot; (which is Friday in Portuguese)
 
 date.toLocaleDateString(&quot;ja&quot;, props);
-//&quot;金曜日&quot; which is friday in Japanse
+//&quot;金曜日&quot; which is Friday in Japanese
 
 ```</pre>
 
 <h3>Options for output</h3>
-<p>The options that can be passed as object are as follows. <span class="supported">You can use the checkboxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>. </p> 
+<p>The options that can be passed as object are as follows. <span class="supported">You can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>. </p> 
 <form id="optionsTable">
 <table width="100%" border="1">
   <tr>
@@ -745,24 +754,25 @@ date.toLocaleDateString(&quot;ja&quot;, props);
 <p>For example, lets say we want to output &quot;day of week, day Month, Year&quot;. We would set the following options:</p>
 <pre>```javascript
 var options = {weekday: &quot;long&quot;, year: &quot;numeric&quot;, month: &quot;long&quot;, day: &quot;numeric&quot;};
-date.toLocaleDateString(&quot;pt&quot;, props); 
+date.toLocaleDateString(&quot;pt&quot;, options); 
 //returns &quot;sexta-feira, 24 de agosto de 2012&quot;
 
-date.toLocaleDateString(&quot;jp&quot;, props); 
+date.toLocaleDateString(&quot;jp&quot;, options); 
 //&quot;2012年8月24日(金曜日)&quot;
 
 //And even arabic
-date.toLocaleDateString(&quot;ar&quot;, props);
+date.toLocaleDateString(&quot;ar&quot;, options);
 //&quot;الجمعة، ٢٤ أغسطس، ٢٠١٢&quot;
 
 //And for our final trick: Thai Buddhist calendar and Thai digits
-date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, props); 
+date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options); 
 //returns &quot;วันศุกร์ ๒๔ สิงหาคม ๒๕๕๕&quot;
+
 ```</pre>
 <p>Pretty funky, eh! But there is a problem... </p>
 <h3>Hey, Browser! Do you to speak-a-my-language? </h3>
-<p>There are literally thousands of languages spoken throughout the world and those languages are spoken differently depending where you are (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). And even though browsers know many of these difference language/local combinations (i.e., the language tag), it can't possibly know every combination. </p>
-<p>Thankfully, the i18n API provides a way to check if it knows how to deal with given locale(s). This check is done by using the somewhat excessively long <code>Intl.DateTimeFormat.supportedLocalesOf</code> method: </p>
+<p>There are literally thousands of languages spoken throughout the world and those languages are spoken differently depending where you are (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
+<p>Thankfully, the i18n API provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the somewhat excessively long <code>Intl.DateTimeFormat.supportedLocalesOf</code> method: </p>
 <pre>```javascript
 //Given German (&quot;de&quot;), and two languages that don't exist: 
 Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]) 
