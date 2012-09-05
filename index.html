@@ -53,7 +53,7 @@ if(window.hasOwnProperty(&quot;Intl&quot;)){
     <pre>&lt;script src=&quot;//raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js&quot;&gt;&lt;/script&gt;
 </pre>
     <p>You can then confirm if it worked by doing &quot;inspect element&quot; and typing into your JavaScript console: </p>
-    <pre>Intl 
+    <pre>Intl
 //returns an Object</pre>
     <p>You can also <a href="https://github.com/marcoscaceres/jsi18n">get the code from github</a> to use in your own projects. </p>
   </section>
@@ -112,7 +112,7 @@ date.toLocaleDateString(&quot;ja&quot;, props);
   <form id="optionsTable">
     <table width="100%" border="1">
       <caption>
-      Date output options
+      Date/time output options
       </caption>
       <tr>
         <th class="supported">&nbsp;</th>
@@ -282,7 +282,7 @@ date.toLocaleDateString(&quot;ja&quot;, props);
         <td>Output</td>
         <td colspan="3">
           <div>
-          <label>Options: <input placeholder="options from table" type="text" readonly id="apioptions"></label>
+          <label>Options: <output id="apioptions">Select some options from the table above</output></label>
           </div>
           <div>
             <label>Convert (number or date):
@@ -746,7 +746,9 @@ date.toLocaleDateString(&quot;ja&quot;, props);
               </select>
             </label>
           </div>
-          <output id="methodout"></output></td>
+          <div>
+          Result: <output id="methodout"></output>
+          </div></td>
       </tr>
     </table>
   </form>
@@ -851,7 +853,7 @@ bucks.toLocaleString("en", props);
 //"£12.00"
 </pre>
     <p>Note that we are not doing currency conversion here, just using a standardised currency code to represent how many &quot;bucks&quot; we have (as represented by the currency sign). A real example of usage commonly seen in newspaper acticles would require us to do some currency conversion, but imagine:</p>
-    <blockquore>
+    <blockquote>
     <p><q>... Dr. Evil initially requested $1,000,000 (€794,122.00)</q>... </p>
     </blockquote>
     <p>More powerfully, you could adapt the above to a new language altogether based on your user's preferences. Here is the same, but adapted to arabic (language tag &quot;<code>ar&quot;</code>) and by changing the first argument <code>(794122).toLocaleString("ar", props)</code>:</p>
@@ -1072,10 +1074,11 @@ form.onchange = function (){
   </section>
   <section>
     <h1 id="localze_numbers">Numbers</h1>
-    <p>&nbsp;</p>
+    <p>Coming soon...</p>
   </section>
   <section>
     <h1>Sorting (collation)</h1>
+    <p>This section is under construction...</p>
     <p>Imagine you are building a contacts manager application and we have the follwing list of names:</p>
     <p>var friends = ["Mary", "Bob", "Tim" , "Adam", "Steve"];</p>
     <p> Naturally, when you display the contacts to the user you want to make sure those names are shown in alphabetical order. </p>
@@ -1097,10 +1100,11 @@ names = names.sort();
 window.addEventListener("DOMContentLoaded", 
 	function isi18nSupported(){
 		var canIuse = document.querySelector("#caniuse"),
-		    supported = document.querySelectorAll(".supported"), 
+		    supported = document.querySelectorAll(".supported"),
 		    htmls,
 			elem,
 			formOptions = {};
+			
 		if(window['Intl'] !== undefined){
 			document.body.setAttribute("class", "patched");
 			canIuse.setAttribute("class", "canuse");
@@ -1117,7 +1121,9 @@ window.addEventListener("DOMContentLoaded",
 		
 		//Generate options from input into the form
 		function generateOptions(e){
-			var src = e.srcElement;
+			var src = e.srcElement,
+				out = document.querySelector("#apioptions")
+			
 			switch( src.type ){
 				case ("checkbox"): {
 					if(src.checked === false){ 
@@ -1166,6 +1172,7 @@ window.addEventListener("DOMContentLoaded",
 					console.log("wee")	
 				}
 			}
+			out.innerHTML = JSON.stringify(formOptions);
 			
 		}
 		
