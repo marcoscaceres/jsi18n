@@ -31,7 +31,7 @@ body.unsupported .supported {
   <section>
     <h1>Using the JavaScript Internationalization API</h1>
     <p>The new <cite>ECMAScript Internationalization API</cite> (or <cite><abbr title="ECMAScript Internationalization API">i18n API</abbr></cite> for short) helps you automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, <a href="#localize_currency">currencies</a> in Javascript. </p>
-    <p>This short intro  gives you a quick overview of some of the awesome things you will be able to do once the API becomes more widely supported in browsers and in other ECMAScript-based programming environments - like Node.js. </p>
+    <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the API becomes more widely supported in browsers and in other ECMAScript-based programming environments - like Node.js. </p>
     <p>Lets be clear before we start: the <abbr title="ECMAScript Internationalization API">i18n API</abbr> is not a full internationalization framework, so  it won't translate your whole application to another language! however it can be really useful for common localization tasks involving dates, numbers, and currencies.</p>
     <h2>Can I use?</h2>
     <p><strong>The short:</strong> <span id="caniuse">sadly, we just checked  and your browser is not supported (yet!).</span> You can follow along, but you need <a href="https://www.google.com/intl/en/chrome/browser/">Chrome 21</a> (stable) or above and our custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">i18n monkey-patch</a> (that is, a patch the browser's behavior without changing existing functionality). <span class="supported">The patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up your browsers console, you are already good to go! </span></p>
@@ -83,12 +83,12 @@ date.toLocaleDateString();
   <p>There are some unreliable hacks, like querying <code>navigator.language</code> in Chrome and Firefox, or <code>navigator.browserLanguage</code> in IE, or looking at the HTTP <code>Accept-Language</code> header using XHR. </p>
   <p>But the above techniques would not help our previously described backpacking-user: because she is using a computer at an internet cafe, she has no control over the language preferences of the machine. </p>
   <h3>Starting localization process</h3>
-  <p>If we know the user's preferred language (in this case &quot;<code title="portuguese as spoken in Portugal">pt-PT</code>&quot;), the ECMAScript i18n API allows us to provide that information as an argument to the toLocaleDateString() function: </p>
+  <p>If we know the user's preferred language (in this case &quot;<code title="portuguese as spoken in Portugal">pt-PT</code>&quot;), the ECMAScript i18n API allows us to provide that information as an argument to the <code>toLocaleDateString()</code> function: </p>
   <pre>
 date.toLocaleDateString(&quot;pt-PT&quot;);
 //returns &quot;24/8/2012&quot;
 </pre>
-  <p> Ok, so the above output is not super useful (it's actually less pretty than what we originally had). But it's a start on our way to localizing the date more fully! However, what the above does give us is a date formatted in a way that is more or less guaranteed to be understood in the given locale, even thought it is not a pretty as having the date in &quot;long&quot; form (i.e., as in &quot;Friday, 24 of August&quot; )</p>
+  <p> OK, so the above output is not super useful (it's actually less pretty than what we originally had). But it's a start on our way to localizing the date more fully! However, what the above does give us is a date formatted in a way that is more or less guaranteed to be understood in the given locale, even thought it is not a pretty as having the date in &quot;long&quot; form (i.e., as in &quot;Friday, 24 of August&quot; )</p>
   <p>Just so we can see the API do something more impressive, lets say our user is Chinese (language tag is &quot;za&quot;): </p>
   <pre>
 date.toLocaleDateString(&quot;za&quot;);
@@ -117,7 +117,7 @@ date.toLocaleDateString(&quot;ja&quot;, props);
       <tr>
         <th class="supported">&nbsp;</th>
         <th>Option</th>
-        <th>Accepted value</th>
+        <th>expected value</th>
         <th>Sample output of <code>.toLocaleString()</code><a href="#disclaimer">*</a> </th>
       </tr>
       <tr>
@@ -264,14 +264,14 @@ date.toLocaleDateString(&quot;ja&quot;, props);
           </ul></td>
       </tr>
       <tr>
-        <td  class="supported"><input type="checkbox" name="timeZoneName" id="timeZoneNameOp"></td>
-        <td><label for="timeZoneNameOp">timeZoneName</label></td>
+        <td  class="supported"><input type="checkbox" name="timezonename" id="timezonenameOp"></td>
+        <td><label for="timezonenameOp">timeZoneName</label></td>
         <td><label>
-            <input type="radio" class="supported" value="short" name="timeZoneNameRad">
+            <input type="radio" class="supported" value="short" name="timezonenameRad">
             short</label>
           ,
           <label>
-            <input type="radio" class="supported" value-"long" name="timeZoneNameRad">
+            <input type="radio" class="supported" value="long" name="timezonenameRad">
             long</label></td>
         <td><ul>
             <li>short: <samp>1/1/2001 GMT+00:00</samp></li>
@@ -280,9 +280,10 @@ date.toLocaleDateString(&quot;ja&quot;, props);
       </tr>
       <tr class="supported">
         <td>Output</td>
-        <td colspan="3">
-          <div>
-          <label>Options: <output id="apioptions">Select some options from the table above</output></label>
+        <td colspan="3"><div>
+            <label>Options:
+              <output id="apioptions">Select some options from the table above</output>
+            </label>
           </div>
           <div>
             <label>Convert (number or date):
@@ -291,7 +292,7 @@ date.toLocaleDateString(&quot;ja&quot;, props);
           </div>
           <div>
             <label>Language:
-              <select name="lang" style="width: 100px">
+              <select id="language" name="lang" style="width: 100px">
                 <option value="">None (system default)
                 <option value="aa">Afar
                 <option value="ab">Abkhaz
@@ -483,7 +484,7 @@ date.toLocaleDateString(&quot;ja&quot;, props);
           </div>
           <div>
             <label>Region:
-              <select name="region" style="width:100px">
+              <select id="region" name="region" style="width:100px">
                 <option value="" selected>Anywhere
                 <option value="AF">Afghanistan
                 <option value="AX">Åland Islands
@@ -739,15 +740,15 @@ date.toLocaleDateString(&quot;ja&quot;, props);
           </div>
           <div>
             <label>API Method:
-              <select name="method">
+              <select id="apimethods" name="method">
                 <option value="toLocaleString">toLocaleString
                 <option value="toLocaleDateString" disabled>toLocaleDateString
                 <option value="toLocaleTimeString" disabled>toLocaleTimeString
               </select>
             </label>
           </div>
-          <div>
-          Result: <output id="methodout"></output>
+          <div> Result:
+            <output id="methodout"></output>
           </div></td>
       </tr>
     </table>
@@ -771,12 +772,12 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
 //returns &quot;วันศุกร์ ๒๔ สิงหาคม ๒๕๕๕&quot;
 
 </pre>
-  <p>Pretty funky! The last example uses &quot;unicode extensions&quot; to language tags, which we cover later in this article. But to give you a quick sense of how it works, this is how the &quot;th-u-ca-buddhist-nu-thai&quot; language tag breaks down:</p>
+  <p>Pretty funky! The last example uses &quot;Unicode extensions&quot; to language tags, which we cover later in this article. But to give you a quick sense of how it works, this is how the &quot;th-u-ca-buddhist-nu-thai&quot; language tag breaks down:</p>
   <dl>
     <dt><code>th</code></dt>
     <dd>Thai</dd>
     <dt><code>u</code></dt>
-    <dd>Enable unicode extensions</dd>
+    <dd>Enable Unicode extensions</dd>
     <dt><code>ca</code></dt>
     <dd>Calendar</dd>
     <dt><code>buddhist</code></dt>
@@ -811,16 +812,15 @@ Intl.DateTimeFormat.supportedLocalesOf(tags);
   <p>Consider a scenario where you have a potentially large and dynamic set of date objecs that you need to localize to the same format over and over again (e.g., a list of birth dates). Up to this point in the article, we've been doing date conversion in the the following way:</p>
   <pre>var date = new Date(),<br>    options = {<br>        weekday: &quot;long&quot;,<br>        year: &quot;numeric&quot;,<br>        month: &quot;long&quot;,<br>        day: &quot;numeric&quot;<br>    };<br>date.toLocaleDateString(&quot;en&quot;, options);</pre>
   <p> If we know that we want to format all days the same way for a particular purpose, then the i18n API provides a special set of objects called <code>Intl.DateTimeFormat</code> that you can create to help you out. </p>
-  <pre>var options = {
-    weekday: "long",
-    year: "numeric",
-    month: "long",
-    day: "numeric"
-},
-    //we need to use an array because of quirk in Chrome
-    lang = ["en"], 
-    formatter = new Intl.DateTimeFormat(lang, options),
+  <pre>var formatter = new Intl.DateTimeFormat(lang, options),
+    lang = ["en"], //using an array because of quirk in Chrome
     dates = [new Date("1/1/1"), new Date("2/2/2"), new Date("3/3/3")],
+    options = {
+        weekday: "long",
+        year: "numeric",
+        month: "long",
+        day: "numeric"
+    },
     date, result;
 
 //loop through dates formatting each one
@@ -854,7 +854,7 @@ bucks.toLocaleString("en", props);
 </pre>
     <p>Note that we are not doing currency conversion here, just using a standardised currency code to represent how many &quot;bucks&quot; we have (as represented by the currency sign). A real example of usage commonly seen in newspaper acticles would require us to do some currency conversion, but imagine:</p>
     <blockquote>
-    <p><q>... Dr. Evil initially requested $1,000,000 (€794,122.00)</q>... </p>
+      <p><q>... Dr. Evil initially requested $1,000,000 (€794,122.00)</q>... </p>
     </blockquote>
     <p>More powerfully, you could adapt the above to a new language altogether based on your user's preferences. Here is the same, but adapted to arabic (language tag &quot;<code>ar&quot;</code>) and by changing the first argument <code>(794122).toLocaleString("ar", props)</code>:</p>
     <p><q>... Dr. Evil initially requested $1,000,000 (€ ٧٩٤٬١٢٢٫٠٠)</q>... </p>
@@ -1056,30 +1056,31 @@ bucks.toLocaleString("en", props);
 }());
 </script>
     <p>The code we use for the above currency formatter is super simple:
-    
     <pre>
 var form = document.querySelector("#currencyform");    
 
 //set up change listener
-form.onchange = function (){
+form.onchange = function () {
     //extract values from the form
     var value = Number(this.ammount.value),
-        currencyCode = this.currency.value, 
-        props = {style: "currency", currency: currencyCode};
-   
+        currencyCode = this.currency.value,
+        props = {
+            style: "currency",
+            currency: currencyCode
+        };
+
     //display output	 	
-    this.out.value = value.toLocaleString("en", props); 
-};
-</pre>
+    this.out.value = value.toLocaleString("en", props);
+};</pre>
   </section>
   <section>
     <h1 id="localze_numbers">Numbers</h1>
-    <p>Coming soon...</p>
+    <p>Coming soon... covers percentages, etc. Also covers Intl.NumberFormat(). </p>
   </section>
   <section>
     <h1>Sorting (collation)</h1>
     <p>This section is under construction...</p>
-    <p>Imagine you are building a contacts manager application and we have the follwing list of names:</p>
+    <p>Imagine you are building a contacts manager application and we have the following list of names:</p>
     <p>var friends = ["Mary", "Bob", "Tim" , "Adam", "Steve"];</p>
     <p> Naturally, when you display the contacts to the user you want to make sure those names are shown in alphabetical order. </p>
     <pre>
@@ -1088,111 +1089,130 @@ names = names.sort();
     <p>That's pretty straight forward right? Well, now imagine your use has a bunch of  Nordic friends. </p>
     <pre>names = ["Ølgård", "Åbjørn", "Oddbjørg", "Hellbjørg", "Aino"];</pre>
     <p>In order to sort them, you (or the computer) would need to know which letter comes before which letter in the given alphabet. The problem is, which alphabet? Are those names really Norwegian? or are they Danish? What happens if we have Chinese friend (e.g., 强国) and they were also in the list? </p>
-    <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phonebook&quot; ordering and &quot;dictionary odering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
+    <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phone book&quot; ordering and &quot;dictionary ordering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
     <p>It's situations like those where the i18n API can come to the rescue.</p>
   </section>
   <section>
     <h1>Advanced Language tag construction</h1>
+    <p>To be written... section will cover Unicode extensions and other interesting features. </p>
   </section>
 </article>
 <script src="jsi18n_patch.js"></script> 
 <script>
-window.addEventListener("DOMContentLoaded", 
-	function isi18nSupported(){
-		var canIuse = document.querySelector("#caniuse"),
-		    supported = document.querySelectorAll(".supported"),
-		    htmls,
-			elem,
-			formOptions = {};
-			
-		if(window['Intl'] !== undefined){
-			document.body.setAttribute("class", "patched");
-			canIuse.setAttribute("class", "canuse");
-			htmls = "we just checked, and your browser supports the API. Zing!"; 
-			canIuse.innerHTML = htmls;
-			
-			//set up optionsTable
-			optionsTable.addEventListener("change", generateOptions, false)
-			
-			return;
+window.addEventListener("DOMContentLoaded",
+
+function isi18nSupported() {
+    var canIuse = document.querySelector("#caniuse"),
+        supported = document.querySelectorAll(".supported"),
+        lang = document.getElementById("language"),
+        region = document.getElementById("region"),
+        locale,
+        out = document.getElementById("apioptions"),
+		apimethods = document.getElementById("apimethods"),
+        htmls,
+        elem,
+        formOptions = {};
+	
+    if (window['Intl'] !== undefined) {
+        document.body.setAttribute("class", "patched");
+        canIuse.setAttribute("class", "canuse");
+        htmls = "we just checked, and your browser supports the API. Zing!";
+        canIuse.innerHTML = htmls;
+        //set up optionsTable
+        optionsTable.addEventListener("change", generateOutput, false)
+        return;
+    }
+    //not supported
+    document.body.setAttribute("class", "unsupported");
+
+	function refreshLocale(){
+		//work out the locale (language-region, e.g. "en-us")
+        if (lang.value) {
+            locale = lang.value;
+            if (region.value) {
+                locale += "-" + region.value;
+            }
+        	return;
 		}
-		//not supported
-		document.body.setAttribute("class", "unsupported");
-		
-		//Generate options from input into the form
-		function generateOptions(e){
-			var src = e.srcElement,
-				out = document.querySelector("#apioptions")
-			
-			switch( src.type ){
-				case ("checkbox"): {
-					if(src.checked === false){ 
-						//clear option
-						delete formOptions[src.name];
-						break;
-					}
-							
-					var query = "input[name="+src.name+"Rad]:checked", 
-						checked = document.querySelector(query),
-						value = ""; 
-					
-					formOptions[src.name] = (checked) ? checked.value : "";					
+		//otherwise
+		locale = navigator.language;	
+	}
+
+    //Generate options, language tag, from input into the form
+    function generateOutput(e) {
+        var src = e.srcElement;
+		refreshLocale();
+    	
+        switch (src.type) {
+        case ("checkbox"):
+            {
+                if (src.checked === false) {
+                    //clear option
+                    delete formOptions[src.name];
+                    break;
+                }
+
+                var query = "input[name=" + src.name + "Rad]:checked",
+                    checked = document.querySelector(query),
+                    value = "";
+
+                formOptions[src.name] = (checked) ? checked.value : "";
+                break;
+            }
+
+        case ("radio"):
+            {
+                //remove the "*Rad part" from the element's name
+                var name = src.name.match(/^[a-z]*/)[0];
+                //add it
+                if (formOptions.hasOwnProperty(name)) {
+                    formOptions[name] = src.value;
+                }
+                break;
+            }
+
+        case ("text"):
+            {
+                if (src.value && src.value === null || src.value.trim() === "") {
+                    break;
+                }
+                //See if it's a number
+                if (!isNaN(Number(src.value))) {
+                    value = Number(src.value);  
 					break;
-				}
-				
-				case("radio"):{
-					//remove the "*Rad part" from the element's name
-					var name = src.name.match(/^[a-z]*/)[0];
-					//add it
-					if(formOptions.hasOwnProperty(name)){
-						formOptions[name] = src.value;
-					}
-					break; 	
-				}
-				
-				case("text"):{
-					if(src.value && src.value === null || src.value.trim() === ""){
-						break;	
-					}
-					//See if it's a number
-					if(!isNaN(Number(src.value))){
-						console.log(src.value)
-						break;
-					}
-					
-					//Treat it as a date
-					var date = new Date(Date.parse(src.value)); 
-					if(date.toTimeString() !== "Invalid Date"){
-						
-					}
-					break; 	
-				}
-				
-				case("select-one"):{
-					console.log("wee")	
-				}
-			}
-			out.innerHTML = JSON.stringify(formOptions);
-			
-		}
+                }
+
+                //Treat it as a date
+                var date = new Date(Date.parse(src.value));
+                if (date.toTimeString() !== "Invalid Date") {
+					value = date; 
+                }
+                break;
+            }
+        }
 		
+		if(value)
+		
+    	out.innerHTML = JSON.stringify(formOptions);
 	}
 	
-
-)
+});
 
 
 
 //analytics
-  var _gaq = _gaq || [];
-  _gaq.push(['_setAccount', 'UA-34425608-1']);
-  _gaq.push(['_trackPageview']);
+var _gaq = _gaq || [];
+_gaq.push(['_setAccount', 'UA-34425608-1']);
+_gaq.push(['_trackPageview']);
 
-  (function() {
-    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+(function () {
+    var ga = document.createElement('script');
+    ga.type = 'text/javascript';
+    ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-  })();
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(ga, s);
+})();
 </script>
 </body>
 </html>
