@@ -63,7 +63,7 @@ body.unsupported .supported {
       <h1>JavaScript Internationalization API</h1>
       <p>The <cite>ECMAScript Internationalization API</cite> helps you automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help you sort a list of strings (e.g., names in an address book), as well as search for strings in a given list, in a way that matches a user's locale preferences. </p>
       <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the API becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
-      <p>Lets be clear before we start: the <abbr title="ECMAScript Internationalization API"><cite>Internationalization API</cite></abbr> is not a full internationalization framework, so  it won't help you localize your whole application to another language. What it can do  is be really useful for common localization tasks involving dates, numbers, currencies, and sorting.</p>
+      <p>Lets be clear before we start: the <abbr title="ECMAScript Internationalization API"><cite>Internationalization API</cite></abbr> is not a full internationalization framework, so  it won't help you localize your whole application to another language. What it can do  is be really useful for common localization tasks involving dates, numbers, currencies, and sorting.      </p>
       <h2>Following along</h2>
       <p><strong>Quick browser check:</strong> <span id="caniuse">Sadly, your browser doesn't (<em>yet</em>!) support the API.  But don't dispair! keep reading.</span></p>
       <p>You can follow along with <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>. Currently, to get the most of functionality of the <cite>Internationalization API</cite> we use a custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in Chrome - that is, we use a simple script that  overrides some standard JavaScript behavior without changing any existing browser functionality. <span class="supported">The mokey-patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up Chrome's javascript debug console, you are ready to follow along!</span></p>
@@ -1165,16 +1165,12 @@ form.onchange = function () {
         
       </section>
     	 <aside id="sidebar">
-          <a href="https://github.com/marcoscaceres/jsi18n/zipball/master" class="button">
+          <a href="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js" class="button">
             <small>Download</small>
-            .zip file
+            .js file
           </a>
-          <a href="https://github.com/marcoscaceres/jsi18n/tarball/master" class="button">
-            <small>Download</small>
-            .tar.gz file
-          </a>
-
-          <p class="repo-owner"><a href="https://github.com/marcoscaceres/jsi18n"></a> is maintained by <a href="https://github.com/marcoscaceres">marcoscaceres</a>.</p>
+         
+          <p class="repo-owner"><a href="https://github.com/marcoscaceres/jsi18n">jsi18n_patch.js</a> is maintained by <a href="https://github.com/marcoscaceres">marcoscaceres</a> (<a href="https://twitter.com/#!/marcosc">@marcosc</a>).</p>
 
           <p>This uses the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
         </aside>
