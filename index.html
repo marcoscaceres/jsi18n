@@ -907,7 +907,7 @@ bucks.toLocaleString("en", props);
         <p>More powerfully, you could adapt the above to a new language altogether based on your user's preferences. Here is the same, but adapted to Arabic (language tag &quot;<code>ar&quot;</code>) and by changing the first argument <code>(794122).toLocaleString("ar", props)</code>:</p>
         <blockquote><p><q>... Dr. Evil initially requested $1,000,000 (€ ٧٩٤٬١٢٢٫٠٠)</q>... </p></blockquote>
         <p>Note the Euro currency sign remains, but the number formatting is localized. </p>
-        <h3>More advanced options </h3>
+        <h2>More advanced options </h2>
         <p>Coming soon... </p>
         <h2>Try it!</h2>
         <form id="currencyform">
@@ -1153,12 +1153,12 @@ form.onchange = function () {
         <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phone book&quot; ordering and &quot;dictionary ordering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
         <p>It's situations like those where the Internationalization API can come to the rescue.</p>
       
-        <h2 id="advanced-langtags">Advanced language-tag construction</h2>
+        <h1 id="advanced-langtags">Advanced language-tag construction</h1>
         <p>To be written... section will cover Unicode extensions and other interesting features. </p>
-        <h2>Acknowledgements</h2>
+        <h1>Acknowledgements</h1>
         <p>A huge thanks to <a href="http://norbertlindenberg.com/">Norbert Lindenberg</a> for his guidance,  patience with my dumb question, and for being awesome. This article was inspired by his original article <cite><a href="http://norbertlindenberg.com/2012/06/ecmascript-internationalization-api/">The ECMAScript Internationalization API</a></cite>. If you want to take your knowledge of the <cite>Internationalization API</cite> to the next level, check out his article. It goes into much more depth than this one. </p>
         <p>Also a huge thanks to <a href="https://twitter.com/jordangray">Jordan Gray</a> for proposing that this guide be writen up.</p>
-        <h3>Using the monkey patch in your own code</h3>
+        <h1>Using the monkey patch in your own code</h1>
         <p>If you want to play with the <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in your own code, just put the following script into your HTML. Remember that the code is experimental:</p>
         <pre><code class="html">&lt;script src=&quot;https://raw.github.com/marcoscaceres/jsInternationalization/master/jsInternationalization_patch.js&quot;&gt;&lt;/script&gt;</code></pre>
         <p>You can then confirm if it worked by doing &quot;inspect element&quot; and typing into your JavaScript console: </p>
