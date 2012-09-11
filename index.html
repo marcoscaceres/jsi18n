@@ -1,13 +1,14 @@
 <!DOCTYPE html>
-<html>
-<head>
+<html><head>
 <meta charset='utf-8'>
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="http://marcoscaceres.github.com/jsi18n/stylesheets/stylesheet.css" media="screen">
-<link rel="stylesheet" type="text/css" href="http://marcoscaceres.github.com/jsi18n/stylesheets/pygment_trac.css" media="screen">
+<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
 <link rel="stylesheet" type="text/css" href="http://marcoscaceres.github.com/jsi18n/stylesheets/print.css" media="print">
-<link href="https://raw.github.com/ccampbell/rainbow/master/themes/obsidian.css" rel="stylesheet" type="text/css">
+
+<link rel="stylesheet" href="http://yandex.st/highlightjs/7.2/styles/monokai.min.css">
+
+
 
 <!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,16 +16,7 @@
 
 <title>Using the JavaScript Internationalization API</title>
 <style>
-aside {
-	display: block;
-	float: right;
-	width: 50%;
-	border: thin solid grey;
-	padding: .5em;
-}
-aside > h1 {
-	font-size: 1em !important;
-}
+
 .canuse {
 	font-weight: bold;
 }
@@ -76,31 +68,33 @@ body.unsupported .supported {
       <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the API becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
       <p>Lets be clear before we start: the <abbr title="ECMAScript Internationalization API"><cite>Internationalization API</cite></abbr> is not a full internationalization framework, so  it won't help you localize your whole application to another language. What it can do  is be really useful for common localization tasks involving dates, numbers, currencies, and sorting.</p>
       <h2>Following along</h2>
-      <p><strong>Quick browser check:</strong> <span id="caniuse">Sadly, your browser doesn't (<em>yet</em>!) support the API.  But don't dispair!</span> keep reading. </p>
-      <p>You can follow along, but you need <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>. Currently, to get the most of functionality of the <cite>Internationalization API</cite> we use a custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in Chrome - that is, we use a simple script that  overrides some standard JavaScript behavior without changing any existing browser functionality. <span class="supported">The mokey-patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up Chrome's javascript debug console, you are ready to follow along!</span></p>
+      <p><strong>Quick browser check:</strong> <span id="caniuse">Sadly, your browser doesn't (<em>yet</em>!) support the API.  But don't dispair! keep reading.</span></p>
+      <p>You can follow along with <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>. Currently, to get the most of functionality of the <cite>Internationalization API</cite> we use a custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in Chrome - that is, we use a simple script that  overrides some standard JavaScript behavior without changing any existing browser functionality. <span class="supported">The mokey-patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up Chrome's javascript debug console, you are ready to follow along!</span></p>
       <h2>Can I use?</h2>
       <p>Before we can actually use the <cite>Internationalization API</cite>, we need to check if the browser supports it (i.e., we need to do some <em>feature detection</em>). </p>
-      <p>The official <cite>Internationalization API</cite> specification defines the <code>Intl</code> object that should be a property of the javascript global object - in a browser, that is the <code>window</code> object. This <code>Intl</code> object contains a bunch of useful other objects that we will make use of later. </p>
+      <p>The official <cite>Internationalization API</cite> specification defines the <code>Intl</code> object that should be a property of the javascript global object - in a browser, the global object is the <code>window</code> object. </p>
       <p>To check if we can use the <cite>Internationalization API</cite>, we are just going to check if <code>Intl</code> is available on the <code>window</code> object:</p>
-      <pre><code data-language="javascript">if(window[&quot;Intl&quot;] !== undefined &amp;&amp; typeof window.Intl === &quot;object&quot;){
+<pre><code class="javascript">if(window[&quot;Intl&quot;] !== undefined &amp;&amp; typeof window.Intl === &quot;object&quot;){
    //Assume it's supported, lets localize!
    console.log(&quot;We are all good to go!&quot;);
 }
+</code></pre>
+<p>And in Node.js, you would do something like the following:</p>
 
-//In Node.js, you would do something like the following
+<pre><code class="javascript">
 (function(exports){
   if(&quot;Intl&quot; in window){
     console.log(&quot;Lets localize this motha!&quot;)
   } 
 }(this)); //assuming this is the global scope
 //PS: the above will also work fine in a browser!</code></pre>
-<p>Once we know that the <cite>Internationalization API</cite> is supported, we are good to start localizing stuff! </p>
+<p>Once we know that the <cite>Internationalization API</cite> is supported, we are good to start localizing stuff! In case you are wondering, the <code>Intl</code> object contains a bunch of useful other objects that we will make use of later. </p>
 <p class="note"><strong>Note:</strong> Because this API is still not final, actually finding out if the browser supports the full API can be tricky. For example, to date, there is only one implementation of the API (Chrome)... and the Chrome team have put the <cite>Internationalization API</cite> behind a unique vendor prefix (<code>v8</code>). Not only that, only parts of the API are exposed to developers, which is why we use a custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> to make the whole thing work as if it was actually natively implemented in the browser.</p>
       <h1>Localizing dates and times</h1>
       <p> You've probably done this hundreds of times: </p>
-      <pre><code data-language="javascript">var date = new Date();</code></pre>
+      <pre><code class="javascript">var date = new Date();</code></pre>
       <p>And possibly displayed it in the browser's default locale by calling:</p>
-      <pre><code data-language="javascript">date.toLocaleDateString(); 
+      <pre><code class="javascript">date.toLocaleDateString(); 
 //returns e.g. &quot;Friday, August 24, 2012&quot; </code></pre>
       <h2>The problem</h2>
       <p> <img src="images/user.png" width="71" height="111" alt="Our user" style="">The above might be all well and good if the user is sitting at home where her computer's <dfn>locale</dfn> settings (i.e., language and geographical region) are likely set correctly.  But what happens if the user is on a PC whose locale settings are set to Japanese, but her preferred locale settings are  Portuguese as used in Portugal? </p>
@@ -134,20 +128,20 @@ body.unsupported .supported {
       <p>So, just ask if you need to. Or provide a way for the user to select their locale preferences.</p>
       <h2>Starting localization process</h2>
       <p>If we know the user's preferred language (in this case &quot;pt-PT&quot;), the <cite>Internationalization API</cite> allows us to provide that information as an argument to the <code>.toLocaleDateString()</code> function of a date: </p>
-      <pre><code data-language="javascript">var date = new Date();
+      <pre><code class="javascript">var date = new Date();
 date.toLocaleDateString(&quot;pt-PT&quot;);
 //returns something like &quot;24/8/2012&quot;</code></pre>
       <p> OK, so the above output is not super useful - it's actually less pretty than what we originally had! But it's a start on our way to localizing the date more fully! </p>
       <p>Note that what the above <strong>does</strong> give us is a date formatted in a way that is more or less guaranteed to be understood in the given locale, even thought it is not a pretty as having the date in &quot;long&quot; form (i.e., as in &quot;Friday, 24 of August&quot; )</p>
       
       <p>Just so we can see the API do something more impressive, lets say our user is Chinese (language tag is &quot;zh-Hans&quot;, simplified Chinese): </p>
-      <pre><code data-language="javascript">date.toLocaleDateString(&quot;zh-Hans&quot;);
+      <pre><code class="javascript">date.toLocaleDateString(&quot;zh-Hans&quot;);
 //returns something like "2012年8月28日"</code></pre>
-      <p>BOOM! So now we are getting somewhere! We've managed to convert our date object to Chinese without hardly doing any work (which we like!). </p>
+      <p>So now we are getting somewhere! We've managed to convert our date object to Chinese without hardly doing any work (which we like!). </p>
       <h3>Controlling the formatting        </h3>
       <p>As we pointed out above, the date format &quot;24/8/2012&quot; will likely be comprehended, but it's not the most user-friendly way to display dates. In particular, it's nice to see what day of the week it is (Monday, Tuesday, etc.) and what month we are talking about. </p>
       <p>To do this the <cite>Internationalization API</cite> allows us to pass a set of options as an argument to <code data-language="javascript">.toLocaleDateString()</code>. For example:</p>
-<pre><code data-language="javascript">var options = {weekday: &quot;long&quot;}; 
+<pre><code class="javascript">var options = {weekday: &quot;long&quot;}; 
 
 date.toLocaleDateString(&quot;pt&quot;, options);
 //returns &quot;sexta-feira&quot; (which is Friday in Portuguese)
@@ -155,7 +149,7 @@ date.toLocaleDateString(&quot;pt&quot;, options);
 date.toLocaleDateString(&quot;ja&quot;, options);
 //&quot;金曜日&quot; which is Friday in Japanese</code></pre>
 <p>Where it gets tricky is knowing how other cultures like to have their &quot;pretty dates&quot; formatted. This is where the Internationalization API really starts to show its usefulness - it has this knowledge built in, and gives programmers control of how to format a date through a set of options. These options are then passed to the <code>.toLocaleDateString()</code> or to the <code>.toLocaleString()</code> as an argument. </p>
-<div class="important">      <p>There is something important to note from the above. In Portugal, few people one says, for example, &quot;sexta-feira&quot; for &quot;Friday&quot;; they just say &quot;sexta&quot; and drop the &quot;-feira&quot;. </p>
+<div class="important">      <p>There is something important to note from the above. In Portugal,  for example, people only use &quot;sexta-feira&quot; for &quot;Friday&quot; in formal contexts; in informal contexts, they just say &quot;sexta&quot; and drop the &quot;-feira&quot;. </p>
       <p>The take away here is that you should not just assume that what the API returns is always correct for the locale or audience you are targetting. Be sure to always consult someone who lives in the locale you are targetting about date, time, currency, and collation conventions. <strong>Don't just blindly rely on what the browser returns</strong>.</p></div>
       <h2>Options for output</h2>
       <p>The options that can be passed as object are as follows. <span class="supported">You can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>. </p>
@@ -809,7 +803,7 @@ date.toLocaleDateString(&quot;ja&quot;, options);
       </form>
       <p> <small><dfn id="disclaimer">*</dfn> Output may vary from one locale to another.</small> The output shown here is from Chrome 21. Output was constructed by calling <code>(new Date("1/1/2001")).toLocaleString("en", options);</code></p>
       <p>For example, lets say we want to output &quot;day of week, day Month, Year&quot;. We would set the following options:</p>
-      <pre><code data-language="javascript">var options = {weekday: &quot;long&quot;, year: &quot;numeric&quot;, month: &quot;long&quot;, day: &quot;numeric&quot;};
+      <pre><code class="javascript">var options = {weekday: &quot;long&quot;, year: &quot;numeric&quot;, month: &quot;long&quot;, day: &quot;numeric&quot;};
 date.toLocaleDateString(&quot;pt&quot;, options); 
 //returns &quot;sexta-feira, 24 de agosto de 2012&quot;
 
@@ -843,18 +837,18 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
       <h2>Hey, Browser! Do you to speak-a-my-language? </h2>
       <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French as used in Canada, which differs from French as used in France). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
       <p>Thankfully, the Internationalization API provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the somewhat excessively long <code>Intl.DateTimeFormat.supportedLocalesOf</code> method: </p>
-      <pre><code data-language="javascript">
+      <pre><code class="javascript">
 //Given German (&quot;de&quot;), and two languages that don't exist: 
 Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]) 
 //the browser returns [&quot;de&quot;]
 </code></pre>
       <p>Another cool feature of the API is that it will do it's best to support a locale as closely as it can. So, given, &quot;En-GB-fff&quot; (where fff is just something I made up), the browser will just strip away the fff and return &quot;en-GB&quot;. </p>
-      <pre><code data-language="javascript">//fff is garbage below, but could be an actual language sub-tag 
+      <pre><code class="javascript">//fff is garbage below, but could be an actual language sub-tag 
 v8Intl.DateTimeFormat.supportedLocalesOf([&quot;En-gb-fff&quot;])
 //returns [&quot;en-GB&quot;]
 </code></pre>
       <p>Note that another helpful thing that the browser does when we call &quot;supportedLocalesOf&quot; is that it normalises our languages tags into &quot;canonical form&quot; (which includes making the GB capitalised). Calling this method will also fix errors in language tags and remove redundant tags too: </p>
-      <pre><code data-language="javascript">
+      <pre><code class="javascript">
 var tags = [&quot;pt-*&quot;, &quot;En-&quot;, &quot;en-*&quot;, &quot;x-foo&quot; ]; 
 Intl.DateTimeFormat.supportedLocalesOf(tags);
 //returns [&quot;pt&quot;, &quot;en&quot;, &quot;und-x-foo&quot;]
@@ -862,7 +856,7 @@ Intl.DateTimeFormat.supportedLocalesOf(tags);
       <p>Note above the &quot;En-&quot; and &quot;en-*&quot; become &quot;en&quot;… and note &quot;und-x-foo&quot; for private use language (language tags that a start with an &quot;x-&quot;).</p>
       <h2>Custom date-time formatters</h2>
       <p>Consider a scenario where you have a potentially large and dynamic set of date objecs that you need to localize to the same format over and over again (e.g., a list of birth dates). Up to this point in the article, we've been doing date conversion in the the following way:</p>
-      <pre><code data-language="javascript">var date = new Date(),
+      <pre><code class="javascript">var date = new Date(),
     options = {
         weekday: "long",
         year: "numeric",
@@ -871,7 +865,7 @@ Intl.DateTimeFormat.supportedLocalesOf(tags);
     };
 date.toLocaleDateString("en", options);</code></pre>
       <p> If we know that we want to format all days the same way for a particular purpose, then the Internationalization API provides a special set of objects called <code>Intl.DateTimeFormat</code> that you can create to help you out. </p>
-      <pre><code data-language="javascript">var formatter = new Intl.DateTimeFormat(lang, options),
+      <pre><code class="javascript">var formatter = new Intl.DateTimeFormat(lang, options),
     lang = ["en"], //using an array because of quirk in Chrome
     dates = [new Date("1/1/1"), new Date("2/2/2"), new Date("3/3/3")],
     options = {
@@ -892,9 +886,9 @@ for (var i = 0; i &lt; dates.length; i++) {
      
         <h1 id="localize_currency">Currencies</h1>
         <p>Formatting  currencies is super easy with the Internationalization API. All you need to do is set two options - the <code>style</code> and the <code>currency</code> you want. For example:</p>
-        <pre><code data-language="javascript">{style: "currency", currency: "USD"}</code></pre>
+        <pre><code class="javascript">{style: "currency", currency: "USD"}</code></pre>
         <p>The value of the <code>currency</code> option is a currency code from a spec called <cite>ISO4217</cite>, which is published by the <cite>International Standards Organisation</cite> (ISO). Thankfully, the <a href="http://en.wikipedia.org/wiki/ISO_4217">full list of currency codes is freely available on Wikipedia</a>. <cite>ISO 4217</cite> is the authritative set of currency codes used around the world to distinguish between currencies. Each currency identified by ISO4217 is three characters long (e.g., <code>USD</code> for United States Dollar, and <code>GPB</code> for Great British Pounds).</p>
-        <pre><code data-language="javascript">var bucks = 12,
+        <pre><code class="javascript">var bucks = 12,
     props = {style: "currency", currency: "USD"};
 
 bucks.toLocaleString("en", props);
@@ -1128,8 +1122,7 @@ bucks.toLocaleString("en", props);
 }());
 </script>
         <p>The code we use for the above currency formatter is super simple:
-        <pre><code data-language="javascript">
-var form = document.querySelector("#currencyform");    
+        <pre><code class="javascript">var form = document.querySelector("#currencyform");    
 
 //set up change listener
 form.onchange = function () {
@@ -1155,10 +1148,10 @@ form.onchange = function () {
         <p>Imagine you are building a contacts manager application and we have the following list of names:</p>
         <p>var friends = ["Mary", "Bob", "Tim" , "Adam", "Steve"];</p>
         <p> Naturally, when you display the contacts to the user you want to make sure those names are shown in alphabetical order. </p>
-        <pre><code data-language="javascript">var names = names.sort();
+        <pre><code class="javascript">var names = names.sort();
 //gives us ["Adam", "Bob", "Mary", "Steve", "Tim"];</code></pre>
         <p>That's pretty straight forward right? Well, now imagine your use has a bunch of  Nordic friends. </p>
-        <pre><code data-language="javascript">names = ["Ølgård", "Åbjørn", "Oddbjørg", "Hellbjørg", "Aino"];</code></pre>
+        <pre><code class="javascript">names = ["Ølgård", "Åbjørn", "Oddbjørg", "Hellbjørg", "Aino"];</code></pre>
         <p>In order to sort them, you (or the computer) would need to know which letter comes before which letter in the given alphabet. The problem is, which alphabet? Are those names really Norwegian? or are they Danish? What happens if we have Chinese friend (e.g., 强国) and they were also in the list? </p>
         <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phone book&quot; ordering and &quot;dictionary ordering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
         <p>It's situations like those where the Internationalization API can come to the rescue.</p>
@@ -1170,13 +1163,27 @@ form.onchange = function () {
         <p>Also a huge thanks to <a href="https://twitter.com/jordangray">Jordan Gray</a> for proposing that this guide be writen up.</p>
         <h3>Using the monkey patch in your own code</h3>
         <p>If you want to play with the <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in your own code, just put the following script into your HTML. Remember that the code is experimental:</p>
-        <pre><code data-language="html">&lt;script src=&quot;https://raw.github.com/marcoscaceres/jsInternationalization/master/jsInternationalization_patch.js&quot;&gt;&lt;/script&gt;</code></pre>
+        <pre><code class="html">&lt;script src=&quot;https://raw.github.com/marcoscaceres/jsInternationalization/master/jsInternationalization_patch.js&quot;&gt;&lt;/script&gt;</code></pre>
         <p>You can then confirm if it worked by doing &quot;inspect element&quot; and typing into your JavaScript console: </p>
-        <pre><code data-language="javascript">Intl
+        <pre><code class="javascript">Intl
 //returns an Object</code></pre>
         <p>You can also <a href="https://github.com/marcoscaceres/jsi18n">get the code from github</a>, fork it, and use in your own projects however you wish! If you find a bug, let us know! </p>
-        <p>&nbsp;</p>
+        
       </section>
+    	 <aside id="sidebar">
+          <a href="https://github.com/marcoscaceres/jsi18n/zipball/master" class="button">
+            <small>Download</small>
+            .zip file
+          </a>
+          <a href="https://github.com/marcoscaceres/jsi18n/tarball/master" class="button">
+            <small>Download</small>
+            .tar.gz file
+          </a>
+
+          <p class="repo-owner"><a href="https://github.com/marcoscaceres/jsi18n"></a> is maintained by <a href="https://github.com/marcoscaceres">marcoscaceres</a>.</p>
+
+          <p>This uses the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
+        </aside>
     </div>
   </div>
 </article>
@@ -1185,6 +1192,7 @@ form.onchange = function () {
 window.addEventListener("DOMContentLoaded",
 
 function isInternationalizationSupported() {
+	hljs.initHighlightingOnLoad();
     var canIuse = document.querySelector("#caniuse"),
         supported = document.querySelectorAll(".supported"),
         lang = document.getElementById("language"),
@@ -1297,7 +1305,6 @@ _gaq.push(['_trackPageview']);
     s.parentNode.insertBefore(ga, s);
 })();
 </script> 
-<script src="https://raw.github.com/ccampbell/rainbow/master/js/rainbow.min.js"></script> 
-<!script src="https://raw.github.com/ccampbell/rainbow/master/js/language/javascript.js"></script>
+<script src="http://yandex.st/highlightjs/7.2/highlight.min.js"></script>
 </body>
 </html>
