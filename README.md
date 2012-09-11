@@ -25,27 +25,27 @@ more widely adopted by browsers and other JS-enabled environments, like
 Node.js.
 
     
-    ```html
-    <script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js">
-    </script>
-    ```
+```html
+<script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js">
+</script>
+```
 
 Simple usage examples:
 
     
-    ```javascript
-    //dates
-    date = new Date();
-    date.toLocaleString("en-us", {weekday: 'long'}); //returns Monday
-    date.toLocaleTimeString("ar");    //returns time in arabic
-    
-    //numbers
-    (123456).toLocaleString("en-us"); //returns "123,456"
-    
-    //currencies
-    (123456).toLocaleString("ar", {style: "currency", currency: "USD"});
-    //returns "US$ ١٢٣٬٤٥٦٫٠٠"
-    ```
+```javascript
+//dates
+date = new Date();
+date.toLocaleString("en-us", {weekday: 'long'}); //returns Monday
+date.toLocaleTimeString("ar");    //returns time in arabic
+
+//numbers
+(123456).toLocaleString("en-us"); //returns "123,456"
+
+//currencies
+(123456).toLocaleString("ar", {style: "currency", currency: "USD"});
+//returns "US$ ١٢٣٬٤٥٦٫٠٠"
+```
 
 ## Found a bug? want to contribue
 
