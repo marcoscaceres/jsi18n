@@ -1,10 +1,21 @@
-# Howdy
+# Howdy!
 
 This script "patches" Google Chrome's implementation of the i18n API so that
-it conforms more fully with ECMAScript's Internationalization API. In
-particular it makes Dates.prototype.toLocale[Date,Time]String(),
-String.prototype.localeCompare(), and Number.prototype.toLocaleString() work
-as defined by the ECMAScript Internationalization specification.
+it conforms more fully with ECMAScript's Internationalization API.
+
+In particular it makes the following methods work as defined by the ECMAScript
+Internationalization specification:
+
+  * `Date.prototype.toLocaleString()`
+  * `Date.prototype.toLocaleDateString()`
+  * `Date.prototype.toLocaleTimeString() `
+  * `String.prototype.localeCompare() `
+  * `Number.prototype.toLocaleString()`
+
+Not all functionality is currently supported. Array.prototype.sort() currently
+does not accept a collator. For other upcoming features and issues, see our
+[issues
+page](https://github.com/marcoscaceres/jsi18n/issues?sort=created&state=open).
 
 # How to use it
 
@@ -14,14 +25,15 @@ more widely adopted by browsers and other JS-enabled environments, like
 Node.js.
 
     
-    
+    ```html
     <script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js">
-    </script> 
+    </script>
+    ```
 
 Simple usage examples:
 
     
-    
+    ```javascript
     //dates
     date = new Date();
     date.toLocaleString("en-us", {weekday: 'long'}); //returns Monday
@@ -33,6 +45,7 @@ Simple usage examples:
     //currencies
     (123456).toLocaleString("ar", {style: "currency", currency: "USD"});
     //returns "US$ ١٢٣٬٤٥٦٫٠٠"
+    ```
 
 ## Found a bug? want to contribue
 
