@@ -98,7 +98,7 @@ body.unsupported .supported {
         <blockquote><q>Language tags are used to help identify languages, whether spoken,
           written, signed, or otherwise signaled, for the purpose of
           communication.</q> - <cite><a href="http://www.rfc-editor.org/bcp/bcp47.txt"><abbr title="best current practice">BCP</abbr>47</a></cite>.</blockquote>
-        <p>But a language tag, or more generally, the concept of a <dfn>locale</dfn>, doesn't just relate to a languages: it also indicates the conventions for how dates, times, and currencies are formatted and how lists are sorted - and can even have an impact on how things are spoken by text-to-speech software. For example, here is how &quot;Alex&quot; on MacOS X reads dates when the system settings are set to English and region is United States: </p>
+        <p>But a language tag, or more generally, the concept of a <dfn>locale</dfn>, doesn't just relate to  languages: it also indicates the conventions for how dates, times, and currencies are formatted and how lists are sorted - and can even have an impact on how things are spoken by text-to-speech software. For example, here is how &quot;Alex&quot; on MacOS X reads dates when the system settings are set to English and region is United States: </p>
         <blockquote>
           <p><q>Niel Armstrong landed on the moon on <em>07/20/1969</em></q>. But not on the <em>20/07/1969</em>?</p>
           <audio controls="controls">
@@ -822,8 +822,8 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
         </dl>
         <p>The above code examples are starting to show the usefulness of the Internationalization API, but there is a problem... </p>
         <h2>Hey, Browser! Do you to speak-a-my-language? </h2>
-        <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French as used in Canada, which differs from French as used in France). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
-        <p>Thankfully, the Internationalization API provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the somewhat excessively long <code>Intl.DateTimeFormat.supportedLocalesOf</code> method: </p>
+        <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French and English in Canada). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
+        <p>Thankfully, the <em>Internationalization API</em> provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the <code>supportedLocalesOf</code> methods: </p>
         <pre><code class="javascript">//Given German (&quot;de&quot;), and two languages that don't exist: 
 Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]);
 //the browser returns [&quot;de&quot;]</code></pre>
@@ -831,9 +831,8 @@ Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx
         <pre><code class="javascript">//fff is garbage below, but could be an actual language sub-tag 
 v8Intl.DateTimeFormat.supportedLocalesOf([&quot;En-gb-fff&quot;]);
 //returns [&quot;en-GB&quot;]</code></pre>
-        <p>Note that another helpful thing that the browser does when we call &quot;supportedLocalesOf&quot; is that it normalizes our languages tags into &quot;canonical form&quot; (which includes making the GB capitalised). Calling this method will also fix errors in language tags and remove redundant tags too: </p>
-        <pre><code class="javascript">
-var tags = [&quot;pt-*&quot;, &quot;En-&quot;, &quot;en-*-us&quot;, &quot;x-foo&quot; ]; 
+        <p>Note that another helpful thing that the browser does when we call <code>supportedLocalesOf</code> is that it normalizes our languages tags into &quot;canonical form&quot; (which includes making the GB capitalised). Calling this method will also fix errors in language tags and remove redundant tags too: </p>
+        <pre><code class="javascript">var tags = [&quot;pt-*&quot;, &quot;En-&quot;, &quot;en-*-us&quot;, &quot;x-foo&quot; ]; 
 Intl.DateTimeFormat.supportedLocalesOf(tags);
 //returns [&quot;pt&quot;, &quot;en&quot;, &quot;und-x-foo&quot;]</code></pre>
         <p>Note above the &quot;En-&quot; and &quot;en-*&quot; become &quot;en&quot;… and note &quot;und-x-foo&quot; for private use language (language tags that a start with an &quot;x-&quot;).</p>
@@ -850,7 +849,9 @@ date.toLocaleDateString("en", options);</code></pre>
         <p> If we know that we want to format all days the same way for a particular purpose, then the Internationalization API provides a special set of objects called <code>Intl.DateTimeFormat</code> that you can create to help you out. </p>
         <pre><code class="javascript">var formatter = new Intl.DateTimeFormat(lang, options),
     lang = ["en"], //using an array because of quirk in Chrome
-    dates = [new Date("1/1/1"), new Date("2/2/2"), new Date("3/3/3")],
+    dates = [new Date("1/1/1"), 
+             new Date("2/2/2"), 
+             new Date("3/3/3")],
     options = {
         weekday: "long",
         year: "numeric",
