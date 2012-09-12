@@ -14,6 +14,88 @@
 
 <title>Using the JavaScript Internationalization API</title>
 <style>
+#currencyform{
+	border-radius: 10px;
+	box-shadow: 0px 1px 4px #999;
+	margin: 2em 1em;
+	padding: 0;
+	background: rgb(255,255,255);
+	background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1)));
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+	background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+	background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(229,229,229,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+	
+}
+
+#currencyform fieldset{
+	
+}
+
+#currencyform legend{
+	border-radius: 10px 10px 0 0;
+	width: auto;
+	color: white;
+	margin: 0;
+	padding: 0;
+	width:100%;
+	line-height: 3em;
+	display: block; 
+	background: rgb(96,108,136);
+	background: -moz-linear-gradient(top,  rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(96,108,136,1)), color-stop(100%,rgba(63,76,107,1)));
+	background: -webkit-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%);
+	background: -o-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%);
+	background: -ms-linear-gradient(top,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%);
+	background: linear-gradient(to bottom,  rgba(96,108,136,1) 0%,rgba(63,76,107,1) 100%);
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b',GradientType=0 );
+	border-bottom: thin solid black;
+}
+
+#currencyform legend > span{
+	display: inline-block;
+	padding-left: 1em;
+	font-size: 1.2em;
+}
+
+#currencyform div{
+	padding: .25em 0 .25em 1em;
+	line-height: 2em;
+}
+
+#currencyform div label{
+	display: inline-block;
+	vertical-align:top;
+	text-align: right;
+	width: 20%;
+}
+
+#currencyform .result{
+	color: white; 
+	border-radius: 0 0 10px 10px;
+	background: rgb(125,126,125);
+background: -moz-linear-gradient(top,  rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(125,126,125,1)), color-stop(100%,rgba(14,14,14,1)));
+background: -webkit-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
+background: -o-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
+background: -ms-linear-gradient(top,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
+background: linear-gradient(to bottom,  rgba(125,126,125,1) 0%,rgba(14,14,14,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e',GradientType=0 );
+border-top: thin solid white;
+}
+
+#currencyform .result{
+	text-align:center;
+	font-size: 1.2em;
+}
+
+#currencyform .result > label{
+	width: auto;
+}
+
+
 .canuse {
 	font-weight: bold;
 }
@@ -55,9 +137,9 @@ body.unsupported .supported {
     <div class="inner clearfix">
       <section id="main-content">
         <h1>JavaScript Internationalization API</h1>
-        <p>The <cite>ECMAScript Internationalization API</cite> helps you automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, and <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help you sort a list of strings (e.g., names in an address book), as well as search for strings in a given list, in a way that matches a user's locale preferences. </p>
+        <p>The <cite>ECMAScript Internationalization API</cite> is a forthcoming standard that helps automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, and <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help sort a list of strings (e.g., names in an address book) in locale-specific order, as well as search for strings in a given list in a way that matches a user's locale preferences.</p>
         <h2>What's this, then? </h2>
-        <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the API becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
+        <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the <cite>Internationalization API</cite> becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
         <p>Let's be clear before we start: the <abbr title="ECMAScript Internationalization API"><cite>Internationalization API</cite></abbr> is not a full internationalization framework, so  it won't help you localize your whole application to another language. What it can do  is be really useful for common localization tasks involving dates, numbers, currencies, and sorting. </p>
         <h2>Following along</h2>
         <p><strong>Quick browser check:</strong> <span id="caniuse">Sadly, your browser doesn't (<em>yet</em>!) support the API.  But don't despair! keep reading.</span></p>
@@ -72,8 +154,7 @@ body.unsupported .supported {
 }
 </code></pre>
         <p>And in Node.js, you would do something like the following:</p>
-        <pre><code class="javascript">
-(function(exports){
+        <pre><code class="javascript">(function(exports){
   if(&quot;Intl&quot; in window){
     console.log(&quot;Sweet! Lets localize!&quot;)
   } 
@@ -125,7 +206,7 @@ date.toLocaleDateString(&quot;pt-PT&quot;);
         <p>Just so we can see the API do something more impressive, lets say our user from China (using language tag is &quot;zh-Hans&quot;, which is simplified Chinese): </p>
         <pre><code class="javascript">date.toLocaleDateString(&quot;zh-Hans&quot;);
 //returns something like "2012年8月28日"</code></pre>
-        <p>So now we are getting somewhere! We've managed to convert our date object to Chinese without hardly doing any work (which we like!). </p>
+        <p>So now we are getting somewhere! We've managed to convert our date object to simplified Chinese without hardly doing any work (which we like!). </p>
         <h3>Controlling the formatting </h3>
         <p>As we pointed out above, the date format &quot;24/8/2012&quot; will likely be comprehended, but it's not the most user-friendly way to display dates. In particular, it's nice to see what day of the week it is (Monday, Tuesday, etc.) and what month we are talking about. </p>
         <p>To do this the <cite>Internationalization API</cite> allows us to pass a set of options as an argument to <code data-language="javascript">.toLocaleDateString()</code>. For example:</p>
@@ -783,9 +864,11 @@ date.toLocaleDateString(&quot;ja&quot;, options);
                     </select>
                   </label>
                 </div>
-                <div> Result:
-                  <output id="methodout"></output>
-                </div></td>
+                <div> 
+                <label>Result:
+                  <output id="methodout"></output></label>
+                </div>
+              </td>
             </tr>
           </table>
         </form>
@@ -896,20 +979,21 @@ bucks.toLocaleString("en", props);
         </blockquote>
         <p>Note the Euro currency sign remains, but the number formatting is localized. </p>
         <h2>More advanced options </h2>
-        <p>Coming soon... </p>
+        <p>Coming soon... need to cover: minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits,
+minimumSignificantDigits, and maximumSignificantDigits.</p>
         <div class="supported">
           <h2>Try it!</h2>
           <form id="currencyform">
             <fieldset>
-              <legend>Currency formatter</legend>
+               
+              <legend><span>Currency formatter</span></legend>
+               
               <div>
-                <label>Value:
-                  <input type="number" name="ammount" value="1235678910">
-                </label>
+                <label for="ammount" >Ammount:</label>  <input type="number" id="ammount" value="1235678910">
               </div>
               <div>
-                <label> Represented as:
-                  <select name="currency">
+                <label for="currency">Currency:</label>
+                  <select id="currency" name="currency">
                     <option value="AED">United Arab Emirates Dirham
                     <option value="AFN">Afghanistan Afghani
                     <option value="ALL">Albania Lek
@@ -1075,34 +1159,40 @@ bucks.toLocaleString("en", props);
                     <option value="ZMK">Zambia Kwacha
                     <option value="ZWD">Zimbabwe Dollar
                   </select>
-                </label>
+                
               </div>
               <div>
-                <label>Display currency as:
-                  <select>
-                    <option value="code">code
+                <label for="currencyDisplay">Display using:</label>
+                  <select id="currencyDisplay">
+                    <option value="code" selected>code
                     <option vvalue="symbol">symbol
                     <option value="name">name
                   </select>
-                </label>
+                
               </div>
-              <p>Result:
-                <output name="out" for="ammount currency value"></output>
-              </p>
+              <div class="result">
+                 <output id="out" for="ammount currency currencyDisplay currencyOut">...</output>
+              </div>
             </fieldset>
           </form>
           <script>
-(function(){
-	var form = document.querySelector("#currencyform");    
-	//set up listeners 
-	form.onchange = function (){
-		//extract data from form
-		var value = Number(this.ammount.value),
-			currencyCode = this.currency.value, 
-			props = {style: "currency", currency: currencyCode};
-		//display output	 	
-		form.out.value = value.toLocaleString("en", props); 
-	};
+(function () {
+    var form = document.querySelector("#currencyform");
+    //set up listeners 
+    form.onchange = function () {
+        //extract data from form
+        var value = Number(this.ammount.value),
+            currencyCode = this.currency.value,
+            display = this.currencyDisplay.value,
+            props = {
+                style: "currency",
+                currency: currencyCode,
+                currencyDisplay: display
+            };
+        //display output	 	
+        form.out.value = value.toLocaleString("en", props);
+    };
+    form.onchange()
 }());
 </script>
           <p>The code we use for the above currency formatter is super simple:
@@ -1115,7 +1205,8 @@ form.onchange = function () {
         currencyCode = this.currency.value,
         props = {
             style: "currency",
-            currency: currencyCode
+            currency: currencyCode,
+            currencyDisplay: display
         };
     //display output	 	
     this.out.value = value.toLocaleString("en", props);
@@ -1154,7 +1245,7 @@ form.onchange = function () {
         <p>This uses the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
       </aside>
     </div>
-  </div>
+  http://css-tricks.com/examples/ResponsiveTables/responsive.php#source-code </div>
 </article>
 <script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js"></script> 
 <script>
@@ -1200,60 +1291,59 @@ function isInternationalizationSupported() {
 
     //Generate options, language tag, from input into the form
     function generateOutput(e) {
-        var src = e.srcElement;
+        var src = e.srcElement,
+		    form = src.form;
 		refreshLocale();
     	
         switch (src.type) {
-        case ("checkbox"):
-            {
-                if (src.checked === false) {
-                    //clear option
-                    delete formOptions[src.name];
-                    break;
-                }
-
-                var query = "input[name=" + src.name + "Rad]:checked",
-                    checked = document.querySelector(query),
-                    value = "";
-
-                formOptions[src.name] = (checked) ? checked.value : "";
-                break;
-            }
-
-        case ("radio"):
-            {
-                //remove the "*Rad part" from the element's name
-                var name = src.name.match(/^[a-z]*/)[0];
-                //add it
-                if (formOptions.hasOwnProperty(name)) {
-                    formOptions[name] = src.value;
-                }
-                break;
-            }
-
-        case ("text"):
-            {
-                if (src.value && src.value === null || src.value.trim() === "") {
-                    break;
-                }
-                //See if it's a number
-                if (!isNaN(Number(src.value))) {
-                    value = Number(src.value);  
+			case ("checkbox"):
+				{
+					if (src.checked === false) {
+						//clear option
+						delete formOptions[src.name];
+						break;
+					}
+	
+					var query = "input[name=" + src.name + "Rad]:checked",
+						checked = document.querySelector(query),
+						value = "";
+	
+					formOptions[src.name] = (checked) ? checked.value : "";
 					break;
-                }
-
-                //Treat it as a date
-                var date = new Date(Date.parse(src.value));
-                if (date.toTimeString() !== "Invalid Date") {
-					value = date; 
-                }
-                break;
-            }
-        }
-		
-		if(value)
-		
+				}
+	
+			case ("radio"):
+				{
+					//remove the "*Rad part" from the element's name
+					var name = src.name.match(/^[a-z]*/)[0];
+					//add it
+					if (formOptions.hasOwnProperty(name)) {
+						formOptions[name] = src.value;
+					}
+					break;
+				}
+	
+			case ("text"):
+				{
+					if (src.value && src.value === null || src.value.trim() === "") {
+						break;
+					}
+					//See if it's a number
+					if (!isNaN(Number(src.value))) {
+						value = Number(src.value);  
+						break;
+					}
+	
+					//Treat it as a date
+					var date = new Date(Date.parse(src.value));
+					if (date.toTimeString() !== "Invalid Date") {
+						value = date; 
+					}
+					break;
+				}
+		}
     	out.innerHTML = JSON.stringify(formOptions);
+		form.methodout.innerHTML = value.toLocaleString(locale, formOptions);
 	}
 });
 
@@ -1274,5 +1364,6 @@ _gaq.push(['_trackPageview']);
 })();
 </script> 
 <script src="//yandex.st/highlightjs/7.2/highlight.min.js"></script>
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>
