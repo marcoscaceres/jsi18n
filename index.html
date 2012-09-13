@@ -1338,17 +1338,22 @@ function isInternationalizationSupported() {
         switch (src.type) {
 			case ("checkbox"):
 				{
+					var query = "input[name="+src.name+"Rad]:checked", 
+					    checkedRadio = document.querySelector(query); 
 					if (src.checked === false) {
 						//clear option
 						delete formOptions[src.name];
+						if(checkedRadio){
+							checkedRadio.checked = false;
+							
+						}
 						break;
 					}
-	
-					var query = "input[name=" + src.name + "Rad]:checked",
-						checked = document.querySelector(query),
-						value = "";
-	
-					formOptions[src.name] = (checked) ? checked.value : "";
+			
+						
+					if(checkedRadio){ 
+						formOptions[src.name] = checkedRadio.value;
+					}
 					break;
 				}
 	
@@ -1383,6 +1388,6 @@ _gaq.push(['_trackPageview']);
 })();
 </script> 
 <script src="//yandex.st/highlightjs/7.2/highlight.min.js"></script> 
-
+<script>document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')</script>
 </body>
 </html>
