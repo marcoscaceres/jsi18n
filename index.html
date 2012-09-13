@@ -14,6 +14,9 @@
 
 <title>Using the JavaScript Internationalization API</title>
 <style>
+dd{
+	margin-left: 2em;
+}
 .formatter {
 	border-radius: 10px;
 	box-shadow: 0px 1px 4px #999;
@@ -196,7 +199,7 @@ body.unsupported .supported {
     <div class="inner clearfix">
       <section id="main-content">
         <h1>JavaScript Internationalization API</h1>
-        <p>The <cite>ECMAScript Internationalization API</cite> is a forthcoming standard that helps automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, and <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help sort a list of strings (e.g., names in an address book) in locale-specific order, as well as search for strings in a given list in a way that matches a user's locale preferences.</p>
+        <p>The <cite>ECMAScript Internationalization API</cite> is a forthcoming standard that helps automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, and <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help sort a list of strings (e.g., names in an address book) in locale-specific order, as well as search for strings in a given list in a way that matches a user's locale preferences.        </p>
         <h2>What's this, then? </h2>
         <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the <cite>Internationalization API</cite> becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
         <p>Let's be clear before we start: the <abbr title="ECMAScript Internationalization API"><cite>Internationalization API</cite></abbr> is not a full internationalization framework, so  it won't help you localize your whole application to another language. What it can do  is be really useful for common localization tasks involving dates, numbers, currencies, and sorting. </p>
@@ -319,14 +322,8 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
         </dl>
         <p>The above code examples are starting to show the usefulness of the <cite>Internationalization API</cite>, but there is a problem: how do we know what locales the Browser understands? That is the topic for the next section.</p>
         <h3>Try it! </h3>
-        <p>The options that can be passed to:</p>
-        <ul>
-          <li>date.toLocaleString()</li>
-          <li>date.toLocaleDateString()</li>
-          <li>date.toLocaleTimeString()
-          </li>
-          </ul>
-            <p>. as object literal are given in the table below. <span class="supported">You can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>. </p>
+        <p>The options that can be passed to <code>date.toLocaleString()</code>, <code>date.toLocaleDateString()</code>, and <code>date.toLocaleTimeString()</code>as object literal are given in the table below. </p>
+        <p><span class="supported">If you are using Chrome, you can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>.</p>
             <form id="optionsTable" class="formatter" onsubmit="return false;">
               <fieldset>
                 <legend><span>Date formatter</span> <span class="options">
@@ -1349,7 +1346,7 @@ function isInternationalizationSupported() {
     function generateOutput(e) {
         var src = e.srcElement,
 		    form = src.form,
-			date = new Date();
+			date = new Date("1/1/2001");
 		
 		refreshLocale();
     	
