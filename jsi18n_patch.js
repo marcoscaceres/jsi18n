@@ -203,6 +203,7 @@
                             }
                         }
                     }
+                    console.log(formatter);
                     //localize and format the object and return result
                     return (new formatter(locales, optionsClone)).format(this);
                 }
