@@ -327,7 +327,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
           </li>
           </ul>
             <p>. as object literal are given in the table below. <span class="supported">You can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>. </p>
-            <form id="optionsTable" class="formatter">
+            <form id="optionsTable" class="formatter" onsubmit="return false;">
               <fieldset>
                 <legend><span>Date formatter</span> <span class="options">
                 <label for="lang">Lang:</label>
@@ -934,17 +934,17 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="timezonename" id="timezonenameOp">
-                      <label for="timezonenameOp">timeZoneName</label></td>
+                    <td  class="supported"><input type="checkbox" class="supported" name="timeZoneName" id="timeZoneNameOp">
+                      <label for="timeZoneNameOp">timeZoneName</label></td>
                     <td><ul>
                       <li>
                         <label>
-                          <input type="radio" class="supported" value="short" name="timezonenameRad">
+                          <input type="radio" class="supported" value="short" name="timeZoneNameRad">
                           short</label>
                         <samp>1/1/2001 GMT+00:00</samp></li>
                       <li>
                         <label>
-                          <input type="radio" class="supported" value="long" name="timezonenameRad">
+                          <input type="radio" class="supported" value="long" name="timeZoneNameRad">
                           long</label>
                         <samp>1/1/2001 GMT+00:00</samp></li>
                     </ul></td>
@@ -1385,16 +1385,15 @@ function isInternationalizationSupported() {
 			case ("radio"):
 				{
 					//remove the "*Rad part" from the element's name
-					var name = src.name.match(/^[a-z]*/)[0];
+					var name = src.name.match(/^[a-zA-Z]*[^Rad]/)[0];
 					//add it
 					form[name].checked = "checked"; 
 					formOptions[name] = src.value;
 					break;
 				}
 		}
-		form.formattedDateOptions.innerHTML = JSON.stringify(formOptions);
 		form.formattedDate.innerHTML = date.toLocaleString(locale, formOptions);
-		
+		form.formattedDateOptions.innerHTML = JSON.stringify(formOptions);
 	}
 });
 
