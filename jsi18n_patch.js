@@ -180,7 +180,7 @@
             ofPrototype[functionName] = (function (old, formatter, defaults) {
                 //create the patched function, and then return it
                 var patchedFunction = function (locales, options) {
-                    var optionsClone = Object.create({}});
+                    var optionsClone = Object.create({});
 					//Call the original "native code" function
                     if (locales === undefined && options === undefined) {
                         return old.call(this);
