@@ -180,23 +180,31 @@
             ofPrototype[functionName] = (function (old, formatter, defaults) {
                 //create the patched function, and then return it
                 var patchedFunction = function (locales, options) {
-                    //Call the original "native code" function
+                    var optionsClone; 
+					//Call the original "native code" function
                     if (locales === undefined && options === undefined) {
                         return old.call(this);
                     }
+					
                     //clean up and normalize values
                     locales = String(locales).split(',');
                     options = Object(options);
+					
+					//clone options, so not to change the original object
+					for(var i in options){
+						optionsClone[i] = options[i];	
+					}
+					
                     //set defaults for output, as Chrome does not do this sometimes
                     if (defaults) {
                         for (var i in defaults) {
-                            if (!options.hasOwnProperty(i)) {
-                                options[i] = defaults[i];
+                            if (!optionsClone.hasOwnProperty(i)) {
+                                optionsClone[i] = defaults[i];
                             }
                         }
                     }
                     //localize and format the object and return result
-                    return (new formatter(locales, options)).format(this);
+                    return (new formatter(locales, optionsClone)).format(this);
                 }
                 //monkey patch!
                 return patchedFunction;
