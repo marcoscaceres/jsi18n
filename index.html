@@ -61,7 +61,8 @@ dd{
 	float:right;
 	font-size: .8em;
 	padding-right: .5em;
-	border-left: thin solid #069;
+	border-left: thin solid #3f4c6b;
+	box-shadow: -1px 0px 1px 0px e7e7e7;
 }
 .formatter div {
 	padding: .25em 0 .25em 1em;
@@ -184,6 +185,10 @@ Hide all additional functionality when API is not supported
 body.unsupported .supported {
 	display: none;
 }
+
+.disclaimer{
+	font-size: .8em;
+}
 </style>
 </head>
 
@@ -213,8 +218,7 @@ body.unsupported .supported {
         <pre><code class="javascript">if(window[&quot;Intl&quot;] !== undefined &amp;&amp; typeof window.Intl === &quot;object&quot;){
    //Assume it's supported, lets localize!
    console.log(&quot;We are all good to go!&quot;);
-}
-</code></pre>
+}</code></pre>
         <p>And in Node.js, you would do something like the following:</p>
         <pre><code class="javascript">(function(exports){
   if(&quot;Intl&quot; in window){
@@ -269,7 +273,7 @@ date.toLocaleDateString(&quot;pt-PT&quot;);
         <pre><code class="javascript">date.toLocaleDateString(&quot;zh-Hans&quot;);
 //returns something like "2012年8月28日"</code></pre>
         <p>So now we are getting somewhere! We've managed to convert our date object to simplified Chinese without hardly doing any work (which we like!). </p>
-        <h3>Controlling the formatting </h3>
+        <h2>Controlling the formatting </h2>
         <p>As we pointed out above, the date format &quot;24/8/2012&quot; will likely be comprehended, but it's not the most user-friendly way to display dates. In particular, it's nice to see what day of the week it is (Monday, Tuesday, etc.) and what month we are talking about. </p>
         <p>To do this the <cite>Internationalization API</cite> allows us to pass a set of options as an argument to <code data-language="javascript">.toLocaleDateString()</code>. For example:</p>
         <pre><code class="javascript">var options = {weekday: &quot;long&quot;}; 
@@ -284,7 +288,7 @@ date.toLocaleDateString(&quot;ja&quot;, options);
           <p>There is something important to note from the above. In Portugal,  for example, people only use &quot;sexta-feira&quot; for &quot;Friday&quot; in formal contexts; in informal contexts, they just say &quot;sexta&quot; and drop the &quot;-feira&quot;. </p>
           <p>The take away here is that you should not just assume that what the API returns is always correct for the locale or audience you are targeting. Be sure to always consult someone who lives in the locale you are targeting about date, time, currency, and collation conventions. <strong>Don't just blindly rely on what the browser returns</strong>.</p>
         </div>
-        <h2>Options for output</h2>
+        <h2>Formatting example</h2>
         <p>For example, lets say we want to output &quot;day of week, day Month, Year&quot;. We would set the following options:</p>
         <pre><code class="javascript">var options = {
     weekday: &quot;long&quot;,
@@ -320,14 +324,14 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
           <dt><code>thai</code></dt>
           <dd>Thai </dd>
         </dl>
-        <p>The above code examples are starting to show the usefulness of the <cite>Internationalization API</cite>, but there is a problem: how do we know what locales the Browser understands? That is the topic for the next section.</p>
-        <h3>Try it! </h3>
+        <p>The above code examples are starting to show the usefulness of the <cite>Internationalization API</cite>, but there is a problem: how do we know what locales the Browser understands? That is the topic we will come back to later in this article.</p>
+        <h3>Formatting options</h3>
         <p>The options that can be passed to <code>date.toLocaleString()</code>, <code>date.toLocaleDateString()</code>, and <code>date.toLocaleTimeString()</code>as object literal are given in the table below. </p>
-        <p><span class="supported">If you are using Chrome, you can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>.</p>
-            <form id="optionsTable" class="formatter" onsubmit="return false;">
+        <p class="supported">If you are using Chrome, you can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table.</p>
+        <form id="optionsTable" class="formatter" onsubmit="return false;">
               <fieldset>
-                <legend class=" supported"><span>Date formatter</span>
-                <span class="supported">
+                <legend class="supported"><span>Date formatter</span>
+                <span class="options">
                 <label for="lang">Lang:</label>
                 <select id="lang">
                   <option value="">None (system default)
@@ -774,12 +778,12 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                 <table>
                   <thead>
                     <tr>
-                      <th class="supported">Option</th>
-                      <th>Values and sample output</th>
+                      <th>Option</th>
+                      <th>Values and sample output<a href="#disclaimer">*</a></th>
                     </tr>
                   </thead>
                   <tr>
-                    <td   class="supported"><input type="checkbox" class="supported" name="weekday" id="weekdayOp">
+                    <td><input type="checkbox" class="supported" name="weekday" id="weekdayOp">
                       <label for="weekdayOp">weekday</label></td>
                     <td><ul>
                       <li>
@@ -800,7 +804,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="era" id="eraOp">
+                    <td><input type="checkbox" class="supported" name="era" id="eraOp">
                       <label for="eraOp">era</label></td>
                     <td><ul>
                       <li>
@@ -821,7 +825,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input name ="year" type="checkbox" id="yearOp">
+                    <td><input name ="year" type="checkbox" class="supported" id="yearOp">
                       <label for="yearOp">year</label></td>
                     <td><ul>
                       <li>
@@ -837,7 +841,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="month" id="monthOp">
+                    <td><input type="checkbox" class="supported" name="month" id="monthOp">
                       <label for="monthOp">month</label></td>
                     <td><ul>
                       <li>
@@ -868,7 +872,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="day" id="dayOp">
+                    <td><input type="checkbox" class="supported" name="day" id="dayOp">
                       <label for="dayOp">day</label></td>
                     <td><ul>
                       <li>
@@ -884,7 +888,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="hour" id="hourOp">
+                    <td><input type="checkbox" class="supported" name="hour" id="hourOp">
                       <label for="hourOp">hour</label></td>
                     <td><ul>
                       <li>
@@ -900,7 +904,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="minute" id="minuteOp">
+                    <td><input type="checkbox" class="supported" name="minute" id="minuteOp">
                       <label for="minuteOp">minute</label></td>
                     <td><ul>
                       <li>
@@ -916,7 +920,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="second" id="secondOp">
+                    <td><input type="checkbox" class="supported" name="second" id="secondOp">
                       <label for="secondOp">second</label></td>
                     <td><ul>
                       <li>
@@ -932,7 +936,7 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                   <tr>
-                    <td  class="supported"><input type="checkbox" class="supported" name="timeZoneName" id="timeZoneNameOp">
+                    <td><input type="checkbox" class="supported" name="timeZoneName" id="timeZoneNameOp">
                       <label for="timeZoneNameOp">timeZoneName</label></td>
                     <td><ul>
                       <li>
@@ -948,31 +952,16 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
                     </ul></td>
                   </tr>
                 </table>
-                <div class="result">
+                <div class="result supported">
                   <label>Result:
                     <output id="formattedDate"></output>
                   </label>
                   	<output class="subResult" id="formattedDateOptions"></output>
                 </div>
               </fieldset>
-            </form>
-            <p> <small><dfn id="disclaimer">*</dfn> Output may vary from one locale to another and from one browser to another!</small> The output shown here is from Chrome 21. Output was constructed by calling <code>(new Date("1/1/2001")).toLocaleString("en", options);</code></p>
-            <h2>Hey, Browser! Do you to speak-a-my-language? </h2>
-            <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French and English in Canada). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
-            <p>Thankfully, the <em>Internationalization API</em> provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the <code>supportedLocalesOf</code> methods: </p>
-            <pre><code class="javascript">//Given German (&quot;de&quot;), and two languages that don't exist: 
-Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]);
-//the browser returns [&quot;de&quot;]</code></pre>
-            <p>Another cool feature of the API is that it will do its best to support a locale as closely as it can. So, given, &quot;En-GB-fff&quot; (where fff is just something I made up), the browser will just strip away the fff and return &quot;en-GB&quot;. </p>
-            <pre><code class="javascript">//fff is garbage below, but could be an actual language sub-tag 
-v8Intl.DateTimeFormat.supportedLocalesOf([&quot;En-gb-fff&quot;]);
-//returns [&quot;en-GB&quot;]</code></pre>
-            <p>Note that another helpful thing that the browser does when we call <code>supportedLocalesOf</code> is that it normalizes our languages tags into &quot;canonical form&quot; (which includes making the GB capitalised). Calling this method will also fix errors in language tags and remove redundant tags too: </p>
-            <pre><code class="javascript">var tags = [&quot;pt-*&quot;, &quot;En-&quot;, &quot;en-*-us&quot;, &quot;x-foo&quot; ]; 
-Intl.DateTimeFormat.supportedLocalesOf(tags);
-//returns [&quot;pt&quot;, &quot;en&quot;, &quot;und-x-foo&quot;]</code></pre>
-            <p>Note above the &quot;En-&quot; and &quot;en-*&quot; become &quot;en&quot;… and note &quot;und-x-foo&quot; for private use language (language tags that a start with an &quot;x-&quot;).</p>
-            <h2>Custom date-time formatters</h2>
+        </form>
+        <p class="disclaimer"> <small><dfn id="disclaimer">*</dfn> Output may vary from one locale to another and from one browser to another! The output shown here is from Chrome 21. Output was constructed by calling <code>(new Date("1/1/2001")).toLocaleString("en", options);</code></small></p>
+        <h2>Custom date-time formatters</h2>
             <p>Consider a scenario where you have a potentially large and dynamic set of date objects that you need to localize to the same format over and over again (e.g., a list of birth dates). Up to this point in the article, we've been doing date conversion in the following way:</p>
             <pre><code class="javascript">var date = new Date(),
     options = {
@@ -983,7 +972,7 @@ Intl.DateTimeFormat.supportedLocalesOf(tags);
     };
 date.toLocaleDateString("en", options);</code></pre>
             <p> If we know that we want to format all days the same way for a particular purpose, then the Internationalization API provides a special set of objects called <code>Intl.DateTimeFormat</code> that you can create to help you out. </p>
-            <pre><code class="javascript">var formatter = new Intl.DateTimeFormat(lang, options),
+        <pre><code class="javascript">var formatter = new Intl.DateTimeFormat(lang, options),
     lang = ["en"], //using an array because of quirk in Chrome
     dates = [new Date("1/1/1"), 
              new Date("2/2/2"), 
@@ -1002,7 +991,7 @@ for (var i = 0; i &lt; dates.length; i++) {
     result = formatter.format(date);
     console.log(result);
 }</code></pre>
-            <p>There is no huge advantage to using a custom formatter over just calling <code>date.toLocaleString()</code>, though the Internationalization spec does claim potential performance benefits (you would probably need quite a large list of dates to see those performance gains). </p>
+            <p>There is no huge advantage to using a custom formatter over just calling <code>date.toLocaleString()</code>, though the Internationalization spec does claim potential performance benefits (you would probably need quite a large list of dates to see those performance gains).            </p>
             <h1 id="localize_currency">Currencies</h1>
             <p>Formatting  currencies is super easy with the Internationalization API. All you need to do is set two options - the <code>style</code> and the <code>currency</code> you want. For example:</p>
             <pre><code class="javascript">{style: "currency", currency: "USD"}</code></pre>
@@ -1278,9 +1267,24 @@ form.onchange = function () {
             <pre><code class="javascript">names = ["Ølgård", "Åbjørn", "Oddbjørg", "Hellbjørg", "Aino"];</code></pre>
             <p>In order to sort them, you (or the computer) would need to know which letter comes before which letter in the given alphabet. The problem is, which alphabet? Are those names really Norwegian? or are they Danish? What happens if we have Chinese friend (e.g., 强国) and they were also in the list? </p>
             <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phone book&quot; ordering and &quot;dictionary ordering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
-            <p>Its in situations like those where the <cite>Internationalization API</cite> can come to the rescue.</p>
-            <h1 id="advanced-langtags">Fancy language-tags</h1>
-            <p>To be written... section will cover Unicode extensions and other interesting features. </p>
+        <p>Its in situations like those where the <cite>Internationalization API</cite> can come to the rescue.</p>
+            <h1>Hey, Browser! You  speak my language? </h1>
+            <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French and English in Canada). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
+            <p>Thankfully, the <em>Internationalization API</em> provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the <code>supportedLocalesOf</code> methods: </p>
+            <pre><code class="javascript">//Given German (&quot;de&quot;), and two languages that don't exist: 
+Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]);
+//the browser returns [&quot;de&quot;]</code></pre>
+            <p>Another cool feature of the API is that it will do its best to support a locale as closely as it can. So, given, &quot;En-GB-fff&quot; (where fff is just something I made up), the browser will just strip away the fff and return &quot;en-GB&quot;. </p>
+            <pre><code class="javascript">//fff is garbage below, but could be an actual language sub-tag 
+v8Intl.DateTimeFormat.supportedLocalesOf([&quot;En-gb-fff&quot;]);
+//returns [&quot;en-GB&quot;]</code></pre>
+            <p>Note that another helpful thing that the browser does when we call <code>supportedLocalesOf</code> is that it normalizes our languages tags into &quot;canonical form&quot; (which includes making the GB capitalised). Calling this method will also fix errors in language tags and remove redundant tags too: </p>
+        <pre><code class="javascript">var tags = [&quot;pt-*&quot;, &quot;En-&quot;, &quot;en-*-us&quot;, &quot;x-foo&quot; ]; 
+Intl.DateTimeFormat.supportedLocalesOf(tags);
+//returns [&quot;pt&quot;, &quot;en&quot;, &quot;und-x-foo&quot;]</code></pre>
+            <p>Note above the &quot;En-&quot; and &quot;en-*&quot; become &quot;en&quot;… and note &quot;und-x-foo&quot; for private use language (language tags that a start with an &quot;x-&quot;).            </p>
+            <h1>Fancy language-tags</h1>
+            <p>To be written... section will cover Unicode extensions and other interesting features.            </p>
             <h1>Acknowledgements</h1>
             <p>A huge thanks to <a href="http://norbertlindenberg.com/">Norbert Lindenberg</a> for his guidance,  patience with my dumb questions, and for being awesome. This article was inspired by his original article <cite><a href="http://norbertlindenberg.com/2012/06/ecmascript-internationalization-api/">The ECMAScript Internationalization API</a></cite>. If you want to take your knowledge of the <cite>Internationalization API</cite> to the next level, check out his article. It goes into much more depth than this one. </p>
             <p>Also a huge thanks to <a href="https://twitter.com/jordangray">Jordan Gray</a> for proposing that this guide be written up.</p>
