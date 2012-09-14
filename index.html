@@ -198,7 +198,7 @@ body.unsupported .supported {
   <div id="content-wrapper">
     <div class="inner clearfix">
       <section id="main-content">
-        <h1>JavaScript Internationalization API</h1>
+        <h1>Internationalization and localization</h1>
         <p>The <cite>ECMAScript Internationalization API</cite> is a forthcoming standard that helps automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, and <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help sort a list of strings (e.g., names in an address book) in locale-specific order, as well as search for strings in a given list in a way that matches a user's locale preferences.        </p>
         <h2>What's this, then? </h2>
         <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the <cite>Internationalization API</cite> becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
@@ -326,7 +326,8 @@ date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options);
         <p><span class="supported">If you are using Chrome, you can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table</span>.</p>
             <form id="optionsTable" class="formatter" onsubmit="return false;">
               <fieldset>
-                <legend><span>Date formatter</span> <span class="options">
+                <legend class=" supported"><span>Date formatter</span>
+                <span class="supported">
                 <label for="lang">Lang:</label>
                 <select id="lang">
                   <option value="">None (system default)
