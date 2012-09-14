@@ -1268,8 +1268,8 @@ form.onchange = function () {
             <p>In order to sort them, you (or the computer) would need to know which letter comes before which letter in the given alphabet. The problem is, which alphabet? Are those names really Norwegian? or are they Danish? What happens if we have Chinese friend (e.g., 强国) and they were also in the list? </p>
             <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phone book&quot; ordering and &quot;dictionary ordering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
         <p>Its in situations like those where the <cite>Internationalization API</cite> can come to the rescue.</p>
-            <h1>Hey, Browser! You  speak my language? </h1>
-            <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French and English in Canada). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination. </p>
+        <h1>Hey, Browser! You  speak my language? </h1>
+            <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French and English in Canada). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination.            </p>
             <p>Thankfully, the <em>Internationalization API</em> provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the <code>supportedLocalesOf</code> methods: </p>
             <pre><code class="javascript">//Given German (&quot;de&quot;), and two languages that don't exist: 
 Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]);
@@ -1303,7 +1303,7 @@ Intl.DateTimeFormat.supportedLocalesOf(tags);
         <p>This uses the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
       </aside>
     </div>
-    http://css-tricks.com/examples/ResponsiveTables/responsive.php#source-code </div>
+   </div>
 </article>
 <script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js"></script> 
 <script>
