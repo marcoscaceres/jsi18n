@@ -221,7 +221,7 @@ body.unsupported .supported {
 }</code></pre>
         <p>And in Node.js, you would do something like the following:</p>
         <pre><code class="javascript">(function(exports){
-  if(&quot;Intl&quot; in window){
+  if(&quot;Intl&quot; in exports){
     console.log(&quot;Sweet! Lets localize!&quot;)
   } 
 }(this)); //assuming this is the global scope
