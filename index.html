@@ -1,978 +1,2204 @@
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset='utf-8'>
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<link href='https://fonts.googleapis.com/css?family=Architects+Daughter' rel='stylesheet' type='text/css'>
-<link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
-<link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print">
-<link rel="stylesheet" href="//yandex.st/highlightjs/7.2/styles/monokai.min.css">
-
-<!--[if lt IE 9]>
+  <head>
+    <meta charset='utf-8'>
+    <meta name="viewport" content=
+    "width=device-width, initial-scale=1, maximum-scale=1">
+    <link href='https://fonts.googleapis.com/css?family=Architects+Daughter'
+    rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css"
+    media="screen">
+    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media=
+    "print">
+    <link rel="stylesheet" href=
+    "//yandex.st/highlightjs/7.2/styles/monokai.min.css"><!--[if lt IE 9]>
     <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <![endif]-->
-
-<title>Using the JavaScript Internationalization API</title>
-<style>
+    <title>
+      Using the JavaScript Internationalization API
+    </title>
+    <style>
 dd{
-	margin-left: 2em;
-}
-.formatter {
-	border-radius: 10px;
-	box-shadow: 0px 1px 4px #999;
-	margin: 2em 1em;
-	padding: 0;
-	background: rgb(255,255,255);
-	background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(229,229,229,1)));
-	background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
-	background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
-	background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
-	background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
- filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0 );
-}
-.formatter legend {
-	border-radius: 10px 10px 0 0;
-	width: auto;
-	color: white;
-	margin: 0;
-	padding: 0;
-	width:100%;
-	line-height: 3em;
-	display: block;
-	background: rgb(96,108,136);
-	background: -moz-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(96,108,136,1)), color-stop(100%, rgba(63,76,107,1)));
-	background: -webkit-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
-	background: -o-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
-	background: -ms-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
-	background: linear-gradient(to bottom, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
- filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b', GradientType=0 );
-	border-bottom: thin solid black;
-}
-.formatter legend > span {
-	display: inline-block;
-	padding-left: 1em;
-	font-size: 1.2em;
-}
-.formatter legend .options {
-	padding-left: .25;
-	text-align: right;
-	float:right;
-	font-size: .8em;
-	padding-right: .5em;
-	border-left: thin solid #3f4c6b;
-	box-shadow: -1px 0px 1px 0px e7e7e7;
-}
-.formatter div {
-	padding: .25em 0 .25em 1em;
-	line-height: 2em;
-}
-.formatter div label {
-	display: inline-block;
-	vertical-align:top;
-	text-align: right;
-	width: 20%;
-}
-.formatter select {
-	width: 8em;
-}
-.formatter .result {
-	color: white;
-	border-radius: 0 0 10px 10px;
-	background: rgb(125,126,125);
-	background: -moz-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(125,126,125,1)), color-stop(100%, rgba(14,14,14,1)));
-	background: -webkit-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
-	background: -o-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
-	background: -ms-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
-	background: linear-gradient(to bottom, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e', GradientType=0 );
-	border-top: thin solid white;
-}
-.formatter .result {
-	text-align:center;
-	font-size: 1.2em;
-}
-.formatter .result > label {
-	width: auto;
-}
+        margin-left: 2em;
+    }
+    .formatter {
+        border-radius: 10px;
+        box-shadow: 0px 1px 4px #999;
+        margin: 2em 1em;
+        padding: 0;
+        background: rgb(255,255,255);
+        background: -moz-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(255,255,255,1)), color-stop(100%, rgba(229,229,229,1)));
+        background: -webkit-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+        background: -o-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+        background: -ms-linear-gradient(top, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+        background: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(229,229,229,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5', GradientType=0 );
+    }
+    .formatter legend {
+        border-radius: 10px 10px 0 0;
+        width: auto;
+        color: white;
+        margin: 0;
+        padding: 0;
+        width:100%;
+        line-height: 3em;
+        display: block;
+        background: rgb(96,108,136);
+        background: -moz-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(96,108,136,1)), color-stop(100%, rgba(63,76,107,1)));
+        background: -webkit-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
+        background: -o-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
+        background: -ms-linear-gradient(top, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
+        background: linear-gradient(to bottom, rgba(96,108,136,1) 0%, rgba(63,76,107,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#606c88', endColorstr='#3f4c6b', GradientType=0 );
+        border-bottom: thin solid black;
+    }
+    .formatter legend > span {
+        display: inline-block;
+        padding-left: 1em;
+        font-size: 1.2em;
+    }
+    .formatter legend .options {
+        padding-left: .25;
+        text-align: right;
+        float:right;
+        font-size: .8em;
+        padding-right: .5em;
+        border-left: thin solid #3f4c6b;
+        box-shadow: -1px 0px 1px 0px e7e7e7;
+    }
+    .formatter div {
+        padding: .25em 0 .25em 1em;
+        line-height: 2em;
+    }
+    .formatter div label {
+        display: inline-block;
+        vertical-align:top;
+        text-align: right;
+        width: 20%;
+    }
+    .formatter select {
+        width: 8em;
+    }
+    .formatter .result {
+        color: white;
+        border-radius: 0 0 10px 10px;
+        background: rgb(125,126,125);
+        background: -moz-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+        background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, rgba(125,126,125,1)), color-stop(100%, rgba(14,14,14,1)));
+        background: -webkit-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+        background: -o-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+        background: -ms-linear-gradient(top, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+        background: linear-gradient(to bottom, rgba(125,126,125,1) 0%, rgba(14,14,14,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#0e0e0e', GradientType=0 );
+        border-top: thin solid white;
+    }
+    .formatter .result {
+        text-align:center;
+        font-size: 1.2em;
+    }
+    .formatter .result > label {
+        width: auto;
+    }
 
-.formatter output.subResult{
-	font-size: .6em;
-	color: #999;
-	line-height: 1em;
-	display: block;
-}
+    .formatter output.subResult{
+        font-size: .6em;
+        color: #999;
+        line-height: 1em;
+        display: block;
+    }
 
-table {
-	font-size: 1.1em;
-	border: 1px solid #666;
-	width: 100%;
-	border-collapse:collapse;
-	font-style: normal;
-	font-weight: normal;
-	line-height: 1.2em;
-}
-table li {
-	vertical-align: central;
-	line-height: 1.5em;
-	list-style-type: none
-}
-table tr:nth-child(odd) {
-	background-color:#e5e5e5;
-}
-table td {
-}
-table td input {
-	display:inline-block;
-	vertical-align:middle
-}
-table li label {
-	display: inline-block;
-	width: 5em;
-}
-table li samp {
-	font-family: "Courier New", Courier, monospace;
-	font-size: .8em;
-	font-style: italic;
-}
-table th, table > caption {
-	padding:.3cm;
-	color:#fff;
-	background-color:#555;
-	font-weight: bold;
-	border-right:1px dotted #666;
-	border-top:1px solid #666;
-	box-shadow: inset 0 12px 25px #333;
-}
-table td {
-	text-align: left;
-	border-right:1px dotted #999;
-	text-shadow: 1px 1px 0 #fff;
-	color:#333;
-	padding: .3cm;
-}
-table tr {
-	background-color:#f0f0f0;
-}
-table tr:nth-child(odd) {
-	background-color:#e5e5e5;
-}
-.canuse {
-	font-weight: bold;
-}
-p > img {
-	float:left;
-	padding-right: 1em;
-}
-div.important {
-	background:url(images/important.png) center left no-repeat;
-	padding-left: 44px;
-}
-div.important p {
-	margin: 1em;
-}
-q:before {
- content: &#8220;
-}
-q:after {
- content: &#8221;
-}
-/*
-Hide all additional functionality when API is not supported
-*/
-body.unsupported .supported {
-	display: none;
-}
+    table {
+        font-size: 1.1em;
+        border: 1px solid #666;
+        width: 100%;
+        border-collapse:collapse;
+        font-style: normal;
+        font-weight: normal;
+        line-height: 1.2em;
+    }
+    table li {
+        vertical-align: central;
+        line-height: 1.5em;
+        list-style-type: none
+    }
+    table tr:nth-child(odd) {
+        background-color:#e5e5e5;
+    }
+    table td {
+    }
+    table td input {
+        display:inline-block;
+        vertical-align:middle
+    }
+    table li label {
+        display: inline-block;
+        width: 5em;
+    }
+    table li samp {
+        font-family: "Courier New", Courier, monospace;
+        font-size: .8em;
+        font-style: italic;
+    }
+    table th, table > caption {
+        padding:.3cm;
+        color:#fff;
+        background-color:#555;
+        font-weight: bold;
+        border-right:1px dotted #666;
+        border-top:1px solid #666;
+        box-shadow: inset 0 12px 25px #333;
+    }
+    table td {
+        text-align: left;
+        border-right:1px dotted #999;
+        text-shadow: 1px 1px 0 #fff;
+        color:#333;
+        padding: .3cm;
+    }
+    table tr {
+        background-color:#f0f0f0;
+    }
+    table tr:nth-child(odd) {
+        background-color:#e5e5e5;
+    }
+    .canuse {
+        font-weight: bold;
+    }
+    p > img {
+        float:left;
+        padding-right: 1em;
+    }
+    div.important {
+        background:url(images/important.png) center left no-repeat;
+        padding-left: 44px;
+    }
+    div.important p {
+        margin: 1em;
+    }
+    q:before {
+    content: &#8220;
+    }
+    q:after {
+    content: &#8221;
+    }
+    /*
+    Hide all additional functionality when API is not supported
+    */
+    body.unsupported .supported {
+        display: none;
+    }
 
-.disclaimer{
-	font-size: .8em;
-}
-</style>
-</head>
-
-<body>
-<article>
-  <header>
-    <div class="inner">
-      <h1>JavaScript Internationalization API</h1>
-      <h2>A simple introduction.</h2>
-      <a href="https://github.com/marcoscaceres/jsi18n" class="button"><small>View project on</small> GitHub</a> </div>
-  </header>
-  <div id="content-wrapper">
-    <div class="inner clearfix">
-      <section id="main-content">
-        <h1>Internationalization and localization</h1>
-        <p>The <cite>ECMAScript Internationalization API</cite> is a forthcoming standard that helps automagically localise the output of <a href="#localize_dates">dates</a>, <a href="#localize_numbers">numbers</a>, and <a href="#localize_currency">currencies</a> in Javascript. And, through the magic of <a href="#collation">collator objects</a>, the <cite>Internationalization API</cite> can also help sort a list of strings (e.g., names in an address book) in locale-specific order, as well as search for strings in a given list in a way that matches a user's locale preferences.        </p>
-        <h2>What's this, then? </h2>
-        <p>This short introduction  gives you a quick overview of some of the awesome things you will be able to do once the <cite>Internationalization API</cite> becomes more widely supported in browsers and in other ECMAScript-based programming environments - like <a href="http://nodejs.org/">Node.js</a>. </p>
-        <p>Let's be clear before we start: the <abbr title="ECMAScript Internationalization API"><cite>Internationalization API</cite></abbr> is not a full internationalization framework, so  it won't help you localize your whole application to another language. What it can do  is be really useful for common localization tasks involving dates, numbers, currencies, and sorting. </p>
-        <h2>Following along</h2>
-        <p><strong>Quick browser check:</strong> <span id="caniuse">Sadly, your browser doesn't (<em>yet</em>!) support the API.  But don't despair! keep reading.</span></p>
-        <p>You can follow along with <a href="https://www.google.com/intl/en/chrome/browser/">Chrome</a>. Currently, to get the most  functionality out of the <cite>Internationalization API</cite> we use a custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in Chrome - that is, we use a simple script that  overrides some standard JavaScript behavior without changing any existing browser functionality. <span class="supported">The mokey-patch is already loaded as part of this document, so if you do &quot;inspect element&quot; and bring up Chrome's JavaScript debug console, you are ready to follow along!</span></p>
-        <h2>Can I use?</h2>
-        <p>Before we can actually use the <cite>Internationalization API</cite>, we need to check if the browser supports it (i.e., we need to do some <em>feature detection</em>). </p>
-        <p>The official <cite>Internationalization API</cite> specification defines the <code>Intl</code> object that should be a property of the JavaScript global object - in a browser, the global object is the <code>window</code> object. </p>
-        <p>To check if we can use the <cite>Internationalization API</cite>, we are just going to check if <code>Intl</code> is available on the <code>window</code> object:</p>
-        <pre><code class="javascript">if(window[&quot;Intl&quot;] !== undefined &amp;&amp; typeof window.Intl === &quot;object&quot;){
+    .disclaimer{
+        font-size: .8em;
+    }
+    </style>
+  </head>
+  <body>
+    <article>
+      <header>
+        <div class="inner">
+          <h1>
+            JavaScript Internationalization API
+          </h1>
+          <h2>
+            A simple introduction.
+          </h2><a href="https://github.com/marcoscaceres/jsi18n" class=
+          "button"><small>View project on</small> GitHub</a>
+        </div>
+      </header>
+      <div id="content-wrapper">
+        <div class="inner clearfix">
+          <section id="main-content">
+            <h1>
+              Internationalization and localization
+            </h1>
+            <p>
+              The <cite>ECMAScript Internationalization API</cite> is a
+              forthcoming standard that helps automagically localise the output
+              of <a href="#localize_dates">dates</a>, <a href=
+              "#localize_numbers">numbers</a>, and <a href=
+              "#localize_currency">currencies</a> in Javascript. And, through
+              the magic of <a href="#collation">collator objects</a>, the
+              <cite>Internationalization API</cite> can also help sort a list
+              of strings (e.g., names in an address book) in locale-specific
+              order, as well as search for strings in a given list in a way
+              that matches a user's locale preferences.
+            </p>
+            <h2>
+              What's this, then?
+            </h2>
+            <p>
+              This short introduction gives you a quick overview of some of the
+              awesome things you will be able to do once the
+              <cite>Internationalization API</cite> becomes more widely
+              supported in browsers and in other ECMAScript-based programming
+              environments - like <a href="http://nodejs.org/">Node.js</a>.
+            </p>
+            <p>
+              Let's be clear before we start: the <abbr title=
+              "ECMAScript Internationalization API"><cite>Internationalization
+              API</cite></abbr> is not a full internationalization framework,
+              so it won't help you localize your whole application to another
+              language. What it can do is be really useful for common
+              localization tasks involving dates, numbers, currencies, and
+              sorting.
+            </p>
+            <h2>
+              Following along
+            </h2>
+            <p>
+              <strong>Quick browser check:</strong> <span id="caniuse">Sadly,
+              your browser doesn't (<em>yet</em>!) support the API. But don't
+              despair! keep reading.</span>
+            </p>
+            <p>
+              You can follow along with <a href=
+              "https://www.google.com/intl/en/chrome/browser/">Chrome</a>.
+              Currently, to get the most functionality out of the
+              <cite>Internationalization API</cite> we use a custom <a href=
+              "https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">
+              monkey-patch</a> in Chrome - that is, we use a simple script that
+              overrides some standard JavaScript behavior without changing any
+              existing browser functionality. <span class="supported">The
+              mokey-patch is already loaded as part of this document, so if you
+              do "inspect element" and bring up Chrome's JavaScript debug
+              console, you are ready to follow along!</span>
+            </p>
+            <h2>
+              Can I use?
+            </h2>
+            <p>
+              Before we can actually use the <cite>Internationalization
+              API</cite>, we need to check if the browser supports it (i.e., we
+              need to do some <em>feature detection</em>).
+            </p>
+            <p>
+              The official <cite>Internationalization API</cite> specification
+              defines the <code>Intl</code> object that should be a property of
+              the JavaScript global object - in a browser, the global object is
+              the <code>window</code> object.
+            </p>
+            <p>
+              To check if we can use the <cite>Internationalization API</cite>,
+              we are just going to check if <code>Intl</code> is available on
+              the <code>window</code> object:
+            </p>
+            <pre>
+<code class=
+"javascript">if(window["Intl"] !== undefined &amp;&amp; typeof window.Intl === "object"){
    //Assume it's supported, lets localize!
-   console.log(&quot;We are all good to go!&quot;);
-}</code></pre>
-        <p>And in Node.js, you would do something like the following:</p>
-        <pre><code class="javascript">(function(exports){
-  if(&quot;Intl&quot; in exports){
-    console.log(&quot;Sweet! Lets localize!&quot;)
+   console.log("We are all good to go!");
+}</code>
+</pre>
+            <p>
+              And in Node.js, you would do something like the following:
+            </p>
+            <pre>
+<code class="javascript">(function(exports){
+  if("Intl" in exports){
+    console.log("Sweet! Lets localize!")
   } 
 }(this)); //assuming this is the global scope
-//PS: the above will also work fine in a browser!</code></pre>
-        <p>Once we know that the <cite>Internationalization API</cite> is supported, we are good to start localizing stuff! In case you are wondering, the <code>Intl</code> object contains a bunch of useful other objects that we will make use of later. </p>
-        <p class="note"><strong>Note:</strong> Because this API is still not final, actually finding out if the browser supports the full API can be tricky. For example, to date, there is only one implementation of the API (Chrome)... and the Chrome team have put the <cite>Internationalization API</cite> behind a unique vendor prefix (<code>v8</code>). Not only that, only parts of the API are exposed to developers, which is why we use a custom <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> to make the whole thing work as if it was actually natively implemented in the browser.</p>
-        <h1>Localizing dates and times</h1>
-        <p> You've probably done this hundreds of times: </p>
-        <pre><code class="javascript">var date = new Date();</code></pre>
-        <p>And possibly displayed it in the browser's default locale by calling:</p>
-        <pre><code class="javascript">date.toLocaleDateString(); 
-//returns e.g. &quot;Friday, August 24, 2012&quot; </code></pre>
-        <h2>The problem</h2>
-        <p> <img src="images/user.png" width="71" height="111" alt="">The above might be all well and good if the user is sitting at home where her computer's <dfn>locale</dfn> settings (i.e., language and geographical region) are likely set correctly.  But what happens if the user is on a PC whose locale settings are set to Japanese, but her preferred locale settings are  Portuguese as used in Portugal? </p>
-        <p>Lets say our user is backpacking around the world and has logged into your Web application from an Internet cafe in Japan. How can you make sure she sees numbers, dates, and currencies formatted in a way she is most accustomed to? </p>
-        <h2>The solution</h2>
-        <p>Firstly, what we need is to convert what we know about the user's locale  to a <dfn>language tag. </dfn> A language tag is a simple string that represents the user's preferred language and, optionally, where they are (or wish they were  for the purposes of communication).</p>
-        <h2>Language Tags and locales</h2>
-        <p>You  have undoubtedly encountered language tags before. For example 
-          &quot;en-US&quot;,  which roughly translates to &quot;English as used in the United States&quot;; as opposed to, say, &quot;en-AU&quot;, which would be &quot;English as used in Australia&quot;. And as you can see, most language tags simply identify some language as used in some country or region.</p>
-        <blockquote><q>Language tags are used to help identify languages, whether spoken,
-          written, signed, or otherwise signaled, for the purpose of
-          communication.</q> - <cite><a href="http://www.rfc-editor.org/bcp/bcp47.txt"><abbr title="best current practice">BCP</abbr>47</a></cite>.</blockquote>
-        <p>But a language tag, or more generally, the concept of a <dfn>locale</dfn>, doesn't just relate to  languages: it also indicates the conventions for how dates, times, and currencies are formatted and how lists are sorted - and can even have an impact on how things are spoken by text-to-speech software. For example, here is how &quot;Alex&quot; on MacOS X reads dates when the system settings are set to English and region is United States: </p>
-        <blockquote>
-          <p><q>Niel Armstrong landed on the moon on <em>07/20/1969</em></q>. But not on the <em>20/07/1969</em>?</p>
-          <audio controls="controls">
-            <source src="sounds/tts.m4a" type="audio/mp4a-latm">
-            <source src="sounds/tts.ogg" type="audio/ogg">
-            <source src="sounds/tts.mp3" type="audio/mp3">
-            <a href="sounds/tts.mp3">Listen to text-to-speech version.</a> </audio>
-        </blockquote
-      
-      >
-        <p>As the audio example shows, strings representing dates are treated differently based on the user's locale settings. In the United States the date is written in short form as: 07/20/2012; while in other English speaking countries, such as Australia and the UK, written as  20/07/2012 (i.e., days and months are swapped). </p>
-        <p>Many users have been confused, and many databases have broken, thanks to naive handling of dates. The <cite>Internationalization API</cite> should help make that a thing of the past. </p>
-        <h2>Getting the user's locale</h2>
-        <p>Unfortunately, there is no 100% reliable way in the browser of getting the user's locale information - unless you ask the user explicitly. </p>
-        <p>There are some unreliable hacks, like querying <code>navigator.language</code> in Chrome and Firefox, or <code>navigator.browserLanguage</code> in IE, or looking at the HTTP <code>Accept-Language</code> header using XHR. But these techniques would not help our previously described backpacking-user: because she is using a computer at an internet cafe, she has no control over the language preferences of the machine. </p>
-        <p>So, just ask if you need to. Or provide a way for the user to select their locale preferences.</p>
-        <h2>Starting localization process</h2>
-        <p>If we know the user's preferred language (in this case &quot;pt-PT&quot;), the <cite>Internationalization API</cite> allows us to provide that information as an argument to the <code>.toLocaleDateString()</code> function of a date: </p>
-        <pre><code class="javascript">var date = new Date();
-date.toLocaleDateString(&quot;pt-PT&quot;);
-//returns something like &quot;24/8/2012&quot;</code></pre>
-        <p> OK, so the above output is not super useful - it's actually less pretty than what we originally had! But it's a start on our way to localizing the date more fully! </p>
-        <p>Note that what the above <strong>does</strong> give us is a date formatted in a way that is more or less guaranteed to be understood in the given locale, even thought it is not as pretty as having the date in &quot;long&quot; form (i.e., as in &quot;Friday, 24 of August&quot; ).</p>
-        <p>Just so we can see the API do something more impressive, lets say our user from China (using language tag is &quot;zh-Hans&quot;, which is simplified Chinese): </p>
-        <pre><code class="javascript">date.toLocaleDateString(&quot;zh-Hans&quot;);
-//returns something like "2012年8月28日"</code></pre>
-        <p>So now we are getting somewhere! We've managed to convert our date object to simplified Chinese without hardly doing any work (which we like!). </p>
-        <h2>Controlling the formatting </h2>
-        <p>As we pointed out above, the date format &quot;24/8/2012&quot; will likely be comprehended, but it's not the most user-friendly way to display dates. In particular, it's nice to see what day of the week it is (Monday, Tuesday, etc.) and what month we are talking about. </p>
-        <p>To do this the <cite>Internationalization API</cite> allows us to pass a set of options as an argument to <code data-language="javascript">.toLocaleDateString()</code>. For example:</p>
-        <pre><code class="javascript">var options = {weekday: &quot;long&quot;}; 
+//PS: the above will also work fine in a browser!</code>
+</pre>
+            <p>
+              Once we know that the <cite>Internationalization API</cite> is
+              supported, we are good to start localizing stuff! In case you are
+              wondering, the <code>Intl</code> object contains a bunch of
+              useful other objects that we will make use of later.
+            </p>
+            <p class="note">
+              <strong>Note:</strong> Because this API is still not final,
+              actually finding out if the browser supports the full API can be
+              tricky. For example, to date, there is only one implementation of
+              the API (Chrome)... and the Chrome team have put the
+              <cite>Internationalization API</cite> behind a unique vendor
+              prefix (<code>v8</code>). Not only that, only parts of the API
+              are exposed to developers, which is why we use a custom <a href=
+              "https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">
+              monkey-patch</a> to make the whole thing work as if it was
+              actually natively implemented in the browser.
+            </p>
+            <h1>
+              Localizing dates and times
+            </h1>
+            <p>
+              You've probably done this hundreds of times:
+            </p>
+            <pre>
+<code class="javascript">var date = new Date();</code>
+</pre>
+            <p>
+              And possibly displayed it in the browser's default locale by
+              calling:
+            </p>
+            <pre>
+<code class="javascript">date.toLocaleDateString(); 
+//returns e.g. "Friday, August 24, 2012" </code>
+</pre>
+            <h2>
+              The problem
+            </h2>
+            <p>
+              <img src="images/user.png" width="71" height="111" alt="">The
+              above might be all well and good if the user is sitting at home
+              where her computer's <dfn>locale</dfn> settings (i.e., language
+              and geographical region) are likely set correctly. But what
+              happens if the user is on a PC whose locale settings are set to
+              Japanese, but her preferred locale settings are Portuguese as
+              used in Portugal?
+            </p>
+            <p>
+              Lets say our user is backpacking around the world and has logged
+              into your Web application from an Internet cafe in Japan. How can
+              you make sure she sees numbers, dates, and currencies formatted
+              in a way she is most accustomed to?
+            </p>
+            <h2>
+              The solution
+            </h2>
+            <p>
+              Firstly, what we need is to convert what we know about the user's
+              locale to a <dfn>language tag.</dfn> A language tag is a simple
+              string that represents the user's preferred language and,
+              optionally, where they are (or wish they were for the purposes of
+              communication).
+            </p>
+            <h2>
+              Language Tags and locales
+            </h2>
+            <p>
+              You have undoubtedly encountered language tags before. For
+              example "en-US", which roughly translates to "English as used in
+              the United States"; as opposed to, say, "en-AU", which would be
+              "English as used in Australia". And as you can see, most language
+              tags simply identify some language as used in some country or
+              region.
+            </p>
+            <blockquote>
+              <q>Language tags are used to help identify languages, whether
+              spoken, written, signed, or otherwise signaled, for the purpose
+              of communication.</q> - <cite><a href=
+              "http://www.rfc-editor.org/bcp/bcp47.txt"><abbr title=
+              "best current practice">BCP</abbr>47</a></cite>.
+            </blockquote>
+            <p>
+              But a language tag, or more generally, the concept of a
+              <dfn>locale</dfn>, doesn't just relate to languages: it also
+              indicates the conventions for how dates, times, and currencies
+              are formatted and how lists are sorted - and can even have an
+              impact on how things are spoken by text-to-speech software. For
+              example, here is how "Alex" on MacOS X reads dates when the
+              system settings are set to English and region is United States:
+            </p>
+            <blockquote>
+              <p>
+                <q>Niel Armstrong landed on the moon on
+                <em>07/20/1969</em></q>. But not on the <em>20/07/1969</em>?
+              </p><audio controls="controls">
+              <source src="sounds/tts.m4a" type="audio/mp4a-latm">
+              <source src="sounds/tts.ogg" type="audio/ogg">
+              <source src="sounds/tts.mp3" type="audio/mp3"><a href=
+              "sounds/tts.mp3">Listen to text-to-speech version.</a></audio>
+            </blockquote>
+            <p>
+              As the audio example shows, strings representing dates are
+              treated differently based on the user's locale settings. In the
+              United States the date is written in short form as: 07/20/2012;
+              while in other English speaking countries, such as Australia and
+              the UK, written as 20/07/2012 (i.e., days and months are
+              swapped).
+            </p>
+            <p>
+              Many users have been confused, and many databases have broken,
+              thanks to naive handling of dates. The <cite>Internationalization
+              API</cite> should help make that a thing of the past.
+            </p>
+            <h2>
+              Getting the user's locale
+            </h2>
+            <p>
+              Unfortunately, there is no 100% reliable way in the browser of
+              getting the user's locale information - unless you ask the user
+              explicitly.
+            </p>
+            <p>
+              There are some unreliable hacks, like querying
+              <code>navigator.language</code> in Chrome and Firefox, or
+              <code>navigator.browserLanguage</code>&nbsp;in IE, or looking at
+              the HTTP <code>Accept-Language</code> header using XHR. But these
+              techniques would not help our previously described
+              backpacking-user: because she is using a computer at an internet
+              cafe, she has no control over the language preferences of the
+              machine.
+            </p>
+            <p>
+              So, just ask if you need to. Or provide a way for the user to
+              select their locale preferences.
+            </p>
+            <h2>
+              Starting localization process
+            </h2>
+            <p>
+              If we know the user's preferred language (in this case "pt-PT"),
+              the <cite>Internationalization API</cite> allows us to provide
+              that information as an argument to the
+              <code>.toLocaleDateString()</code> function of a date:
+            </p>
+            <pre>
+<code class="javascript">var date = new Date();
+date.toLocaleDateString("pt-PT");
+//returns something like "24/8/2012"</code>
+</pre>
+            <p>
+              OK, so the above output is not super useful - it's actually less
+              pretty than what we originally had! But it's a start on our way
+              to localizing the date more fully!
+            </p>
+            <p>
+              Note that what the above <strong>does</strong> give us is a date
+              formatted in a way that is more or less guaranteed to be
+              understood in the given locale, even thought it is not as pretty
+              as having the date in "long" form (i.e., as in "Friday, 24 of
+              August" ).
+            </p>
+            <p>
+              Just so we can see the API do something more impressive, lets say
+              our user from China (using language tag is "zh-Hans", which is
+              simplified Chinese):
+            </p>
+            <pre>
+<code class="javascript">date.toLocaleDateString("zh-Hans");
+//returns something like "2012年8月28日"</code>
+</pre>
+            <p>
+              So now we are getting somewhere! We've managed to convert our
+              date object to simplified Chinese without hardly doing any work
+              (which we like!).
+            </p>
+            <h2>
+              Controlling the formatting
+            </h2>
+            <p>
+              As we pointed out above, the date format "24/8/2012" will likely
+              be comprehended, but it's not the most user-friendly way to
+              display dates. In particular, it's nice to see what day of the
+              week it is (Monday, Tuesday, etc.) and what month we are talking
+              about.
+            </p>
+            <p>
+              To do this the <cite>Internationalization API</cite> allows us to
+              pass a set of options as an argument to <code data-language=
+              "javascript">.toLocaleDateString()</code>. For example:
+            </p>
+            <pre>
+<code class="javascript">var options = {weekday: "long"}; 
 
-date.toLocaleDateString(&quot;pt&quot;, options);
-//returns &quot;sexta-feira&quot; (which is Friday in Portuguese)
+date.toLocaleDateString("pt", options);
+//returns "sexta-feira" (which is Friday in Portuguese)
 
-date.toLocaleDateString(&quot;ja&quot;, options);
-//&quot;金曜日&quot; which is Friday in Japanese</code></pre>
-        <p>Where it gets tricky is knowing how other cultures like to have their &quot;pretty dates&quot; formatted. This is where the Internationalization API really starts to show its usefulness - it has this knowledge built in, and gives programmers control of how to format a date through a set of options. These options are then passed to the <code>.toLocaleDateString()</code> or to the <code>.toLocaleString()</code> as an argument. </p>
-        <div class="important">
-          <p>There is something important to note from the above. In Portugal,  for example, people only use &quot;sexta-feira&quot; for &quot;Friday&quot; in formal contexts; in informal contexts, they just say &quot;sexta&quot; and drop the &quot;-feira&quot;. </p>
-          <p>The take away here is that you should not just assume that what the API returns is always correct for the locale or audience you are targeting. Be sure to always consult someone who lives in the locale you are targeting about date, time, currency, and collation conventions. <strong>Don't just blindly rely on what the browser returns</strong>.</p>
-        </div>
-        <h2>Formatting example</h2>
-        <p>For example, lets say we want to output &quot;day of week, day Month, Year&quot;. We would set the following options:</p>
-        <pre><code class="javascript">var options = {
-    weekday: &quot;long&quot;,
-    year: &quot;numeric&quot;,
-    month: &quot;long&quot;,
-    day: &quot;numeric&quot;
+date.toLocaleDateString("ja", options);
+//"金曜日" which is Friday in Japanese</code>
+</pre>
+            <p>
+              Where it gets tricky is knowing how other cultures like to have
+              their "pretty dates" formatted. This is where the
+              Internationalization API really starts to show its usefulness -
+              it has this knowledge built in, and gives programmers control of
+              how to format a date through a set of options. These options are
+              then passed to the <code>.toLocaleDateString()</code> or to the
+              <code>.toLocaleString()</code> as an argument.
+            </p>
+            <div class="important">
+              <p>
+                There is something important to note from the above. In
+                Portugal, for example, people only use "sexta-feira" for
+                "Friday" in formal contexts; in informal contexts, they just
+                say "sexta" and drop the "-feira".
+              </p>
+              <p>
+                The take away here is that you should not just assume that what
+                the API returns is always correct for the locale or audience
+                you are targeting. Be sure to always consult someone who lives
+                in the locale you are targeting about date, time, currency, and
+                collation conventions. <strong>Don't just blindly rely on what
+                the browser returns</strong>.
+              </p>
+            </div>
+            <h2>
+              Formatting example
+            </h2>
+            <p>
+              For example, lets say we want to output "day of week, day Month,
+              Year". We would set the following options:
+            </p>
+            <pre>
+<code class="javascript">var options = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric"
 };
-date.toLocaleDateString(&quot;pt&quot;, options); 
-//returns &quot;sexta-feira, 24 de agosto de 2012&quot;
+date.toLocaleDateString("pt", options); 
+//returns "sexta-feira, 24 de agosto de 2012"
 
-date.toLocaleDateString(&quot;jp&quot;, options); 
-//&quot;2012年8月24日(金曜日)&quot;
+date.toLocaleDateString("jp", options); 
+//"2012年8月24日(金曜日)"
 
 //And even arabic
-date.toLocaleDateString(&quot;ar&quot;, options);
-//&quot;الجمعة، ٢٤ أغسطس، ٢٠١٢&quot;
+date.toLocaleDateString("ar", options);
+//"الجمعة، ٢٤ أغسطس، ٢٠١٢"
 
 //And for our final trick: Thai Buddhist calendar and Thai digits
-date.toLocaleDateString(&quot;th-u-ca-buddhist-nu-thai&quot;, options); 
-//returns &quot;วันศุกร์ ๒๔ สิงหาคม ๒๕๕๕&quot;</code></pre>
-        <p>Pretty funky! The last example uses &quot;Unicode extensions&quot; to language tags, which we cover in the <a href="#advanced-langtags">advanced language-tag construction</a> section of this guide. But to give you a quick sense of how it works, this is how the &quot;th-u-ca-buddhist-nu-thai&quot; language tag breaks down:</p>
-        <dl>
-          <dt><code>th</code></dt>
-          <dd>Thai</dd>
-          <dt><code>u</code></dt>
-          <dd>Enable Unicode extensions</dd>
-          <dt><code>ca</code></dt>
-          <dd>Calendar</dd>
-          <dt><code>buddhist</code></dt>
-          <dd>Buddhist calendar</dd>
-          <dt><code>nu</code></dt>
-          <dd>Numeric format</dd>
-          <dt><code>thai</code></dt>
-          <dd>Thai </dd>
-        </dl>
-        <p>The above code examples are starting to show the usefulness of the <cite>Internationalization API</cite>, but there is a problem: how do we know what locales the Browser understands? That is the topic we will come back to later in this article.</p>
-        <h3>Formatting options</h3>
-        <p>The options that can be passed to <code>date.toLocaleString()</code>, <code>date.toLocaleDateString()</code>, and <code>date.toLocaleTimeString()</code>as object literal are given in the table below. </p>
-        <p class="supported">If you are using Chrome, you can use the check boxes and radio buttons below to mix and match options and see what is outputted at the bottom of the table.</p>
-        <form id="optionsTable" class="formatter" onsubmit="return false;">
+date.toLocaleDateString("th-u-ca-buddhist-nu-thai", options); 
+//returns "วันศุกร์ ๒๔ สิงหาคม ๒๕๕๕"</code>
+</pre>
+            <p>
+              Pretty funky! The last example uses "Unicode extensions" to
+              language tags, which we cover in the <a href=
+              "#advanced-langtags">advanced language-tag construction</a>
+              section of this guide. But to give you a quick sense of how it
+              works, this is how the "th-u-ca-buddhist-nu-thai" language tag
+              breaks down:
+            </p>
+            <dl>
+              <dt>
+                <code>th</code>
+              </dt>
+              <dd>
+                Thai
+              </dd>
+              <dt>
+                <code>u</code>
+              </dt>
+              <dd>
+                Enable Unicode extensions
+              </dd>
+              <dt>
+                <code>ca</code>
+              </dt>
+              <dd>
+                Calendar
+              </dd>
+              <dt>
+                <code>buddhist</code>
+              </dt>
+              <dd>
+                Buddhist calendar
+              </dd>
+              <dt>
+                <code>nu</code>
+              </dt>
+              <dd>
+                Numeric format
+              </dd>
+              <dt>
+                <code>thai</code>
+              </dt>
+              <dd>
+                Thai
+              </dd>
+            </dl>
+            <p>
+              The above code examples are starting to show the usefulness of
+              the <cite>Internationalization API</cite>, but there is a
+              problem: how do we know what locales the Browser understands?
+              That is the topic we will come back to later in this article.
+            </p>
+            <h3>
+              Formatting options
+            </h3>
+            <p>
+              The options that can be passed to
+              <code>date.toLocaleString()</code>,
+              <code>date.toLocaleDateString()</code>, and
+              <code>date.toLocaleTimeString()</code>as object literal are given
+              in the table below.
+            </p>
+            <p class="supported">
+              If you are using Chrome, you can use the check boxes and radio
+              buttons below to mix and match options and see what is outputted
+              at the bottom of the table.
+            </p>
+            <form id="optionsTable" class="formatter" onsubmit="return false;"
+            name="optionsTable">
               <fieldset>
                 <legend class="supported"><span>Date formatter</span>
-                <span class="options">
-                <label for="lang">Lang:</label>
+                <span class="options"><label for="lang">Lang:</label>
                 <select id="lang">
-                  <option value="">None (system default)
-                  <option value="aa">Afar
-                  <option value="ab">Abkhaz
-                  <option value="ae">Avestan
-                  <option value="af">Afrikaans
-                  <option value="ak">Akan
-                  <option value="am">Amharic
-                  <option value="an">Aragonese
-                  <option value="ar">Arabic
-                  <option value="as">Assamese
-                  <option value="av">Avaric
-                  <option value="ay">Aymara
-                  <option value="az">Azerbaijani
-                  <option value="ba">Bashkir
-                  <option value="be">Belarusian
-                  <option value="bg">Bulgarian
-                  <option value="bh">Bihari
-                  <option value="bi">Bislama
-                  <option value="bm">Bambara
-                  <option value="bn">Bengali
-                  <option value="bo">Tibetan Standard, Tibetan, Central
-                  <option value="br">Breton
-                  <option value="bs">Bosnian
-                  <option value="ca">Catalan; Valencian
-                  <option value="ce">Chechen
-                  <option value="ch">Chamorro
-                  <option value="co">Corsican
-                  <option value="cr">Cree
-                  <option value="cs">Czech
-                  <option value="cu">Old Church Slavonic, Church Slavic, Church Slavonic, Old Bulgarian, Old Slavonic
-                  <option value="cv">Chuvash
-                  <option value="cy">Welsh
-                  <option value="da">Danish
-                  <option value="de">German
-                  <option value="dv">Divehi; Dhivehi; Maldivian;
-                  <option value="dz">Dzongkha
-                  <option value="ee">Ewe
-                  <option value="el">Greek, Modern
-                  <option value="en" selected>English
-                  <option value="eo">Esperanto
-                  <option value="es">Spanish; Castilian
-                  <option value="et">Estonian
-                  <option value="eu">Basque
-                  <option value="fa">Persian
-                  <option value="ff">Fula; Fulah; Pulaar; Pular
-                  <option value="fi">Finnish
-                  <option value="fj">Fijian
-                  <option value="fo">Faroese
-                  <option value="fr">French
-                  <option value="fy">Western Frisian
-                  <option value="ga">Irish
-                  <option value="gd">Scottish Gaelic; Gaelic
-                  <option value="gl">Galician
-                  <option value="gn">Guaraní
-                  <option value="gu">Gujarati
-                  <option value="gv">Manx
-                  <option value="ha">Hausa
-                  <option value="he">Hebrew (modern)
-                  <option value="hi">Hindi
-                  <option value="ho">Hiri Motu
-                  <option value="hr">Croatian
-                  <option value="ht">Haitian; Haitian Creole
-                  <option value="hu">Hungarian
-                  <option value="hy">Armenian
-                  <option value="hz">Herero
-                  <option value="ia">Interlingua
-                  <option value="id">Indonesian
-                  <option value="ie">Interlingue
-                  <option value="ig">Igbo
-                  <option value="ii">Nuosu
-                  <option value="ik">Inupiaq
-                  <option value="io">Ido
-                  <option value="is">Icelandic
-                  <option value="it">Italian
-                  <option value="iu">Inuktitut
-                  <option value="ja">Japanese
-                  <option value="jv">Javanese
-                  <option value="ka">Georgian
-                  <option value="kg">Kongo
-                  <option value="ki">Kikuyu, Gikuyu
-                  <option value="kj">Kwanyama, Kuanyama
-                  <option value="kk">Kazakh
-                  <option value="kl">Kalaallisut, Greenlandic
-                  <option value="km">Khmer
-                  <option value="kn">Kannada
-                  <option value="ko">Korean
-                  <option value="kr">Kanuri
-                  <option value="ks">Kashmiri
-                  <option value="ku">Kurdish
-                  <option value="kv">Komi
-                  <option value="kw">Cornish
-                  <option value="ky">Kyrgyz
-                  <option value="la">Latin
-                  <option value="lb">Luxembourgish, Letzeburgesch
-                  <option value="lg">Ganda
-                  <option value="li">Limburgish, Limburgan, Limburger
-                  <option value="ln">Lingala
-                  <option value="lo">Lao
-                  <option value="lt">Lithuanian
-                  <option value="lu">Luba-Katanga
-                  <option value="lv">Latvian
-                  <option value="mg">Malagasy
-                  <option value="mh">Marshallese
-                  <option value="mi">Māori
-                  <option value="mk">Macedonian
-                  <option value="ml">Malayalam
-                  <option value="mn">Mongolian
-                  <option value="mr">Marathi (Marāṭhī)
-                  <option value="ms">Malay
-                  <option value="mt">Maltese
-                  <option value="my">Burmese
-                  <option value="na">Nauru
-                  <option value="nb">Norwegian Bokmål
-                  <option value="nd">North Ndebele
-                  <option value="ne">Nepali
-                  <option value="ng">Ndonga
-                  <option value="nl">Dutch
-                  <option value="nn">Norwegian Nynorsk
-                  <option value="no">Norwegian
-                  <option value="nr">South Ndebele
-                  <option value="nv">Navajo, Navaho
-                  <option value="ny">Chichewa; Chewa; Nyanja
-                  <option value="oc">Occitan
-                  <option value="oj">Ojibwe, Ojibwa
-                  <option value="om">Oromo
-                  <option value="or">Oriya
-                  <option value="os">Ossetian, Ossetic
-                  <option value="pa">Panjabi, Punjabi
-                  <option value="pi">Pāli
-                  <option value="pl">Polish
-                  <option value="ps">Pashto, Pushto
-                  <option value="pt">Portuguese
-                  <option value="qu">Quechua
-                  <option value="rm">Romansh
-                  <option value="rn">Kirundi
-                  <option value="ro">Romanian, Moldavian, Moldovan
-                  <option value="ru">Russian
-                  <option value="rw">Kinyarwanda
-                  <option value="sa">Sanskrit (Saṁskṛta)
-                  <option value="sc">Sardinian
-                  <option value="sd">Sindhi
-                  <option value="se">Northern Sami
-                  <option value="sg">Sango
-                  <option value="si">Sinhala, Sinhalese
-                  <option value="sk">Slovak
-                  <option value="sl">Slovene
-                  <option value="sm">Samoan
-                  <option value="sn">Shona
-                  <option value="so">Somali
-                  <option value="sq">Albanian
-                  <option value="sr">Serbian
-                  <option value="ss">Swati
-                  <option value="st">Southern Sotho
-                  <option value="su">Sundanese
-                  <option value="sv">Swedish
-                  <option value="sw">Swahili
-                  <option value="ta">Tamil
-                  <option value="te">Telugu
-                  <option value="tg">Tajik
-                  <option value="th">Thai
-                  <option value="ti">Tigrinya
-                  <option value="tk">Turkmen
-                  <option value="tl">Tagalog
-                  <option value="tn">Tswana
-                  <option value="to">Tonga (Tonga Islands)
-                  <option value="tr">Turkish
-                  <option value="ts">Tsonga
-                  <option value="tt">Tatar
-                  <option value="tw">Twi
-                  <option value="ty">Tahitian
-                  <option value="ug">Uighur, Uyghur
-                  <option value="uk">Ukrainian
-                  <option value="ur">Urdu
-                  <option value="uz">Uzbek
-                  <option value="ve">Venda
-                  <option value="vi">Vietnamese
-                  <option value="vk">Viking
-                  <option value="vo">Volapük
-                  <option value="wa">Walloon
-                  <option value="wo">Wolof
-                  <option value="xh">Xhosa
-                  <option value="yi">Yiddish
-                  <option value="yo">Yoruba
-                  <option value="za">Zhuang, Chuang
-                  <option value="zh">Chinese
-                  <option value="zu">Zulu
-                </select>
-                <label for="region">Region:</label>
-                <select id="region" name="region">
-                  <option value="" selected>Anywhere
-                  <option value="AF">Afghanistan
-                  <option value="AX">Åland Islands
-                  <option value="AL">Albania
-                  <option value="DZ">Algeria
-                  <option value="AS">American Samoa
-                  <option value="AD">Andorra
-                  <option value="AO">Angola
-                  <option value="AI">Anguilla
-                  <option value="AQ">Antarctica
-                  <option value="AG">Antigua and Barbuda
-                  <option value="AR">Argentina
-                  <option value="AM">Armenia
-                  <option value="AW">Aruba
-                  <option value="AU">Australia
-                  <option value="AT">Austria
-                  <option value="AZ">Azerbaijan
-                  <option value="BS">Bahamas
-                  <option value="BH">Bahrain
-                  <option value="BD">Bangladesh
-                  <option value="BB">Barbados
-                  <option value="BY">Belarus
-                  <option value="BE">Belgium
-                  <option value="BZ">Belize
-                  <option value="BJ">Benin
-                  <option value="BM">Bermuda
-                  <option value="BT">Bhutan
-                  <option value="BO">Bolivia, Plurinational State of
-                  <option value="BQ">Bonaire, Sint Eustatius and Saba
-                  <option value="BA">Bosnia and Herzegovina
-                  <option value="BW">Botswana
-                  <option value="BV">Bouvet Island
-                  <option value="BR">Brazil
-                  <option value="IO">British Indian Ocean Territory
-                  <option value="BN">Brunei Darussalam
-                  <option value="BG">Bulgaria
-                  <option value="BF">Burkina Faso
-                  <option value="BI">Burundi
-                  <option value="KH">Cambodia
-                  <option value="CM">Cameroon
-                  <option value="CA">Canada
-                  <option value="CV">Cape Verde
-                  <option value="KY">Cayman Islands
-                  <option value="CF">Central African Republic
-                  <option value="TD">Chad
-                  <option value="CL">Chile
-                  <option value="CN">China
-                  <option value="CX">Christmas Island
-                  <option value="CC">Cocos (Keeling) Islands
-                  <option value="CO">Colombia
-                  <option value="KM">Comoros
-                  <option value="CG">Congo
-                  <option value="CD">Congo, the Democratic Republic of the
-                  <option value="CK">Cook Islands
-                  <option value="CR">Costa Rica
-                  <option value="CI">Côte d'Ivoire
-                  <option value="HR">Croatia
-                  <option value="CU">Cuba
-                  <option value="CW">Curaçao
-                  <option value="CY">Cyprus
-                  <option value="CZ">Czech Republic
-                  <option value="DK">Denmark
-                  <option value="DJ">Djibouti
-                  <option value="DM">Dominica
-                  <option value="DO">Dominican Republic
-                  <option value="EC">Ecuador
-                  <option value="EG">Egypt
-                  <option value="SV">El Salvador
-                  <option value="GQ">Equatorial Guinea
-                  <option value="ER">Eritrea
-                  <option value="EE">Estonia
-                  <option value="ET">Ethiopia
-                  <option value="FK">Falkland Islands (Malvinas)
-                  <option value="FO">Faroe Islands
-                  <option value="FJ">Fiji
-                  <option value="FI">Finland
-                  <option value="FR">France
-                  <option value="GF">French Guiana
-                  <option value="PF">French Polynesia
-                  <option value="TF">French Southern Territories
-                  <option value="GA">Gabon
-                  <option value="GM">Gambia
-                  <option value="GE">Georgia
-                  <option value="DE">Germany
-                  <option value="GH">Ghana
-                  <option value="GI">Gibraltar
-                  <option value="GR">Greece
-                  <option value="GL">Greenland
-                  <option value="GD">Grenada
-                  <option value="GP">Guadeloupe
-                  <option value="GU">Guam
-                  <option value="GT">Guatemala
-                  <option value="GG">Guernsey
-                  <option value="GN">Guinea
-                  <option value="GW">Guinea-Bissau
-                  <option value="GY">Guyana
-                  <option value="HT">Haiti
-                  <option value="HM">Heard Island and McDonald Islands
-                  <option value="VA">Holy See (Vatican City State)
-                  <option value="HN">Honduras
-                  <option value="HK">Hong Kong
-                  <option value="HU">Hungary
-                  <option value="IS">Iceland
-                  <option value="IN">India
-                  <option value="ID">Indonesia
-                  <option value="IR">Iran, Islamic Republic of
-                  <option value="IQ">Iraq
-                  <option value="IE">Ireland
-                  <option value="IM">Isle of Man
-                  <option value="IL">Israel
-                  <option value="IT">Italy
-                  <option value="JM">Jamaica
-                  <option value="JP">Japan
-                  <option value="JE">Jersey
-                  <option value="JO">Jordan
-                  <option value="KZ">Kazakhstan
-                  <option value="KE">Kenya
-                  <option value="KI">Kiribati
-                  <option value="KP">Korea, Democratic People's Republic of
-                  <option value="KR">Korea, Republic of
-                  <option value="KW">Kuwait
-                  <option value="KG">Kyrgyzstan
-                  <option value="LA">Lao People's Democratic Republic
-                  <option value="LV">Latvia
-                  <option value="LB">Lebanon
-                  <option value="LS">Lesotho
-                  <option value="LR">Liberia
-                  <option value="LY">Libya
-                  <option value="LI">Liechtenstein
-                  <option value="LT">Lithuania
-                  <option value="LU">Luxembourg
-                  <option value="MO">Macao
-                  <option value="MK">Macedonia, the former Yugoslav Republic of
-                  <option value="MG">Madagascar
-                  <option value="MW">Malawi
-                  <option value="MY">Malaysia
-                  <option value="MV">Maldives
-                  <option value="ML">Mali
-                  <option value="MT">Malta
-                  <option value="MH">Marshall Islands
-                  <option value="MQ">Martinique
-                  <option value="MR">Mauritania
-                  <option value="MU">Mauritius
-                  <option value="YT">Mayotte
-                  <option value="MX">Mexico
-                  <option value="FM">Micronesia, Federated States of
-                  <option value="MD">Moldova, Republic of
-                  <option value="MC">Monaco
-                  <option value="MN">Mongolia
-                  <option value="ME">Montenegro
-                  <option value="MS">Montserrat
-                  <option value="MA">Morocco
-                  <option value="MZ">Mozambique
-                  <option value="MM">Myanmar
-                  <option value="NA">Namibia
-                  <option value="NR">Nauru
-                  <option value="NP">Nepal
-                  <option value="NL">Netherlands
-                  <option value="NC">New Caledonia
-                  <option value="NZ">New Zealand
-                  <option value="NI">Nicaragua
-                  <option value="NE">Niger
-                  <option value="NG">Nigeria
-                  <option value="NU">Niue
-                  <option value="NF">Norfolk Island
-                  <option value="MP">Northern Mariana Islands
-                  <option value="NO">Norway
-                  <option value="OM">Oman
-                  <option value="PK">Pakistan
-                  <option value="PW">Palau
-                  <option value="PS">Palestinian Territory, Occupied
-                  <option value="PA">Panama
-                  <option value="PG">Papua New Guinea
-                  <option value="PY">Paraguay
-                  <option value="PE">Peru
-                  <option value="PH">Philippines
-                  <option value="PN">Pitcairn
-                  <option value="PL">Poland
-                  <option value="PT">Portugal
-                  <option value="PR">Puerto Rico
-                  <option value="QA">Qatar
-                  <option value="RE">Réunion
-                  <option value="RO">Romania
-                  <option value="RU">Russian Federation
-                  <option value="RW">Rwanda
-                  <option value="BL">Saint Barthélemy
-                  <option value="SH">Saint Helena, Ascension and Tristan da Cunha
-                  <option value="KN">Saint Kitts and Nevis
-                  <option value="LC">Saint Lucia
-                  <option value="MF">Saint Martin (French part)
-                  <option value="PM">Saint Pierre and Miquelon
-                  <option value="VC">Saint Vincent and the Grenadines
-                  <option value="WS">Samoa
-                  <option value="SM">San Marino
-                  <option value="ST">Sao Tome and Principe
-                  <option value="SA">Saudi Arabia
-                  <option value="SN">Senegal
-                  <option value="RS">Serbia
-                  <option value="SC">Seychelles
-                  <option value="SL">Sierra Leone
-                  <option value="SG">Singapore
-                  <option value="SX">Sint Maarten (Dutch part)
-                  <option value="SK">Slovakia
-                  <option value="SI">Slovenia
-                  <option value="SB">Solomon Islands
-                  <option value="SO">Somalia
-                  <option value="ZA">South Africa
-                  <option value="GS">South Georgia and the South Sandwich Islands
-                  <option value="SS">South Sudan
-                  <option value="ES">Spain
-                  <option value="LK">Sri Lanka
-                  <option value="SD">Sudan
-                  <option value="SR">Suriname
-                  <option value="SJ">Svalbard and Jan Mayen
-                  <option value="SZ">Swaziland
-                  <option value="SE">Sweden
-                  <option value="CH">Switzerland
-                  <option value="SY">Syrian Arab Republic
-                  <option value="TW">Taiwan, Province of China
-                  <option value="TJ">Tajikistan
-                  <option value="TZ">Tanzania, United Republic of
-                  <option value="TH">Thailand
-                  <option value="TL">Timor-Leste
-                  <option value="TG">Togo
-                  <option value="TK">Tokelau
-                  <option value="TO">Tonga
-                  <option value="TT">Trinidad and Tobago
-                  <option value="TN">Tunisia
-                  <option value="TR">Turkey
-                  <option value="TM">Turkmenistan
-                  <option value="TC">Turks and Caicos Islands
-                  <option value="TV">Tuvalu
-                  <option value="UG">Uganda
-                  <option value="UA">Ukraine
-                  <option value="AE">United Arab Emirates
-                  <option value="GB">United Kingdom
-                  <option value="US">United States
-                  <option value="UM">United States Minor Outlying Islands
-                  <option value="UY">Uruguay
-                  <option value="UZ">Uzbekistan
-                  <option value="VU">Vanuatu
-                  <option value="VE">Venezuela, Bolivarian Republic of
-                  <option value="VN">Viet Nam
-                  <option value="VG">Virgin Islands, British
-                  <option value="VI">Virgin Islands, U.S.
-                  <option value="WF">Wallis and Futuna
-                  <option value="EH">Western Sahara
-                  <option value="YE">Yemen
-                  <option value="ZM">Zambia
-                  <option value="ZW">Zimbabwe
-                </select>
-                </span></legend>
+                  <option value="">
+                    None (system default)
+                  </option>
+                  <option value="aa">
+                    Afar
+                  </option>
+                  <option value="ab">
+                    Abkhaz
+                  </option>
+                  <option value="ae">
+                    Avestan
+                  </option>
+                  <option value="af">
+                    Afrikaans
+                  </option>
+                  <option value="ak">
+                    Akan
+                  </option>
+                  <option value="am">
+                    Amharic
+                  </option>
+                  <option value="an">
+                    Aragonese
+                  </option>
+                  <option value="ar">
+                    Arabic
+                  </option>
+                  <option value="as">
+                    Assamese
+                  </option>
+                  <option value="av">
+                    Avaric
+                  </option>
+                  <option value="ay">
+                    Aymara
+                  </option>
+                  <option value="az">
+                    Azerbaijani
+                  </option>
+                  <option value="ba">
+                    Bashkir
+                  </option>
+                  <option value="be">
+                    Belarusian
+                  </option>
+                  <option value="bg">
+                    Bulgarian
+                  </option>
+                  <option value="bh">
+                    Bihari
+                  </option>
+                  <option value="bi">
+                    Bislama
+                  </option>
+                  <option value="bm">
+                    Bambara
+                  </option>
+                  <option value="bn">
+                    Bengali
+                  </option>
+                  <option value="bo">
+                    Tibetan Standard, Tibetan, Central
+                  </option>
+                  <option value="br">
+                    Breton
+                  </option>
+                  <option value="bs">
+                    Bosnian
+                  </option>
+                  <option value="ca">
+                    Catalan; Valencian
+                  </option>
+                  <option value="ce">
+                    Chechen
+                  </option>
+                  <option value="ch">
+                    Chamorro
+                  </option>
+                  <option value="co">
+                    Corsican
+                  </option>
+                  <option value="cr">
+                    Cree
+                  </option>
+                  <option value="cs">
+                    Czech
+                  </option>
+                  <option value="cu">
+                    Old Church Slavonic, Church Slavic, Church Slavonic, Old
+                    Bulgarian, Old Slavonic
+                  </option>
+                  <option value="cv">
+                    Chuvash
+                  </option>
+                  <option value="cy">
+                    Welsh
+                  </option>
+                  <option value="da">
+                    Danish
+                  </option>
+                  <option value="de">
+                    German
+                  </option>
+                  <option value="dv">
+                    Divehi; Dhivehi; Maldivian;
+                  </option>
+                  <option value="dz">
+                    Dzongkha
+                  </option>
+                  <option value="ee">
+                    Ewe
+                  </option>
+                  <option value="el">
+                    Greek, Modern
+                  </option>
+                  <option value="en" selected>
+                    English
+                  </option>
+                  <option value="eo">
+                    Esperanto
+                  </option>
+                  <option value="es">
+                    Spanish; Castilian
+                  </option>
+                  <option value="et">
+                    Estonian
+                  </option>
+                  <option value="eu">
+                    Basque
+                  </option>
+                  <option value="fa">
+                    Persian
+                  </option>
+                  <option value="ff">
+                    Fula; Fulah; Pulaar; Pular
+                  </option>
+                  <option value="fi">
+                    Finnish
+                  </option>
+                  <option value="fj">
+                    Fijian
+                  </option>
+                  <option value="fo">
+                    Faroese
+                  </option>
+                  <option value="fr">
+                    French
+                  </option>
+                  <option value="fy">
+                    Western Frisian
+                  </option>
+                  <option value="ga">
+                    Irish
+                  </option>
+                  <option value="gd">
+                    Scottish Gaelic; Gaelic
+                  </option>
+                  <option value="gl">
+                    Galician
+                  </option>
+                  <option value="gn">
+                    Guaraní
+                  </option>
+                  <option value="gu">
+                    Gujarati
+                  </option>
+                  <option value="gv">
+                    Manx
+                  </option>
+                  <option value="ha">
+                    Hausa
+                  </option>
+                  <option value="he">
+                    Hebrew (modern)
+                  </option>
+                  <option value="hi">
+                    Hindi
+                  </option>
+                  <option value="ho">
+                    Hiri Motu
+                  </option>
+                  <option value="hr">
+                    Croatian
+                  </option>
+                  <option value="ht">
+                    Haitian; Haitian Creole
+                  </option>
+                  <option value="hu">
+                    Hungarian
+                  </option>
+                  <option value="hy">
+                    Armenian
+                  </option>
+                  <option value="hz">
+                    Herero
+                  </option>
+                  <option value="ia">
+                    Interlingua
+                  </option>
+                  <option value="id">
+                    Indonesian
+                  </option>
+                  <option value="ie">
+                    Interlingue
+                  </option>
+                  <option value="ig">
+                    Igbo
+                  </option>
+                  <option value="ii">
+                    Nuosu
+                  </option>
+                  <option value="ik">
+                    Inupiaq
+                  </option>
+                  <option value="io">
+                    Ido
+                  </option>
+                  <option value="is">
+                    Icelandic
+                  </option>
+                  <option value="it">
+                    Italian
+                  </option>
+                  <option value="iu">
+                    Inuktitut
+                  </option>
+                  <option value="ja">
+                    Japanese
+                  </option>
+                  <option value="jv">
+                    Javanese
+                  </option>
+                  <option value="ka">
+                    Georgian
+                  </option>
+                  <option value="kg">
+                    Kongo
+                  </option>
+                  <option value="ki">
+                    Kikuyu, Gikuyu
+                  </option>
+                  <option value="kj">
+                    Kwanyama, Kuanyama
+                  </option>
+                  <option value="kk">
+                    Kazakh
+                  </option>
+                  <option value="kl">
+                    Kalaallisut, Greenlandic
+                  </option>
+                  <option value="km">
+                    Khmer
+                  </option>
+                  <option value="kn">
+                    Kannada
+                  </option>
+                  <option value="ko">
+                    Korean
+                  </option>
+                  <option value="kr">
+                    Kanuri
+                  </option>
+                  <option value="ks">
+                    Kashmiri
+                  </option>
+                  <option value="ku">
+                    Kurdish
+                  </option>
+                  <option value="kv">
+                    Komi
+                  </option>
+                  <option value="kw">
+                    Cornish
+                  </option>
+                  <option value="ky">
+                    Kyrgyz
+                  </option>
+                  <option value="la">
+                    Latin
+                  </option>
+                  <option value="lb">
+                    Luxembourgish, Letzeburgesch
+                  </option>
+                  <option value="lg">
+                    Ganda
+                  </option>
+                  <option value="li">
+                    Limburgish, Limburgan, Limburger
+                  </option>
+                  <option value="ln">
+                    Lingala
+                  </option>
+                  <option value="lo">
+                    Lao
+                  </option>
+                  <option value="lt">
+                    Lithuanian
+                  </option>
+                  <option value="lu">
+                    Luba-Katanga
+                  </option>
+                  <option value="lv">
+                    Latvian
+                  </option>
+                  <option value="mg">
+                    Malagasy
+                  </option>
+                  <option value="mh">
+                    Marshallese
+                  </option>
+                  <option value="mi">
+                    Māori
+                  </option>
+                  <option value="mk">
+                    Macedonian
+                  </option>
+                  <option value="ml">
+                    Malayalam
+                  </option>
+                  <option value="mn">
+                    Mongolian
+                  </option>
+                  <option value="mr">
+                    Marathi (Marāṭhī)
+                  </option>
+                  <option value="ms">
+                    Malay
+                  </option>
+                  <option value="mt">
+                    Maltese
+                  </option>
+                  <option value="my">
+                    Burmese
+                  </option>
+                  <option value="na">
+                    Nauru
+                  </option>
+                  <option value="nb">
+                    Norwegian Bokmål
+                  </option>
+                  <option value="nd">
+                    North Ndebele
+                  </option>
+                  <option value="ne">
+                    Nepali
+                  </option>
+                  <option value="ng">
+                    Ndonga
+                  </option>
+                  <option value="nl">
+                    Dutch
+                  </option>
+                  <option value="nn">
+                    Norwegian Nynorsk
+                  </option>
+                  <option value="no">
+                    Norwegian
+                  </option>
+                  <option value="nr">
+                    South Ndebele
+                  </option>
+                  <option value="nv">
+                    Navajo, Navaho
+                  </option>
+                  <option value="ny">
+                    Chichewa; Chewa; Nyanja
+                  </option>
+                  <option value="oc">
+                    Occitan
+                  </option>
+                  <option value="oj">
+                    Ojibwe, Ojibwa
+                  </option>
+                  <option value="om">
+                    Oromo
+                  </option>
+                  <option value="or">
+                    Oriya
+                  </option>
+                  <option value="os">
+                    Ossetian, Ossetic
+                  </option>
+                  <option value="pa">
+                    Panjabi, Punjabi
+                  </option>
+                  <option value="pi">
+                    Pāli
+                  </option>
+                  <option value="pl">
+                    Polish
+                  </option>
+                  <option value="ps">
+                    Pashto, Pushto
+                  </option>
+                  <option value="pt">
+                    Portuguese
+                  </option>
+                  <option value="qu">
+                    Quechua
+                  </option>
+                  <option value="rm">
+                    Romansh
+                  </option>
+                  <option value="rn">
+                    Kirundi
+                  </option>
+                  <option value="ro">
+                    Romanian, Moldavian, Moldovan
+                  </option>
+                  <option value="ru">
+                    Russian
+                  </option>
+                  <option value="rw">
+                    Kinyarwanda
+                  </option>
+                  <option value="sa">
+                    Sanskrit (Saṁskṛta)
+                  </option>
+                  <option value="sc">
+                    Sardinian
+                  </option>
+                  <option value="sd">
+                    Sindhi
+                  </option>
+                  <option value="se">
+                    Northern Sami
+                  </option>
+                  <option value="sg">
+                    Sango
+                  </option>
+                  <option value="si">
+                    Sinhala, Sinhalese
+                  </option>
+                  <option value="sk">
+                    Slovak
+                  </option>
+                  <option value="sl">
+                    Slovene
+                  </option>
+                  <option value="sm">
+                    Samoan
+                  </option>
+                  <option value="sn">
+                    Shona
+                  </option>
+                  <option value="so">
+                    Somali
+                  </option>
+                  <option value="sq">
+                    Albanian
+                  </option>
+                  <option value="sr">
+                    Serbian
+                  </option>
+                  <option value="ss">
+                    Swati
+                  </option>
+                  <option value="st">
+                    Southern Sotho
+                  </option>
+                  <option value="su">
+                    Sundanese
+                  </option>
+                  <option value="sv">
+                    Swedish
+                  </option>
+                  <option value="sw">
+                    Swahili
+                  </option>
+                  <option value="ta">
+                    Tamil
+                  </option>
+                  <option value="te">
+                    Telugu
+                  </option>
+                  <option value="tg">
+                    Tajik
+                  </option>
+                  <option value="th">
+                    Thai
+                  </option>
+                  <option value="ti">
+                    Tigrinya
+                  </option>
+                  <option value="tk">
+                    Turkmen
+                  </option>
+                  <option value="tl">
+                    Tagalog
+                  </option>
+                  <option value="tn">
+                    Tswana
+                  </option>
+                  <option value="to">
+                    Tonga (Tonga Islands)
+                  </option>
+                  <option value="tr">
+                    Turkish
+                  </option>
+                  <option value="ts">
+                    Tsonga
+                  </option>
+                  <option value="tt">
+                    Tatar
+                  </option>
+                  <option value="tw">
+                    Twi
+                  </option>
+                  <option value="ty">
+                    Tahitian
+                  </option>
+                  <option value="ug">
+                    Uighur, Uyghur
+                  </option>
+                  <option value="uk">
+                    Ukrainian
+                  </option>
+                  <option value="ur">
+                    Urdu
+                  </option>
+                  <option value="uz">
+                    Uzbek
+                  </option>
+                  <option value="ve">
+                    Venda
+                  </option>
+                  <option value="vi">
+                    Vietnamese
+                  </option>
+                  <option value="vk">
+                    Viking
+                  </option>
+                  <option value="vo">
+                    Volapük
+                  </option>
+                  <option value="wa">
+                    Walloon
+                  </option>
+                  <option value="wo">
+                    Wolof
+                  </option>
+                  <option value="xh">
+                    Xhosa
+                  </option>
+                  <option value="yi">
+                    Yiddish
+                  </option>
+                  <option value="yo">
+                    Yoruba
+                  </option>
+                  <option value="za">
+                    Zhuang, Chuang
+                  </option>
+                  <option value="zh">
+                    Chinese
+                  </option>
+                  <option value="zu">
+                    Zulu
+                  </option>
+                </select> <label for="region">Region:</label> <select id=
+                "region" name="region">
+                  <option value="" selected>
+                    Anywhere
+                  </option>
+                  <option value="AF">
+                    Afghanistan
+                  </option>
+                  <option value="AX">
+                    Åland Islands
+                  </option>
+                  <option value="AL">
+                    Albania
+                  </option>
+                  <option value="DZ">
+                    Algeria
+                  </option>
+                  <option value="AS">
+                    American Samoa
+                  </option>
+                  <option value="AD">
+                    Andorra
+                  </option>
+                  <option value="AO">
+                    Angola
+                  </option>
+                  <option value="AI">
+                    Anguilla
+                  </option>
+                  <option value="AQ">
+                    Antarctica
+                  </option>
+                  <option value="AG">
+                    Antigua and Barbuda
+                  </option>
+                  <option value="AR">
+                    Argentina
+                  </option>
+                  <option value="AM">
+                    Armenia
+                  </option>
+                  <option value="AW">
+                    Aruba
+                  </option>
+                  <option value="AU">
+                    Australia
+                  </option>
+                  <option value="AT">
+                    Austria
+                  </option>
+                  <option value="AZ">
+                    Azerbaijan
+                  </option>
+                  <option value="BS">
+                    Bahamas
+                  </option>
+                  <option value="BH">
+                    Bahrain
+                  </option>
+                  <option value="BD">
+                    Bangladesh
+                  </option>
+                  <option value="BB">
+                    Barbados
+                  </option>
+                  <option value="BY">
+                    Belarus
+                  </option>
+                  <option value="BE">
+                    Belgium
+                  </option>
+                  <option value="BZ">
+                    Belize
+                  </option>
+                  <option value="BJ">
+                    Benin
+                  </option>
+                  <option value="BM">
+                    Bermuda
+                  </option>
+                  <option value="BT">
+                    Bhutan
+                  </option>
+                  <option value="BO">
+                    Bolivia, Plurinational State of
+                  </option>
+                  <option value="BQ">
+                    Bonaire, Sint Eustatius and Saba
+                  </option>
+                  <option value="BA">
+                    Bosnia and Herzegovina
+                  </option>
+                  <option value="BW">
+                    Botswana
+                  </option>
+                  <option value="BV">
+                    Bouvet Island
+                  </option>
+                  <option value="BR">
+                    Brazil
+                  </option>
+                  <option value="IO">
+                    British Indian Ocean Territory
+                  </option>
+                  <option value="BN">
+                    Brunei Darussalam
+                  </option>
+                  <option value="BG">
+                    Bulgaria
+                  </option>
+                  <option value="BF">
+                    Burkina Faso
+                  </option>
+                  <option value="BI">
+                    Burundi
+                  </option>
+                  <option value="KH">
+                    Cambodia
+                  </option>
+                  <option value="CM">
+                    Cameroon
+                  </option>
+                  <option value="CA">
+                    Canada
+                  </option>
+                  <option value="CV">
+                    Cape Verde
+                  </option>
+                  <option value="KY">
+                    Cayman Islands
+                  </option>
+                  <option value="CF">
+                    Central African Republic
+                  </option>
+                  <option value="TD">
+                    Chad
+                  </option>
+                  <option value="CL">
+                    Chile
+                  </option>
+                  <option value="CN">
+                    China
+                  </option>
+                  <option value="CX">
+                    Christmas Island
+                  </option>
+                  <option value="CC">
+                    Cocos (Keeling) Islands
+                  </option>
+                  <option value="CO">
+                    Colombia
+                  </option>
+                  <option value="KM">
+                    Comoros
+                  </option>
+                  <option value="CG">
+                    Congo
+                  </option>
+                  <option value="CD">
+                    Congo, the Democratic Republic of the
+                  </option>
+                  <option value="CK">
+                    Cook Islands
+                  </option>
+                  <option value="CR">
+                    Costa Rica
+                  </option>
+                  <option value="CI">
+                    Côte d'Ivoire
+                  </option>
+                  <option value="HR">
+                    Croatia
+                  </option>
+                  <option value="CU">
+                    Cuba
+                  </option>
+                  <option value="CW">
+                    Curaçao
+                  </option>
+                  <option value="CY">
+                    Cyprus
+                  </option>
+                  <option value="CZ">
+                    Czech Republic
+                  </option>
+                  <option value="DK">
+                    Denmark
+                  </option>
+                  <option value="DJ">
+                    Djibouti
+                  </option>
+                  <option value="DM">
+                    Dominica
+                  </option>
+                  <option value="DO">
+                    Dominican Republic
+                  </option>
+                  <option value="EC">
+                    Ecuador
+                  </option>
+                  <option value="EG">
+                    Egypt
+                  </option>
+                  <option value="SV">
+                    El Salvador
+                  </option>
+                  <option value="GQ">
+                    Equatorial Guinea
+                  </option>
+                  <option value="ER">
+                    Eritrea
+                  </option>
+                  <option value="EE">
+                    Estonia
+                  </option>
+                  <option value="ET">
+                    Ethiopia
+                  </option>
+                  <option value="FK">
+                    Falkland Islands (Malvinas)
+                  </option>
+                  <option value="FO">
+                    Faroe Islands
+                  </option>
+                  <option value="FJ">
+                    Fiji
+                  </option>
+                  <option value="FI">
+                    Finland
+                  </option>
+                  <option value="FR">
+                    France
+                  </option>
+                  <option value="GF">
+                    French Guiana
+                  </option>
+                  <option value="PF">
+                    French Polynesia
+                  </option>
+                  <option value="TF">
+                    French Southern Territories
+                  </option>
+                  <option value="GA">
+                    Gabon
+                  </option>
+                  <option value="GM">
+                    Gambia
+                  </option>
+                  <option value="GE">
+                    Georgia
+                  </option>
+                  <option value="DE">
+                    Germany
+                  </option>
+                  <option value="GH">
+                    Ghana
+                  </option>
+                  <option value="GI">
+                    Gibraltar
+                  </option>
+                  <option value="GR">
+                    Greece
+                  </option>
+                  <option value="GL">
+                    Greenland
+                  </option>
+                  <option value="GD">
+                    Grenada
+                  </option>
+                  <option value="GP">
+                    Guadeloupe
+                  </option>
+                  <option value="GU">
+                    Guam
+                  </option>
+                  <option value="GT">
+                    Guatemala
+                  </option>
+                  <option value="GG">
+                    Guernsey
+                  </option>
+                  <option value="GN">
+                    Guinea
+                  </option>
+                  <option value="GW">
+                    Guinea-Bissau
+                  </option>
+                  <option value="GY">
+                    Guyana
+                  </option>
+                  <option value="HT">
+                    Haiti
+                  </option>
+                  <option value="HM">
+                    Heard Island and McDonald Islands
+                  </option>
+                  <option value="VA">
+                    Holy See (Vatican City State)
+                  </option>
+                  <option value="HN">
+                    Honduras
+                  </option>
+                  <option value="HK">
+                    Hong Kong
+                  </option>
+                  <option value="HU">
+                    Hungary
+                  </option>
+                  <option value="IS">
+                    Iceland
+                  </option>
+                  <option value="IN">
+                    India
+                  </option>
+                  <option value="ID">
+                    Indonesia
+                  </option>
+                  <option value="IR">
+                    Iran, Islamic Republic of
+                  </option>
+                  <option value="IQ">
+                    Iraq
+                  </option>
+                  <option value="IE">
+                    Ireland
+                  </option>
+                  <option value="IM">
+                    Isle of Man
+                  </option>
+                  <option value="IL">
+                    Israel
+                  </option>
+                  <option value="IT">
+                    Italy
+                  </option>
+                  <option value="JM">
+                    Jamaica
+                  </option>
+                  <option value="JP">
+                    Japan
+                  </option>
+                  <option value="JE">
+                    Jersey
+                  </option>
+                  <option value="JO">
+                    Jordan
+                  </option>
+                  <option value="KZ">
+                    Kazakhstan
+                  </option>
+                  <option value="KE">
+                    Kenya
+                  </option>
+                  <option value="KI">
+                    Kiribati
+                  </option>
+                  <option value="KP">
+                    Korea, Democratic People's Republic of
+                  </option>
+                  <option value="KR">
+                    Korea, Republic of
+                  </option>
+                  <option value="KW">
+                    Kuwait
+                  </option>
+                  <option value="KG">
+                    Kyrgyzstan
+                  </option>
+                  <option value="LA">
+                    Lao People's Democratic Republic
+                  </option>
+                  <option value="LV">
+                    Latvia
+                  </option>
+                  <option value="LB">
+                    Lebanon
+                  </option>
+                  <option value="LS">
+                    Lesotho
+                  </option>
+                  <option value="LR">
+                    Liberia
+                  </option>
+                  <option value="LY">
+                    Libya
+                  </option>
+                  <option value="LI">
+                    Liechtenstein
+                  </option>
+                  <option value="LT">
+                    Lithuania
+                  </option>
+                  <option value="LU">
+                    Luxembourg
+                  </option>
+                  <option value="MO">
+                    Macao
+                  </option>
+                  <option value="MK">
+                    Macedonia, the former Yugoslav Republic of
+                  </option>
+                  <option value="MG">
+                    Madagascar
+                  </option>
+                  <option value="MW">
+                    Malawi
+                  </option>
+                  <option value="MY">
+                    Malaysia
+                  </option>
+                  <option value="MV">
+                    Maldives
+                  </option>
+                  <option value="ML">
+                    Mali
+                  </option>
+                  <option value="MT">
+                    Malta
+                  </option>
+                  <option value="MH">
+                    Marshall Islands
+                  </option>
+                  <option value="MQ">
+                    Martinique
+                  </option>
+                  <option value="MR">
+                    Mauritania
+                  </option>
+                  <option value="MU">
+                    Mauritius
+                  </option>
+                  <option value="YT">
+                    Mayotte
+                  </option>
+                  <option value="MX">
+                    Mexico
+                  </option>
+                  <option value="FM">
+                    Micronesia, Federated States of
+                  </option>
+                  <option value="MD">
+                    Moldova, Republic of
+                  </option>
+                  <option value="MC">
+                    Monaco
+                  </option>
+                  <option value="MN">
+                    Mongolia
+                  </option>
+                  <option value="ME">
+                    Montenegro
+                  </option>
+                  <option value="MS">
+                    Montserrat
+                  </option>
+                  <option value="MA">
+                    Morocco
+                  </option>
+                  <option value="MZ">
+                    Mozambique
+                  </option>
+                  <option value="MM">
+                    Myanmar
+                  </option>
+                  <option value="NA">
+                    Namibia
+                  </option>
+                  <option value="NR">
+                    Nauru
+                  </option>
+                  <option value="NP">
+                    Nepal
+                  </option>
+                  <option value="NL">
+                    Netherlands
+                  </option>
+                  <option value="NC">
+                    New Caledonia
+                  </option>
+                  <option value="NZ">
+                    New Zealand
+                  </option>
+                  <option value="NI">
+                    Nicaragua
+                  </option>
+                  <option value="NE">
+                    Niger
+                  </option>
+                  <option value="NG">
+                    Nigeria
+                  </option>
+                  <option value="NU">
+                    Niue
+                  </option>
+                  <option value="NF">
+                    Norfolk Island
+                  </option>
+                  <option value="MP">
+                    Northern Mariana Islands
+                  </option>
+                  <option value="NO">
+                    Norway
+                  </option>
+                  <option value="OM">
+                    Oman
+                  </option>
+                  <option value="PK">
+                    Pakistan
+                  </option>
+                  <option value="PW">
+                    Palau
+                  </option>
+                  <option value="PS">
+                    Palestinian Territory, Occupied
+                  </option>
+                  <option value="PA">
+                    Panama
+                  </option>
+                  <option value="PG">
+                    Papua New Guinea
+                  </option>
+                  <option value="PY">
+                    Paraguay
+                  </option>
+                  <option value="PE">
+                    Peru
+                  </option>
+                  <option value="PH">
+                    Philippines
+                  </option>
+                  <option value="PN">
+                    Pitcairn
+                  </option>
+                  <option value="PL">
+                    Poland
+                  </option>
+                  <option value="PT">
+                    Portugal
+                  </option>
+                  <option value="PR">
+                    Puerto Rico
+                  </option>
+                  <option value="QA">
+                    Qatar
+                  </option>
+                  <option value="RE">
+                    Réunion
+                  </option>
+                  <option value="RO">
+                    Romania
+                  </option>
+                  <option value="RU">
+                    Russian Federation
+                  </option>
+                  <option value="RW">
+                    Rwanda
+                  </option>
+                  <option value="BL">
+                    Saint Barthélemy
+                  </option>
+                  <option value="SH">
+                    Saint Helena, Ascension and Tristan da Cunha
+                  </option>
+                  <option value="KN">
+                    Saint Kitts and Nevis
+                  </option>
+                  <option value="LC">
+                    Saint Lucia
+                  </option>
+                  <option value="MF">
+                    Saint Martin (French part)
+                  </option>
+                  <option value="PM">
+                    Saint Pierre and Miquelon
+                  </option>
+                  <option value="VC">
+                    Saint Vincent and the Grenadines
+                  </option>
+                  <option value="WS">
+                    Samoa
+                  </option>
+                  <option value="SM">
+                    San Marino
+                  </option>
+                  <option value="ST">
+                    Sao Tome and Principe
+                  </option>
+                  <option value="SA">
+                    Saudi Arabia
+                  </option>
+                  <option value="SN">
+                    Senegal
+                  </option>
+                  <option value="RS">
+                    Serbia
+                  </option>
+                  <option value="SC">
+                    Seychelles
+                  </option>
+                  <option value="SL">
+                    Sierra Leone
+                  </option>
+                  <option value="SG">
+                    Singapore
+                  </option>
+                  <option value="SX">
+                    Sint Maarten (Dutch part)
+                  </option>
+                  <option value="SK">
+                    Slovakia
+                  </option>
+                  <option value="SI">
+                    Slovenia
+                  </option>
+                  <option value="SB">
+                    Solomon Islands
+                  </option>
+                  <option value="SO">
+                    Somalia
+                  </option>
+                  <option value="ZA">
+                    South Africa
+                  </option>
+                  <option value="GS">
+                    South Georgia and the South Sandwich Islands
+                  </option>
+                  <option value="SS">
+                    South Sudan
+                  </option>
+                  <option value="ES">
+                    Spain
+                  </option>
+                  <option value="LK">
+                    Sri Lanka
+                  </option>
+                  <option value="SD">
+                    Sudan
+                  </option>
+                  <option value="SR">
+                    Suriname
+                  </option>
+                  <option value="SJ">
+                    Svalbard and Jan Mayen
+                  </option>
+                  <option value="SZ">
+                    Swaziland
+                  </option>
+                  <option value="SE">
+                    Sweden
+                  </option>
+                  <option value="CH">
+                    Switzerland
+                  </option>
+                  <option value="SY">
+                    Syrian Arab Republic
+                  </option>
+                  <option value="TW">
+                    Taiwan, Province of China
+                  </option>
+                  <option value="TJ">
+                    Tajikistan
+                  </option>
+                  <option value="TZ">
+                    Tanzania, United Republic of
+                  </option>
+                  <option value="TH">
+                    Thailand
+                  </option>
+                  <option value="TL">
+                    Timor-Leste
+                  </option>
+                  <option value="TG">
+                    Togo
+                  </option>
+                  <option value="TK">
+                    Tokelau
+                  </option>
+                  <option value="TO">
+                    Tonga
+                  </option>
+                  <option value="TT">
+                    Trinidad and Tobago
+                  </option>
+                  <option value="TN">
+                    Tunisia
+                  </option>
+                  <option value="TR">
+                    Turkey
+                  </option>
+                  <option value="TM">
+                    Turkmenistan
+                  </option>
+                  <option value="TC">
+                    Turks and Caicos Islands
+                  </option>
+                  <option value="TV">
+                    Tuvalu
+                  </option>
+                  <option value="UG">
+                    Uganda
+                  </option>
+                  <option value="UA">
+                    Ukraine
+                  </option>
+                  <option value="AE">
+                    United Arab Emirates
+                  </option>
+                  <option value="GB">
+                    United Kingdom
+                  </option>
+                  <option value="US">
+                    United States
+                  </option>
+                  <option value="UM">
+                    United States Minor Outlying Islands
+                  </option>
+                  <option value="UY">
+                    Uruguay
+                  </option>
+                  <option value="UZ">
+                    Uzbekistan
+                  </option>
+                  <option value="VU">
+                    Vanuatu
+                  </option>
+                  <option value="VE">
+                    Venezuela, Bolivarian Republic of
+                  </option>
+                  <option value="VN">
+                    Viet Nam
+                  </option>
+                  <option value="VG">
+                    Virgin Islands, British
+                  </option>
+                  <option value="VI">
+                    Virgin Islands, U.S.
+                  </option>
+                  <option value="WF">
+                    Wallis and Futuna
+                  </option>
+                  <option value="EH">
+                    Western Sahara
+                  </option>
+                  <option value="YE">
+                    Yemen
+                  </option>
+                  <option value="ZM">
+                    Zambia
+                  </option>
+                  <option value="ZW">
+                    Zimbabwe
+                  </option>
+                </select></span></legend>
                 <table>
                   <thead>
                     <tr>
-                      <th>Option</th>
-                      <th>Values and sample output<a href="#disclaimer">*</a></th>
+                      <th>
+                        Option
+                      </th>
+                      <th>
+                        Values and sample output<a href="#disclaimer">*</a>
+                      </th>
                     </tr>
                   </thead>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="weekday" id="weekdayOp">
-                      <label for="weekdayOp">weekday</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="weekdayRad" value="narrow">
-                          narrow</label>
-                        <samp>M</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="weekdayRad" value="short">
-                          short</label>
-                        <samp>Mon</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="weekdayRad" value="long">
-                          long</label>
-                        <samp>Monday</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="weekday"
+                      id="weekdayOp"> <label for="weekdayOp">weekday</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "weekdayRad" value="narrow"> narrow</label>
+                          <samp>M</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "weekdayRad" value="short"> short</label>
+                          <samp>Mon</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "weekdayRad" value="long"> long</label>
+                          <samp>Monday</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="era" id="eraOp">
-                      <label for="eraOp">era</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="eraRad" value="narrow">
-                          narrow</label>
-                        <samp>A</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="eraRad" value="short">
-                          short</label>
-                        <samp> AD</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="eraRad" value="long">
-                          long </label>
-                        <samp>Anno Domini</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="era" id=
+                      "eraOp"> <label for="eraOp">era</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "eraRad" value="narrow"> narrow</label>
+                          <samp>A</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "eraRad" value="short"> short</label> <samp>AD</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "eraRad" value="long"> long</label> <samp>Anno
+                          Domini</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input name ="year" type="checkbox" class="supported" id="yearOp">
-                      <label for="yearOp">year</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="2-digit" name="yearRad">
-                          2-digit</label>
-                        <samp>01</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="numeric" name="yearRad">
-                          numeric</label>
-                        <samp>2001</samp></li>
-                    </ul></td>
+                    <td>
+                      <input name="year" type="checkbox" class="supported" id=
+                      "yearOp"> <label for="yearOp">year</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "2-digit" name="yearRad"> 2-digit</label>
+                          <samp>01</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "numeric" name="yearRad"> numeric</label>
+                          <samp>2001</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="month" id="monthOp">
-                      <label for="monthOp">month</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="monthRad" value="2-digit">
-                          2-digit</label>
-                        <samp>01</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="monthRad" value="numeric">
-                          numeric</label>
-                        <samp>1</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="monthRad" value="narrow">
-                          narrow</label>
-                        <samp>J</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="monthRad" value="short">
-                          short</label>
-                        <samp>Jan</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" name="monthRad" value="long">
-                          long</label>
-                        <samp>January</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="month" id=
+                      "monthOp"> <label for="monthOp">month</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "monthRad" value="2-digit"> 2-digit</label>
+                          <samp>01</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "monthRad" value="numeric"> numeric</label>
+                          <samp>1</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "monthRad" value="narrow"> narrow</label>
+                          <samp>J</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "monthRad" value="short"> short</label>
+                          <samp>Jan</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" name=
+                          "monthRad" value="long"> long</label>
+                          <samp>January</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="day" id="dayOp">
-                      <label for="dayOp">day</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="2-digit" name="dayRad">
-                          2-digit</label>
-                        <samp>01</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="numeric" name="dayRad">
-                          numeric</label>
-                        <samp>1</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="day" id=
+                      "dayOp"> <label for="dayOp">day</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "2-digit" name="dayRad"> 2-digit</label>
+                          <samp>01</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "numeric" name="dayRad"> numeric</label>
+                          <samp>1</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="hour" id="hourOp">
-                      <label for="hourOp">hour</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="2-digit" name="hourRad">
-                          2-digit</label>
-                        <samp>12 AM</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="numeric" name="hourRad">
-                          numeric</label>
-                        <samp>12 AM</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="hour" id=
+                      "hourOp"> <label for="hourOp">hour</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "2-digit" name="hourRad"> 2-digit</label> <samp>12
+                          AM</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "numeric" name="hourRad"> numeric</label> <samp>12
+                          AM</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="minute" id="minuteOp">
-                      <label for="minuteOp">minute</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="2-digit" name="minuteRad">
-                          2-digit</label>
-                        <samp>0</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="numeric" name="minuteRad">
-                          numeric</label>
-                        <samp>0</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="minute"
+                      id="minuteOp"> <label for="minuteOp">minute</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "2-digit" name="minuteRad"> 2-digit</label>
+                          <samp>0</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "numeric" name="minuteRad"> numeric</label>
+                          <samp>0</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="second" id="secondOp">
-                      <label for="secondOp">second</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="2-digit" name="secondRad">
-                          2-digit</label>
-                        <samp>0</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="numeric" name="secondRad">
-                          numeric</label>
-                        <samp>0</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name="second"
+                      id="secondOp"> <label for="secondOp">second</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "2-digit" name="secondRad"> 2-digit</label>
+                          <samp>0</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "numeric" name="secondRad"> numeric</label>
+                          <samp>0</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                   <tr>
-                    <td><input type="checkbox" class="supported" name="timeZoneName" id="timeZoneNameOp">
-                      <label for="timeZoneNameOp">timeZoneName</label></td>
-                    <td><ul>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="short" name="timeZoneNameRad">
-                          short</label>
-                        <samp>1/1/2001 GMT+00:00</samp></li>
-                      <li>
-                        <label>
-                          <input type="radio" class="supported" value="long" name="timeZoneNameRad">
-                          long</label>
-                        <samp>1/1/2001 GMT+00:00</samp></li>
-                    </ul></td>
+                    <td>
+                      <input type="checkbox" class="supported" name=
+                      "timeZoneName" id="timeZoneNameOp"> <label for=
+                      "timeZoneNameOp">timeZoneName</label>
+                    </td>
+                    <td>
+                      <ul>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "short" name="timeZoneNameRad"> short</label>
+                          <samp>1/1/2001 GMT+00:00</samp>
+                        </li>
+                        <li>
+                          <label><input type="radio" class="supported" value=
+                          "long" name="timeZoneNameRad"> long</label>
+                          <samp>1/1/2001 GMT+00:00</samp>
+                        </li>
+                      </ul>
+                    </td>
                   </tr>
                 </table>
                 <div class="result supported">
-                  <label>Result:
-                    <output id="formattedDate"></output>
-                  </label>
-                  	<output class="subResult" id="formattedDateOptions"></output>
+                  <label>Result: <output id="formattedDate"></output></label>
+                  <output class="subResult" id="formattedDateOptions"></output>
                 </div>
               </fieldset>
-        </form>
-        <p class="disclaimer"> <small><dfn id="disclaimer">*</dfn> Output may vary from one locale to another and from one browser to another! The output shown here is from Chrome 21. Output was constructed by calling <code>(new Date("1/1/2001")).toLocaleString("en", options);</code></small></p>
-        <h2>Custom date-time formatters</h2>
-            <p>Consider a scenario where you have a potentially large and dynamic set of date objects that you need to localize to the same format over and over again (e.g., a list of birth dates). Up to this point in the article, we've been doing date conversion in the following way:</p>
-            <pre><code class="javascript">var date = new Date(),
+            </form>
+            <p class="disclaimer">
+              <small><dfn id="disclaimer">*</dfn> Output may vary from one
+              locale to another and from one browser to another! The output
+              shown here is from Chrome 21. Output was constructed by calling
+              <code>(new Date("1/1/2001")).toLocaleString("en",
+              options);</code></small>
+            </p>
+            <h2>
+              Custom date-time formatters
+            </h2>
+            <p>
+              Consider a scenario where you have a potentially large and
+              dynamic set of date objects that you need to localize to the same
+              format over and over again (e.g., a list of birth dates). Up to
+              this point in the article, we've been doing date conversion in
+              the following way:
+            </p>
+            <pre>
+<code class="javascript">var date = new Date(),
     options = {
         weekday: "long",
         year: "numeric",
         month: "long",
         day: "numeric"
     };
-date.toLocaleDateString("en", options);</code></pre>
-            <p> If we know that we want to format all days the same way for a particular purpose, then the Internationalization API provides a special set of objects called <code>Intl.DateTimeFormat</code> that you can create to help you out. </p>
-        <pre><code class="javascript">var formatter = new Intl.DateTimeFormat(lang, options),
+date.toLocaleDateString("en", options);</code>
+</pre>
+            <p>
+              If we know that we want to format all days the same way for a
+              particular purpose, then the Internationalization API provides a
+              special set of objects called <code>Intl.DateTimeFormat</code>
+              that you can create to help you out.
+            </p>
+            <pre>
+<code class=
+"javascript">var formatter = new Intl.DateTimeFormat(lang, options),
     lang = ["en"], //using an array because of quirk in Chrome
     dates = [new Date("1/1/1"), 
              new Date("2/2/2"), 
@@ -990,255 +2216,654 @@ for (var i = 0; i &lt; dates.length; i++) {
     date = dates[i];
     result = formatter.format(date);
     console.log(result);
-}</code></pre>
-            <p>There is no huge advantage to using a custom formatter over just calling <code>date.toLocaleString()</code>, though the Internationalization spec does claim potential performance benefits (you would probably need quite a large list of dates to see those performance gains).            </p>
-            <h1 id="localize_currency">Currencies</h1>
-            <p>Formatting  currencies is super easy with the Internationalization API. All you need to do is set two options - the <code>style</code> and the <code>currency</code> you want. For example:</p>
-            <pre><code class="javascript">{style: "currency", currency: "USD"}</code></pre>
-            <p>The value of the <code>currency</code> option is a currency code from a spec called <cite>ISO4217</cite>, which is published by the <cite>International Standards Organization</cite> (ISO). Thankfully, the <a href="http://en.wikipedia.org/wiki/ISO_4217">full list of currency codes is freely available on Wikipedia</a>. <cite>ISO 4217</cite> is the authoritative set of currency codes used around the world to distinguish between currencies. Each currency identified by ISO4217 is three characters long (e.g., <code>USD</code> for United States Dollar, and <code>GPB</code> for Great British Pounds).</p>
-            <pre><code class="javascript">var bucks = 12,
+}</code>
+</pre>
+            <p>
+              There is no huge advantage to using a custom formatter over just
+              calling <code>date.toLocaleString()</code>, though the
+              Internationalization spec does claim potential performance
+              benefits (you would probably need quite a large list of dates to
+              see those performance gains).
+            </p>
+            <h1 id="localize_currency">
+              Currencies
+            </h1>
+            <p>
+              Formatting currencies is super easy with the Internationalization
+              API. All you need to do is set two options - the
+              <code>style</code> and the <code>currency</code> you want. For
+              example:
+            </p>
+            <pre>
+<code class="javascript">{style: "currency", currency: "USD"}</code>
+</pre>
+            <p>
+              The value of the <code>currency</code> option is a currency code
+              from a spec called <cite>ISO4217</cite>, which is published by
+              the <cite>International Standards Organization</cite> (ISO).
+              Thankfully, the <a href=
+              "http://en.wikipedia.org/wiki/ISO_4217">full list of currency
+              codes is freely available on Wikipedia</a>. <cite>ISO 4217</cite>
+              is the authoritative set of currency codes used around the world
+              to distinguish between currencies. Each currency identified by
+              ISO4217 is three characters long (e.g., <code>USD</code> for
+              United States Dollar, and <code>GPB</code> for Great British
+              Pounds).
+            </p>
+            <pre>
+<code class="javascript">var bucks = 12,
     props = {
         style: "currency", 
         currency: "USD"
     };
 
 bucks.toLocaleString("en", props);
-//returns &quot;$12.00&quot;
+//returns "$12.00"
 
 //Represented as Australian dollars 
-props.currency = &quot;AUD&quot;;
+props.currency = "AUD";
 bucks.toLocaleString("en", props);
 //"AU$12.00"
 
 //Represented as Great British Pounds
-props.currency = &quot;GBP&quot;;
+props.currency = "GBP";
 bucks.toLocaleString("en", props);
-//"£12.00"</code></pre>
-            <p>Note that we are not doing currency conversion here, just using a standardised currency code to represent how many &quot;bucks&quot; we have (as represented by the currency sign). A real example of usage commonly seen in newspaper articles would require us to do some currency conversion, but imagine:</p>
+//"£12.00"</code>
+</pre>
+            <p>
+              Note that we are not doing currency conversion here, just using a
+              standardised currency code to represent how many "bucks" we have
+              (as represented by the currency sign). A real example of usage
+              commonly seen in newspaper articles would require us to do some
+              currency conversion, but imagine:
+            </p>
             <blockquote>
-              <p><q>... Dr. Evil initially requested $1,000,000 (€794,122.00)</q>... </p>
+              <p>
+                <q>... Dr. Evil initially requested $1,000,000
+                (€794,122.00)</q>...
+              </p>
             </blockquote>
-            <p>More powerfully, you could adapt the above to a new language altogether based on your user's preferences. Here is the same, but adapted to Arabic (language tag &quot;<code>ar&quot;</code>) and by changing the first argument <code>(794122).toLocaleString("ar", props)</code>:</p>
+            <p>
+              More powerfully, you could adapt the above to a new language
+              altogether based on your user's preferences. Here is the same,
+              but adapted to Arabic (language tag "<code>ar"</code>) and by
+              changing the first argument <code>(794122).toLocaleString("ar",
+              props)</code>:
+            </p>
             <blockquote>
-              <p><q>... Dr. Evil initially requested $1,000,000 (€ ٧٩٤٬١٢٢٫٠٠)</q>... </p>
+              <p>
+                <q>... Dr. Evil initially requested $1,000,000 (€
+                ٧٩٤٬١٢٢٫٠٠)</q>...
+              </p>
             </blockquote>
-            <p>Note the Euro currency sign remains, but the number formatting is localized. </p>
-            <h2>More advanced options </h2>
-            <p>Coming soon... need to cover: minimumIntegerDigits, minimumFractionDigits, maximumFractionDigits,
-              minimumSignificantDigits, and maximumSignificantDigits.</p>
+            <p>
+              Note the Euro currency sign remains, but the number formatting is
+              localized.
+            </p>
+            <h2>
+              More advanced options
+            </h2>
+            <p>
+              Coming soon... need to cover: minimumIntegerDigits,
+              minimumFractionDigits, maximumFractionDigits,
+              minimumSignificantDigits, and maximumSignificantDigits.
+            </p>
             <div class="supported">
-              <h2>Try it!</h2>
-              <form id="currencyform" class="formatter" onsubmit="return false;">
+              <h2>
+                Try it!
+              </h2>
+              <form id="currencyform" class="formatter" onsubmit=
+              "return false;" name="currencyform">
                 <fieldset>
                   <legend><span>Currency formatter</span></legend>
                   <div>
-                    <label for="amount" >Amount:</label>
-                    <input type="number" id="amount" value="1235678910">
+                    <label for="amount">Amount:</label> <input type="number"
+                    id="amount" value="1235678910">
                   </div>
                   <div>
-                    <label for="currency">Currency:</label>
-                    <select id="currency" name="currency">
-                      <option value="AED">United Arab Emirates Dirham
-                      <option value="AFN">Afghanistan Afghani
-                      <option value="ALL">Albania Lek
-                      <option value="AMD">Armenia Dram
-                      <option value="ANG">Netherlands Antilles Guilder
-                      <option value="AOA">Angola Kwanza
-                      <option value="ARS">Argentina Peso
-                      <option value="AUD">Australia Dollar
-                      <option value="AWG">Aruba Guilder
-                      <option value="AZN">Azerbaijan New Manat
-                      <option value="BAM">Bosnia and Herzegovina Convertible Marka
-                      <option value="BBD">Barbados Dollar
-                      <option value="BDT">Bangladesh Taka
-                      <option value="BGN">Bulgaria Lev
-                      <option value="BHD">Bahrain Dinar
-                      <option value="BIF">Burundi Franc
-                      <option value="BMD">Bermuda Dollar
-                      <option value="BND">Brunei Darussalam Dollar
-                      <option value="BOB">Bolivia Boliviano
-                      <option value="BRL">Brazil Real
-                      <option value="BSD">Bahamas Dollar
-                      <option value="BTN">Bhutan Ngultrum
-                      <option value="BWP">Botswana Pula
-                      <option value="BYR">Belarus Ruble
-                      <option value="BZD">Belize Dollar
-                      <option value="CAD">Canada Dollar
-                      <option value="CDF">Congo/Kinshasa Franc
-                      <option value="CHF">Switzerland Franc
-                      <option value="CLP">Chile Peso
-                      <option value="CNY">China Yuan Renminbi
-                      <option value="COP">Colombia Peso
-                      <option value="CRC">Costa Rica Colon
-                      <option value="CUC">Cuba Convertible Peso
-                      <option value="CUP">Cuba Peso
-                      <option value="CVE">Cape Verde Escudo
-                      <option value="CZK">Czech Republic Koruna
-                      <option value="DJF">Djibouti Franc
-                      <option value="DKK">Denmark Krone
-                      <option value="DOP">Dominican Republic Peso
-                      <option value="DZD">Algeria Dinar
-                      <option value="EGP">Egypt Pound
-                      <option value="ERN">Eritrea Nakfa
-                      <option value="ETB">Ethiopia Birr
-                      <option value="EUR">Euro Member Countries
-                      <option value="FJD">Fiji Dollar
-                      <option value="FKP">Falkland Islands (Malvinas) Pound
-                      <option value="GBP">United Kingdom Pound
-                      <option value="GEL">Georgia Lari
-                      <option value="GGP">Guernsey Pound
-                      <option value="GHS">Ghana Cedi
-                      <option value="GIP">Gibraltar Pound
-                      <option value="GMD">Gambia Dalasi
-                      <option value="GNF">Guinea Franc
-                      <option value="GTQ">Guatemala Quetzal
-                      <option value="GYD">Guyana Dollar
-                      <option value="HKD">Hong Kong Dollar
-                      <option value="HNL">Honduras Lempira
-                      <option value="HRK">Croatia Kuna
-                      <option value="HTG">Haiti Gourde
-                      <option value="HUF">Hungary Forint
-                      <option value="IDR">Indonesia Rupiah
-                      <option value="ILS">Israel Shekel
-                      <option value="IMP">Isle of Man Pound
-                      <option value="INR">India Rupee
-                      <option value="IQD">Iraq Dinar
-                      <option value="IRR">Iran Rial
-                      <option value="ISK">Iceland Krona
-                      <option value="JEP">Jersey Pound
-                      <option value="JMD">Jamaica Dollar
-                      <option value="JOD">Jordan Dinar
-                      <option value="JPY">Japan Yen
-                      <option value="KES">Kenya Shilling
-                      <option value="KGS">Kyrgyzstan Som
-                      <option value="KHR">Cambodia Riel
-                      <option value="KMF">Comoros Franc
-                      <option value="KPW">Korea (North) Won
-                      <option value="KRW">Korea (South) Won
-                      <option value="KWD">Kuwait Dinar
-                      <option value="KYD">Cayman Islands Dollar
-                      <option value="KZT">Kazakhstan Tenge
-                      <option value="LAK">Laos Kip
-                      <option value="LBP">Lebanon Pound
-                      <option value="LKR">Sri Lanka Rupee
-                      <option value="LRD">Liberia Dollar
-                      <option value="LSL">Lesotho Loti
-                      <option value="LTL">Lithuania Litas
-                      <option value="LVL">Latvia Lat
-                      <option value="LYD">Libya Dinar
-                      <option value="MAD">Morocco Dirham
-                      <option value="MDL">Moldova Leu
-                      <option value="MGA">Madagascar Ariary
-                      <option value="MKD">Macedonia Denar
-                      <option value="MMK">Myanmar (Burma) Kyat
-                      <option value="MNT">Mongolia Tughrik
-                      <option value="MOP">Macau Pataca
-                      <option value="MRO">Mauritania Ouguiya
-                      <option value="MUR">Mauritius Rupee
-                      <option value="MVR">Maldives (Maldive Islands) Rufiyaa
-                      <option value="MWK">Malawi Kwacha
-                      <option value="MXN">Mexico Peso
-                      <option value="MYR">Malaysia Ringgit
-                      <option value="MZN">Mozambique Metical
-                      <option value="NAD">Namibia Dollar
-                      <option value="NGN">Nigeria Naira
-                      <option value="NIO">Nicaragua Cordoba
-                      <option value="NOK">Norway Krone
-                      <option value="NPR">Nepal Rupee
-                      <option value="NZD">New Zealand Dollar
-                      <option value="OMR">Oman Rial
-                      <option value="PAB">Panama Balboa
-                      <option value="PEN">Peru Nuevo Sol
-                      <option value="PGK">Papua New Guinea Kina
-                      <option value="PHP">Philippines Peso
-                      <option value="PKR">Pakistan Rupee
-                      <option value="PLN">Poland Zloty
-                      <option value="PYG">Paraguay Guarani
-                      <option value="QAR">Qatar Riyal
-                      <option value="RON">Romania New Leu
-                      <option value="RSD">Serbia Dinar
-                      <option value="RUB">Russia Ruble
-                      <option value="RWF">Rwanda Franc
-                      <option value="SAR">Saudi Arabia Riyal
-                      <option value="SBD">Solomon Islands Dollar
-                      <option value="SCR">Seychelles Rupee
-                      <option value="SDG">Sudan Pound
-                      <option value="SEK">Sweden Krona
-                      <option value="SGD">Singapore Dollar
-                      <option value="SHP">Saint Helena Pound
-                      <option value="SLL">Sierra Leone Leone
-                      <option value="OS">Somalia Shilling
-                      <option value="SPL">Seborga Luigino
-                      <option value="SRD">Suriname Dollar
-                      <option value="STD">São Tomé and Príncipe Dobra
-                      <option value="SVC">El Salvador Colon
-                      <option value="SYP">Syria Pound
-                      <option value="SZL">Swaziland Lilangeni
-                      <option value="THB">Thailand Baht
-                      <option value="TJS">Tajikistan Somoni
-                      <option value="TMT">Turkmenistan Manat
-                      <option value="TND">Tunisia Dinar
-                      <option value="TOP">Tonga Pa'anga
-                      <option value="TRY">Turkey Lira
-                      <option value="TTD">Trinidad and Tobago Dollar
-                      <option value="TVD">Tuvalu Dollar
-                      <option value="TWD">Taiwan New Dollar
-                      <option value="TZS">Tanzania Shilling
-                      <option value="UAH">Ukraine Hryvna
-                      <option value="UGX">Uganda Shilling
-                      <option value="USD" selected>United States Dollar
-                      <option value="UYU">Uruguay Peso
-                      <option value="UZS">Uzbekistan Som
-                      <option value="VEF">Venezuela Bolivar Fuerte
-                      <option value="VND">Viet Nam Dong
-                      <option value="VUV">Vanuatu Vatu
-                      <option value="WST">Samoa Tala
-                      <option value="XAF">Communauté Financière Africaine (BEAC) CFA Franc BEAC
-                      <option value="XCD">East Caribbean Dollar
-                      <option value="XDR">International Monetary Fund (IMF) Special Drawing Rights
-                      <option value="XOF">Communauté Financière Africaine (BCEAO) Franc
-                      <option value="XPF">Comptoirs Français du Pacifique (CFP) Franc
-                      <option value="YER">Yemen Rial
-                      <option value="ZAR">South Africa Rand
-                      <option value="ZMK">Zambia Kwacha
-                      <option value="ZWD">Zimbabwe Dollar
+                    <label for="currency">Currency:</label> <select id=
+                    "currency" name="currency">
+                      <option value="AED">
+                        United Arab Emirates Dirham
+                      </option>
+                      <option value="AFN">
+                        Afghanistan Afghani
+                      </option>
+                      <option value="ALL">
+                        Albania Lek
+                      </option>
+                      <option value="AMD">
+                        Armenia Dram
+                      </option>
+                      <option value="ANG">
+                        Netherlands Antilles Guilder
+                      </option>
+                      <option value="AOA">
+                        Angola Kwanza
+                      </option>
+                      <option value="ARS">
+                        Argentina Peso
+                      </option>
+                      <option value="AUD">
+                        Australia Dollar
+                      </option>
+                      <option value="AWG">
+                        Aruba Guilder
+                      </option>
+                      <option value="AZN">
+                        Azerbaijan New Manat
+                      </option>
+                      <option value="BAM">
+                        Bosnia and Herzegovina Convertible Marka
+                      </option>
+                      <option value="BBD">
+                        Barbados Dollar
+                      </option>
+                      <option value="BDT">
+                        Bangladesh Taka
+                      </option>
+                      <option value="BGN">
+                        Bulgaria Lev
+                      </option>
+                      <option value="BHD">
+                        Bahrain Dinar
+                      </option>
+                      <option value="BIF">
+                        Burundi Franc
+                      </option>
+                      <option value="BMD">
+                        Bermuda Dollar
+                      </option>
+                      <option value="BND">
+                        Brunei Darussalam Dollar
+                      </option>
+                      <option value="BOB">
+                        Bolivia Boliviano
+                      </option>
+                      <option value="BRL">
+                        Brazil Real
+                      </option>
+                      <option value="BSD">
+                        Bahamas Dollar
+                      </option>
+                      <option value="BTN">
+                        Bhutan Ngultrum
+                      </option>
+                      <option value="BWP">
+                        Botswana Pula
+                      </option>
+                      <option value="BYR">
+                        Belarus Ruble
+                      </option>
+                      <option value="BZD">
+                        Belize Dollar
+                      </option>
+                      <option value="CAD">
+                        Canada Dollar
+                      </option>
+                      <option value="CDF">
+                        Congo/Kinshasa Franc
+                      </option>
+                      <option value="CHF">
+                        Switzerland Franc
+                      </option>
+                      <option value="CLP">
+                        Chile Peso
+                      </option>
+                      <option value="CNY">
+                        China Yuan Renminbi
+                      </option>
+                      <option value="COP">
+                        Colombia Peso
+                      </option>
+                      <option value="CRC">
+                        Costa Rica Colon
+                      </option>
+                      <option value="CUC">
+                        Cuba Convertible Peso
+                      </option>
+                      <option value="CUP">
+                        Cuba Peso
+                      </option>
+                      <option value="CVE">
+                        Cape Verde Escudo
+                      </option>
+                      <option value="CZK">
+                        Czech Republic Koruna
+                      </option>
+                      <option value="DJF">
+                        Djibouti Franc
+                      </option>
+                      <option value="DKK">
+                        Denmark Krone
+                      </option>
+                      <option value="DOP">
+                        Dominican Republic Peso
+                      </option>
+                      <option value="DZD">
+                        Algeria Dinar
+                      </option>
+                      <option value="EGP">
+                        Egypt Pound
+                      </option>
+                      <option value="ERN">
+                        Eritrea Nakfa
+                      </option>
+                      <option value="ETB">
+                        Ethiopia Birr
+                      </option>
+                      <option value="EUR">
+                        Euro Member Countries
+                      </option>
+                      <option value="FJD">
+                        Fiji Dollar
+                      </option>
+                      <option value="FKP">
+                        Falkland Islands (Malvinas) Pound
+                      </option>
+                      <option value="GBP">
+                        United Kingdom Pound
+                      </option>
+                      <option value="GEL">
+                        Georgia Lari
+                      </option>
+                      <option value="GGP">
+                        Guernsey Pound
+                      </option>
+                      <option value="GHS">
+                        Ghana Cedi
+                      </option>
+                      <option value="GIP">
+                        Gibraltar Pound
+                      </option>
+                      <option value="GMD">
+                        Gambia Dalasi
+                      </option>
+                      <option value="GNF">
+                        Guinea Franc
+                      </option>
+                      <option value="GTQ">
+                        Guatemala Quetzal
+                      </option>
+                      <option value="GYD">
+                        Guyana Dollar
+                      </option>
+                      <option value="HKD">
+                        Hong Kong Dollar
+                      </option>
+                      <option value="HNL">
+                        Honduras Lempira
+                      </option>
+                      <option value="HRK">
+                        Croatia Kuna
+                      </option>
+                      <option value="HTG">
+                        Haiti Gourde
+                      </option>
+                      <option value="HUF">
+                        Hungary Forint
+                      </option>
+                      <option value="IDR">
+                        Indonesia Rupiah
+                      </option>
+                      <option value="ILS">
+                        Israel Shekel
+                      </option>
+                      <option value="IMP">
+                        Isle of Man Pound
+                      </option>
+                      <option value="INR">
+                        India Rupee
+                      </option>
+                      <option value="IQD">
+                        Iraq Dinar
+                      </option>
+                      <option value="IRR">
+                        Iran Rial
+                      </option>
+                      <option value="ISK">
+                        Iceland Krona
+                      </option>
+                      <option value="JEP">
+                        Jersey Pound
+                      </option>
+                      <option value="JMD">
+                        Jamaica Dollar
+                      </option>
+                      <option value="JOD">
+                        Jordan Dinar
+                      </option>
+                      <option value="JPY">
+                        Japan Yen
+                      </option>
+                      <option value="KES">
+                        Kenya Shilling
+                      </option>
+                      <option value="KGS">
+                        Kyrgyzstan Som
+                      </option>
+                      <option value="KHR">
+                        Cambodia Riel
+                      </option>
+                      <option value="KMF">
+                        Comoros Franc
+                      </option>
+                      <option value="KPW">
+                        Korea (North) Won
+                      </option>
+                      <option value="KRW">
+                        Korea (South) Won
+                      </option>
+                      <option value="KWD">
+                        Kuwait Dinar
+                      </option>
+                      <option value="KYD">
+                        Cayman Islands Dollar
+                      </option>
+                      <option value="KZT">
+                        Kazakhstan Tenge
+                      </option>
+                      <option value="LAK">
+                        Laos Kip
+                      </option>
+                      <option value="LBP">
+                        Lebanon Pound
+                      </option>
+                      <option value="LKR">
+                        Sri Lanka Rupee
+                      </option>
+                      <option value="LRD">
+                        Liberia Dollar
+                      </option>
+                      <option value="LSL">
+                        Lesotho Loti
+                      </option>
+                      <option value="LTL">
+                        Lithuania Litas
+                      </option>
+                      <option value="LVL">
+                        Latvia Lat
+                      </option>
+                      <option value="LYD">
+                        Libya Dinar
+                      </option>
+                      <option value="MAD">
+                        Morocco Dirham
+                      </option>
+                      <option value="MDL">
+                        Moldova Leu
+                      </option>
+                      <option value="MGA">
+                        Madagascar Ariary
+                      </option>
+                      <option value="MKD">
+                        Macedonia Denar
+                      </option>
+                      <option value="MMK">
+                        Myanmar (Burma) Kyat
+                      </option>
+                      <option value="MNT">
+                        Mongolia Tughrik
+                      </option>
+                      <option value="MOP">
+                        Macau Pataca
+                      </option>
+                      <option value="MRO">
+                        Mauritania Ouguiya
+                      </option>
+                      <option value="MUR">
+                        Mauritius Rupee
+                      </option>
+                      <option value="MVR">
+                        Maldives (Maldive Islands) Rufiyaa
+                      </option>
+                      <option value="MWK">
+                        Malawi Kwacha
+                      </option>
+                      <option value="MXN">
+                        Mexico Peso
+                      </option>
+                      <option value="MYR">
+                        Malaysia Ringgit
+                      </option>
+                      <option value="MZN">
+                        Mozambique Metical
+                      </option>
+                      <option value="NAD">
+                        Namibia Dollar
+                      </option>
+                      <option value="NGN">
+                        Nigeria Naira
+                      </option>
+                      <option value="NIO">
+                        Nicaragua Cordoba
+                      </option>
+                      <option value="NOK">
+                        Norway Krone
+                      </option>
+                      <option value="NPR">
+                        Nepal Rupee
+                      </option>
+                      <option value="NZD">
+                        New Zealand Dollar
+                      </option>
+                      <option value="OMR">
+                        Oman Rial
+                      </option>
+                      <option value="PAB">
+                        Panama Balboa
+                      </option>
+                      <option value="PEN">
+                        Peru Nuevo Sol
+                      </option>
+                      <option value="PGK">
+                        Papua New Guinea Kina
+                      </option>
+                      <option value="PHP">
+                        Philippines Peso
+                      </option>
+                      <option value="PKR">
+                        Pakistan Rupee
+                      </option>
+                      <option value="PLN">
+                        Poland Zloty
+                      </option>
+                      <option value="PYG">
+                        Paraguay Guarani
+                      </option>
+                      <option value="QAR">
+                        Qatar Riyal
+                      </option>
+                      <option value="RON">
+                        Romania New Leu
+                      </option>
+                      <option value="RSD">
+                        Serbia Dinar
+                      </option>
+                      <option value="RUB">
+                        Russia Ruble
+                      </option>
+                      <option value="RWF">
+                        Rwanda Franc
+                      </option>
+                      <option value="SAR">
+                        Saudi Arabia Riyal
+                      </option>
+                      <option value="SBD">
+                        Solomon Islands Dollar
+                      </option>
+                      <option value="SCR">
+                        Seychelles Rupee
+                      </option>
+                      <option value="SDG">
+                        Sudan Pound
+                      </option>
+                      <option value="SEK">
+                        Sweden Krona
+                      </option>
+                      <option value="SGD">
+                        Singapore Dollar
+                      </option>
+                      <option value="SHP">
+                        Saint Helena Pound
+                      </option>
+                      <option value="SLL">
+                        Sierra Leone Leone
+                      </option>
+                      <option value="OS">
+                        Somalia Shilling
+                      </option>
+                      <option value="SPL">
+                        Seborga Luigino
+                      </option>
+                      <option value="SRD">
+                        Suriname Dollar
+                      </option>
+                      <option value="STD">
+                        São Tomé and Príncipe Dobra
+                      </option>
+                      <option value="SVC">
+                        El Salvador Colon
+                      </option>
+                      <option value="SYP">
+                        Syria Pound
+                      </option>
+                      <option value="SZL">
+                        Swaziland Lilangeni
+                      </option>
+                      <option value="THB">
+                        Thailand Baht
+                      </option>
+                      <option value="TJS">
+                        Tajikistan Somoni
+                      </option>
+                      <option value="TMT">
+                        Turkmenistan Manat
+                      </option>
+                      <option value="TND">
+                        Tunisia Dinar
+                      </option>
+                      <option value="TOP">
+                        Tonga Pa'anga
+                      </option>
+                      <option value="TRY">
+                        Turkey Lira
+                      </option>
+                      <option value="TTD">
+                        Trinidad and Tobago Dollar
+                      </option>
+                      <option value="TVD">
+                        Tuvalu Dollar
+                      </option>
+                      <option value="TWD">
+                        Taiwan New Dollar
+                      </option>
+                      <option value="TZS">
+                        Tanzania Shilling
+                      </option>
+                      <option value="UAH">
+                        Ukraine Hryvna
+                      </option>
+                      <option value="UGX">
+                        Uganda Shilling
+                      </option>
+                      <option value="USD" selected>
+                        United States Dollar
+                      </option>
+                      <option value="UYU">
+                        Uruguay Peso
+                      </option>
+                      <option value="UZS">
+                        Uzbekistan Som
+                      </option>
+                      <option value="VEF">
+                        Venezuela Bolivar Fuerte
+                      </option>
+                      <option value="VND">
+                        Viet Nam Dong
+                      </option>
+                      <option value="VUV">
+                        Vanuatu Vatu
+                      </option>
+                      <option value="WST">
+                        Samoa Tala
+                      </option>
+                      <option value="XAF">
+                        Communauté Financière Africaine (BEAC) CFA Franc BEAC
+                      </option>
+                      <option value="XCD">
+                        East Caribbean Dollar
+                      </option>
+                      <option value="XDR">
+                        International Monetary Fund (IMF) Special Drawing
+                        Rights
+                      </option>
+                      <option value="XOF">
+                        Communauté Financière Africaine (BCEAO) Franc
+                      </option>
+                      <option value="XPF">
+                        Comptoirs Français du Pacifique (CFP) Franc
+                      </option>
+                      <option value="YER">
+                        Yemen Rial
+                      </option>
+                      <option value="ZAR">
+                        South Africa Rand
+                      </option>
+                      <option value="ZMK">
+                        Zambia Kwacha
+                      </option>
+                      <option value="ZWD">
+                        Zimbabwe Dollar
+                      </option>
                     </select>
                   </div>
                   <div>
                     <label for="currencyDisplay">Display using:</label>
                     <select id="currencyDisplay">
-                      <option value="code" selected>code
-                      <option value="symbol">symbol
-                      <option value="name">name
+                      <option value="code" selected>
+                        code
+                      </option>
+                      <option value="symbol">
+                        symbol
+                      </option>
+                      <option value="name">
+                        name
+                      </option>
                     </select>
                   </div>
                   <div class="result">
-                    <output id="out" for="amount currency currencyDisplay currencyOut">...</output>
+                    <output id="out" for=
+                    "amount currency currencyDisplay currencyOut">...</output>
                   </div>
                 </fieldset>
-              </form>
-              <script>
+              </form><script>
 (function () {
-    var form = document.querySelector("#currencyform");
-    //set up listeners 
-    form.onchange = function () {
-        //extract data from form
-        var value = Number(this.amount.value),
-            currencyCode = this.currency.value,
-            display = this.currencyDisplay.value,
-            props = {
+              var form = document.querySelector("#currencyform");
+              //set up listeners 
+              form.onchange = function () {
+              //extract data from form
+              var value = Number(this.amount.value),
+              currencyCode = this.currency.value,
+              display = this.currencyDisplay.value,
+              props = {
                 style: "currency",
                 currency: currencyCode,
                 currencyDisplay: display
-            };
-        //display output	 	
-        form.out.value = value.toLocaleString("en", props);
-    };
-    form.onchange()
-}());
+              };
+              //display output                
+              form.out.value = value.toLocaleString("en", props);
+              };
+              form.onchange()
+              }());
               </script>
-              <p>The code we use for the above currency formatter is super simple:
-              <pre><code class="javascript">var form = document.querySelector("#currencyform");    
+              <p>
+                The code we use for the above currency formatter is super
+                simple:
+              </p>
+              <pre>
+<code class=
+"javascript">var form = document.querySelector("#currencyform");    
 
 //set up change listener
 form.onchange = function () {
@@ -1250,78 +2875,211 @@ form.onchange = function () {
             currency: currencyCode,
             currencyDisplay: display
         };
-    //display output	 	
+    //display output            
     this.out.value = value.toLocaleString("en", props);
-};</code></pre>
+};</code>
+</pre>
             </div>
-            <h1 id="localze_numbers">Localizing numbers</h1>
-            <p>Coming soon... covers percentages, etc. Also covers Intl.NumberFormat(). </p>
-            <h1>Sorting (collation)</h1>
-            <p>This section is under construction...</p>
-            <p>Imagine you are building a contacts manager application and we have the following list of names:</p>
-            <pre class="javascript"><code class="javascript">var friends = ["Mary", "Bob", "Tim" , "Adam", "Steve"];</code></pre>
-            <p> Naturally, when you display the contacts to the user you want to make sure those names are shown in alphabetical order. </p>
-            <pre><code class="javascript">var names = names.sort();
-//gives us ["Adam", "Bob", "Mary", "Steve", "Tim"];</code></pre>
-            <p>That's pretty straight forward right? Well, now imagine your user has a bunch of  Nordic friends. </p>
-            <pre><code class="javascript">names = ["Ølgård", "Åbjørn", "Oddbjørg", "Hellbjørg", "Aino"];</code></pre>
-            <p>In order to sort them, you (or the computer) would need to know which letter comes before which letter in the given alphabet. The problem is, which alphabet? Are those names really Norwegian? or are they Danish? What happens if we have Chinese friend (e.g., 强国) and they were also in the list? </p>
-            <p>This gets even more crazy. In German, for instance, there is a difference between &quot;phone book&quot; ordering and &quot;dictionary ordering&quot;... Yeah. So you can imagine that this is quite a challenging problem. </p>
-        <p>Its in situations like those where the <cite>Internationalization API</cite> can come to the rescue.</p>
-        <h1>Hey, Browser! You  speak my language? </h1>
-            <p>There are literally thousands of languages spoken throughout the world and those languages (and associated conventions) are spoken differently depending where one is (e.g., US English conventions are different to, say, Australian English… same with Spanish in Spain when compared to Spanish in Argentina). Some countries even have multiple official languages (e.g., French and English in Canada). And even though browsers know many of these difference language/local combinations (i.e., through interpreting language tags), it can't possibly know every combination.            </p>
-            <p>Thankfully, the <em>Internationalization API</em> provides a way to check if the browser knows how to deal with given locale(s). This check is done by using the <code>supportedLocalesOf</code> methods: </p>
-            <pre><code class="javascript">//Given German (&quot;de&quot;), and two languages that don't exist: 
-Intl.DateTimeFormat.supportedLocalesOf([&quot;de&quot;, &quot;oo&quot;, &quot;xx&quot;]);
-//the browser returns [&quot;de&quot;]</code></pre>
-            <p>Another cool feature of the API is that it will do its best to support a locale as closely as it can. So, given, &quot;En-GB-fff&quot; (where fff is just something I made up), the browser will just strip away the fff and return &quot;en-GB&quot;. </p>
-            <pre><code class="javascript">//fff is garbage below, but could be an actual language sub-tag 
-v8Intl.DateTimeFormat.supportedLocalesOf([&quot;En-gb-fff&quot;]);
-//returns [&quot;en-GB&quot;]</code></pre>
-            <p>Note that another helpful thing that the browser does when we call <code>supportedLocalesOf</code> is that it normalizes our languages tags into &quot;canonical form&quot; (which includes making the GB capitalised). Calling this method will also fix errors in language tags and remove redundant tags too: </p>
-        <pre><code class="javascript">var tags = [&quot;pt-*&quot;, &quot;En-&quot;, &quot;en-*-us&quot;, &quot;x-foo&quot; ]; 
+            <h1 id="localze_numbers">
+              Localizing numbers
+            </h1>
+            <p>
+              Coming soon... covers percentages, etc. Also covers
+              Intl.NumberFormat().
+            </p>
+            <h1>
+              Sorting (collation)
+            </h1>
+            <p>
+              This section is under construction...
+            </p>
+            <p>
+              Imagine you are building a contacts manager application and we
+              have the following list of names:
+            </p>
+            <pre class="javascript">
+<code class=
+"javascript">var friends = ["Mary", "Bob", "Tim" , "Adam", "Steve"];</code>
+</pre>
+            <p>
+              Naturally, when you display the contacts to the user you want to
+              make sure those names are shown in alphabetical order.
+            </p>
+            <pre>
+<code class="javascript">var names = names.sort();
+//gives us ["Adam", "Bob", "Mary", "Steve", "Tim"];</code>
+</pre>
+            <p>
+              That's pretty straight forward right? Well, now imagine your user
+              has a bunch of Nordic friends.
+            </p>
+            <pre>
+<code class=
+"javascript">names = ["Ølgård", "Åbjørn", "Oddbjørg", "Hellbjørg", "Aino"];</code>
+</pre>
+            <p>
+              In order to sort them, you (or the computer) would need to know
+              which letter comes before which letter in the given alphabet. The
+              problem is, which alphabet? Are those names really Norwegian? or
+              are they Danish? What happens if we have Chinese friend (e.g.,
+              强国) and they were also in the list?
+            </p>
+            <p>
+              This gets even more crazy. In German, for instance, there is a
+              difference between "phone book" ordering and "dictionary
+              ordering"... Yeah. So you can imagine that this is quite a
+              challenging problem.
+            </p>
+            <p>
+              Its in situations like those where the <cite>Internationalization
+              API</cite> can come to the rescue.
+            </p>
+            <h1>
+              Hey, Browser! You speak my language?
+            </h1>
+            <p>
+              There are literally thousands of languages spoken throughout the
+              world and those languages (and associated conventions) are spoken
+              differently depending where one is (e.g., US English conventions
+              are different to, say, Australian English… same with Spanish in
+              Spain when compared to Spanish in Argentina). Some countries even
+              have multiple official languages (e.g., French and English in
+              Canada). And even though browsers know many of these difference
+              language/local combinations (i.e., through interpreting language
+              tags), it can't possibly know every combination.
+            </p>
+            <p>
+              Thankfully, the <em>Internationalization API</em> provides a way
+              to check if the browser knows how to deal with given locale(s).
+              This check is done by using the <code>supportedLocalesOf</code>
+              methods:
+            </p>
+            <pre>
+<code class=
+"javascript">//Given German ("de"), and two languages that don't exist: 
+Intl.DateTimeFormat.supportedLocalesOf(["de", "oo", "xx"]);
+//the browser returns ["de"]</code>
+</pre>
+            <p>
+              Another cool feature of the API is that it will do its best to
+              support a locale as closely as it can. So, given, "En-GB-fff"
+              (where fff is just something I made up), the browser will just
+              strip away the fff and return "en-GB".
+            </p>
+            <pre>
+<code class=
+"javascript">//fff is garbage below, but could be an actual language sub-tag 
+v8Intl.DateTimeFormat.supportedLocalesOf(["En-gb-fff"]);
+//returns ["en-GB"]</code>
+</pre>
+            <p>
+              Note that another helpful thing that the browser does when we
+              call <code>supportedLocalesOf</code> is that it normalizes our
+              languages tags into "canonical form" (which includes making the
+              GB capitalised). Calling this method will also fix errors in
+              language tags and remove redundant tags too:
+            </p>
+            <pre>
+<code class="javascript">var tags = ["pt-*", "En-", "en-*-us", "x-foo" ]; 
 Intl.DateTimeFormat.supportedLocalesOf(tags);
-//returns [&quot;pt&quot;, &quot;en&quot;, &quot;und-x-foo&quot;]</code></pre>
-            <p>Note above the &quot;En-&quot; and &quot;en-*&quot; become &quot;en&quot;… and note &quot;und-x-foo&quot; for private use language (language tags that a start with an &quot;x-&quot;).            </p>
-            <h1>Fancy language-tags</h1>
-            <p>To be written... section will cover Unicode extensions and other interesting features.            </p>
-            <h1>Acknowledgements</h1>
-            <p>A huge thanks to <a href="http://norbertlindenberg.com/">Norbert Lindenberg</a> for his guidance,  patience with my dumb questions, and for being awesome. This article was inspired by his original article <cite><a href="http://norbertlindenberg.com/2012/06/ecmascript-internationalization-api/">The ECMAScript Internationalization API</a></cite>. If you want to take your knowledge of the <cite>Internationalization API</cite> to the next level, check out his article. It goes into much more depth than this one. </p>
-            <p>Also a huge thanks to <a href="https://twitter.com/jordangray">Jordan Gray</a> for proposing that this guide be written up.</p>
-            <h1>Using the monkey patch</h1>
-            <p>If you want to play with the <a href="https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">monkey-patch</a> in your own code, just put the following script into your HTML. Remember that the code is experimental:</p>
-            <pre><code class="html">&lt;script src=&quot;https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js&quot;&gt;
-&lt;/script&gt;</code></pre>
-            <p>You can then confirm if it worked by doing &quot;inspect element&quot; and typing into your JavaScript console: </p>
-            <pre><code class="javascript">Intl
-//returns an Object</code></pre>
-            <p>You can also <a href="https://github.com/marcoscaceres/jsi18n">get the code from github</a>, fork it, and use in your own projects however you wish! If you find a bug, let us know! </p>
-     
-      </section>
-      <aside id="sidebar"> <a href="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js" class="button"> <small>Download</small> .js file </a>
-        <p class="repo-owner"><a href="https://github.com/marcoscaceres/jsi18n">jsi18n_patch.js</a> is maintained by <a href="https://github.com/marcoscaceres">marcoscaceres</a> (<a href="https://twitter.com/#!/marcosc">@marcosc</a>).</p>
-        <p>This uses the Architect theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.</p>
-      </aside>
-    </div>
-   </div>
-</article>
-<script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js"></script> 
-<script>
+//returns ["pt", "en", "und-x-foo"]</code>
+</pre>
+            <p>
+              Note above the "En-" and "en-*" become "en"… and note "und-x-foo"
+              for private use language (language tags that a start with an
+              "x-").
+            </p>
+            <h1>
+              Fancy language-tags
+            </h1>
+            <p>
+              To be written... section will cover Unicode extensions and other
+              interesting features.
+            </p>
+            <h1>
+              Acknowledgements
+            </h1>
+            <p>
+              A huge thanks to <a href="http://norbertlindenberg.com/">Norbert
+              Lindenberg</a> for his guidance, patience with my dumb questions,
+              and for being awesome. This article was inspired by his original
+              article <cite><a href=
+              "http://norbertlindenberg.com/2012/06/ecmascript-internationalization-api/">
+              The ECMAScript Internationalization API</a></cite>. If you want
+              to take your knowledge of the <cite>Internationalization
+              API</cite> to the next level, check out his article. It goes into
+              much more depth than this one.
+            </p>
+            <p>
+              Also a huge thanks to <a href=
+              "https://twitter.com/jordangray">Jordan Gray</a> for proposing
+              that this guide be written up.
+            </p>
+            <h1>
+              Using the monkey patch
+            </h1>
+            <p>
+              If you want to play with the <a href=
+              "https://github.com/marcoscaceres/jsi18n/blob/master/jsi18n_patch.js">
+              monkey-patch</a> in your own code, just put the following script
+              into your HTML. Remember that the code is experimental:
+            </p>
+            <pre>
+<code class=
+"html">&lt;script src="https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js"&gt;
+&lt;/script&gt;</code>
+</pre>
+            <p>
+              You can then confirm if it worked by doing "inspect element" and
+              typing into your JavaScript console:
+            </p>
+            <pre>
+<code class="javascript">Intl
+//returns an Object</code>
+</pre>
+            <p>
+              You can also <a href=
+              "https://github.com/marcoscaceres/jsi18n">get the code from
+              github</a>, fork it, and use in your own projects however you
+              wish! If you find a bug, let us know!
+            </p>
+          </section>
+          <aside id="sidebar">
+            <a href=
+            "https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js"
+            class="button"><small>Download</small> .js file</a>
+            <p class="repo-owner">
+              <a href=
+              "https://github.com/marcoscaceres/jsi18n">jsi18n_patch.js</a> is
+              maintained by <a href=
+              "https://github.com/marcoscaceres">marcoscaceres</a> (<a href=
+              "https://twitter.com/#!/marcosc">@marcosc</a>).
+            </p>
+            <p>
+              This uses the Architect theme by <a href=
+              "http://twitter.com/jasonlong">Jason Long</a>.
+            </p>
+          </aside>
+        </div>
+      </div>
+    </article><script src=
+    "https://raw.github.com/marcoscaceres/jsi18n/master/jsi18n_patch.js">
+</script> <script>
 window.addEventListener("DOMContentLoaded",
 
-function isInternationalizationSupported() {
-	hljs.initHighlightingOnLoad();
+    function isInternationalizationSupported() {
+        hljs.initHighlightingOnLoad();
     var canIuse = document.querySelector("#caniuse"),
         supported = document.querySelectorAll(".supported"),
         lang = document.getElementById("lang"),
         region = document.getElementById("region"),
         locale,
         out = document.getElementById("apioptions"),
-		apimethods = document.getElementById("apimethods"),
+                apimethods = document.getElementById("apimethods"),
         htmls,
         elem,
         formOptions = {};
-	
+        
     if (window['Intl'] !== undefined) {
         document.body.setAttribute("class", "patched");
         canIuse.setAttribute("class", "canuse");
@@ -1334,92 +3092,85 @@ function isInternationalizationSupported() {
     //not supported
     document.body.setAttribute("class", "unsupported");
 
-	function refreshLocale(){
-		//work out the locale (language-region, e.g. "en-us")
+        function refreshLocale(){
+                //work out the locale (language-region, e.g. "en-us")
         if (lang.value) {
             locale = lang.value;
             if (region.value) {
                 locale += "-" + region.value;
             }
-        	return;
-		}
-		//otherwise
-		locale = navigator.language;	
-	}
+                return;
+                }
+                //otherwise
+                locale = navigator.language;    
+        }
 
     //Generate options, language tag, from input into the form
     function generateOutput(e) {
         var src = e.srcElement,
-		    form = src.form,
-			date = new Date("1/1/2001");
-		
-		refreshLocale();
-    	
+                    form = src.form,
+                        date = new Date("1/1/2001");
+                
+                refreshLocale();
+        
         switch (src.type) {
-			case ("checkbox"):
-				{
-					var query = "input[name="+src.name+"Rad]", 
-					    firstRadio = document.querySelector(query), 
-						query  = query + ":checked",
-						checkedRadio = document.querySelector(query),
-						value; 
-					if (src.checked === false) {
-						//clear option
-						delete formOptions[src.name];
-						if(checkedRadio){
-							checkedRadio.checked = false;
-							
-						}
-						break;
-					}
-					
-						
-					if(checkedRadio){ 
-						value = checkedRadio.value;
-					}else{
-						firstRadio.checked = true; 
-						value = firstRadio.value
-					}
-					formOptions[src.name] = value; 
-					break;
-				}
-	
-			case ("radio"):
-				{
-					//remove the "*Rad part" from the element's name
-					var name = src.name.match(/(\w*)(?=Rad)/)[0];
-					//add it
-					form[name].checked = "checked"; 
-					formOptions[name] = src.value;
-					break;
-				}
-		}
-		form.formattedDate.innerHTML = date.toLocaleString(locale, formOptions);
-		form.formattedDateOptions.innerHTML = JSON.stringify(formOptions);
-	}
-});
+                        case ("checkbox"):
+                                {
+                                        var query = "input[name="+src.name+"Rad]", 
+                                            firstRadio = document.querySelector(query), 
+                                                query  = query + ":checked",
+                                                checkedRadio = document.querySelector(query),
+                                                value; 
+                                        if (src.checked === false) {
+                                                //clear option
+                                                delete formOptions[src.name];
+                                                if(checkedRadio){
+                                                        checkedRadio.checked = false;
+                                                        
+                                                }
+                                                break;
+                                        }
+                                        
+                                                
+                                        if(checkedRadio){ 
+                                                value = checkedRadio.value;
+                                        }else{
+                                                firstRadio.checked = true; 
+                                                value = firstRadio.value
+                                        }
+                                        formOptions[src.name] = value; 
+                                        break;
+                                }
+        
+                        case ("radio"):
+                                {
+                                        //remove the "*Rad part" from the element's name
+                                        var name = src.name.match(/(\w*)(?=Rad)/)[0];
+                                        //add it
+                                        form[name].checked = "checked"; 
+                                        formOptions[name] = src.value;
+                                        break;
+                                }
+                }
+                form.formattedDate.innerHTML = date.toLocaleString(locale, formOptions);
+                form.formattedDateOptions.innerHTML = JSON.stringify(formOptions);
+        }
+    });
 
+    //analytics
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-34425608-1']);
+    _gaq.push(['_trackPageview']);
 
-
-//analytics
-var _gaq = _gaq || [];
-_gaq.push(['_setAccount', 'UA-34425608-1']);
-_gaq.push(['_trackPageview']);
-
-(function () {
+    (function () {
     var ga = document.createElement('script');
     ga.type = 'text/javascript';
     ga.async = true;
     ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
     var s = document.getElementsByTagName('script')[0];
     s.parentNode.insertBefore(ga, s);
-})();
-</script> 
-<script src="//yandex.st/highlightjs/7.2/highlight.min.js"></script> 
-<script>
-	if(location.host === "127.0.0.1:8888")
-		{	
-		document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')
-		}</script>
-</body>
+    })();
+    </script> <script src="//yandex.st/highlightjs/7.2/highlight.min.js">
+</script>
+  </body>
 </html>
