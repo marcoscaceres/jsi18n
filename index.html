@@ -299,7 +299,7 @@ dd{
 <code class="javascript">(function(exports){
   if("Intl" in exports){
     console.log("Sweet! Lets localize!")
-  } 
+  }
 }(this)); //assuming this is the global scope
 //PS: the above will also work fine in a browser!</code>
 </pre>
@@ -335,7 +335,7 @@ dd{
               calling:
             </p>
             <pre>
-<code class="javascript">date.toLocaleDateString(); 
+<code class="javascript">date.toLocaleDateString();
 //returns e.g. "Friday, August 24, 2012" </code>
 </pre>
             <h2>
@@ -494,7 +494,7 @@ date.toLocaleDateString("pt-PT");
               "javascript">.toLocaleDateString()</code>. For example:
             </p>
             <pre>
-<code class="javascript">var options = {weekday: "long"}; 
+<code class="javascript">var options = {weekday: "long"};
 
 date.toLocaleDateString("pt", options);
 //returns "sexta-feira" (which is Friday in Portuguese)
@@ -541,10 +541,10 @@ date.toLocaleDateString("ja", options);
     month: "long",
     day: "numeric"
 };
-date.toLocaleDateString("pt", options); 
+date.toLocaleDateString("pt", options);
 //returns "sexta-feira, 24 de agosto de 2012"
 
-date.toLocaleDateString("jp", options); 
+date.toLocaleDateString("jp", options);
 //"2012年8月24日(金曜日)"
 
 //And even arabic
@@ -552,7 +552,7 @@ date.toLocaleDateString("ar", options);
 //"الجمعة، ٢٤ أغسطس، ٢٠١٢"
 
 //And for our final trick: Thai Buddhist calendar and Thai digits
-date.toLocaleDateString("th-u-ca-buddhist-nu-thai", options); 
+date.toLocaleDateString("th-u-ca-buddhist-nu-thai", options);
 //returns "วันศุกร์ ๒๔ สิงหาคม ๒๕๕๕"</code>
 </pre>
             <p>
@@ -2200,8 +2200,8 @@ date.toLocaleDateString("en", options);</code>
 <code class=
 "javascript">var formatter = new Intl.DateTimeFormat(lang, options),
     lang = ["en"], //using an array because of quirk in Chrome
-    dates = [new Date("1/1/1"), 
-             new Date("2/2/2"), 
+    dates = [new Date("1/1/1"),
+             new Date("2/2/2"),
              new Date("3/3/3")],
     options = {
         weekday: "long",
@@ -2253,14 +2253,14 @@ for (var i = 0; i &lt; dates.length; i++) {
             <pre>
 <code class="javascript">var bucks = 12,
     props = {
-        style: "currency", 
+        style: "currency",
         currency: "USD"
     };
 
 bucks.toLocaleString("en", props);
 //returns "$12.00"
 
-//Represented as Australian dollars 
+//Represented as Australian dollars
 props.currency = "AUD";
 bucks.toLocaleString("en", props);
 //"AU$12.00"
@@ -2840,7 +2840,7 @@ bucks.toLocaleString("en", props);
               </form><script>
 (function () {
               var form = document.querySelector("#currencyform");
-              //set up listeners 
+              //set up listeners
               form.onchange = function () {
               //extract data from form
               var value = Number(this.amount.value),
@@ -2851,7 +2851,7 @@ bucks.toLocaleString("en", props);
                 currency: currencyCode,
                 currencyDisplay: display
               };
-              //display output                
+              //display output
               form.out.value = value.toLocaleString("en", props);
               };
               form.onchange()
@@ -2863,7 +2863,7 @@ bucks.toLocaleString("en", props);
               </p>
               <pre>
 <code class=
-"javascript">var form = document.querySelector("#currencyform");    
+"javascript">var form = document.querySelector("#currencyform");
 
 //set up change listener
 form.onchange = function () {
@@ -2875,7 +2875,7 @@ form.onchange = function () {
             currency: currencyCode,
             currencyDisplay: display
         };
-    //display output            
+    //display output
     this.out.value = value.toLocaleString("en", props);
 };</code>
 </pre>
@@ -2956,7 +2956,7 @@ form.onchange = function () {
             </p>
             <pre>
 <code class=
-"javascript">//Given German ("de"), and two languages that don't exist: 
+"javascript">//Given German ("de"), and two languages that don't exist:
 Intl.DateTimeFormat.supportedLocalesOf(["de", "oo", "xx"]);
 //the browser returns ["de"]</code>
 </pre>
@@ -2968,7 +2968,7 @@ Intl.DateTimeFormat.supportedLocalesOf(["de", "oo", "xx"]);
             </p>
             <pre>
 <code class=
-"javascript">//fff is garbage below, but could be an actual language sub-tag 
+"javascript">//fff is garbage below, but could be an actual language sub-tag
 v8Intl.DateTimeFormat.supportedLocalesOf(["En-gb-fff"]);
 //returns ["en-GB"]</code>
 </pre>
@@ -2980,7 +2980,7 @@ v8Intl.DateTimeFormat.supportedLocalesOf(["En-gb-fff"]);
               language tags and remove redundant tags too:
             </p>
             <pre>
-<code class="javascript">var tags = ["pt-*", "En-", "en-*-us", "x-foo" ]; 
+<code class="javascript">var tags = ["pt-*", "En-", "en-*-us", "x-foo" ];
 Intl.DateTimeFormat.supportedLocalesOf(tags);
 //returns ["pt", "en", "und-x-foo"]</code>
 </pre>
@@ -3079,7 +3079,7 @@ window.addEventListener("DOMContentLoaded",
         htmls,
         elem,
         formOptions = {};
-        
+
     if (window['Intl'] !== undefined) {
         document.body.setAttribute("class", "patched");
         canIuse.setAttribute("class", "canuse");
@@ -3102,7 +3102,7 @@ window.addEventListener("DOMContentLoaded",
                 return;
                 }
                 //otherwise
-                locale = navigator.language;    
+                locale = navigator.language;
         }
 
     //Generate options, language tag, from input into the form
@@ -3110,44 +3110,44 @@ window.addEventListener("DOMContentLoaded",
         var src = e.srcElement,
                     form = src.form,
                         date = new Date("1/1/2001");
-                
+
                 refreshLocale();
-        
+
         switch (src.type) {
                         case ("checkbox"):
                                 {
-                                        var query = "input[name="+src.name+"Rad]", 
-                                            firstRadio = document.querySelector(query), 
+                                        var query = "input[name="+src.name+"Rad]",
+                                            firstRadio = document.querySelector(query),
                                                 query  = query + ":checked",
                                                 checkedRadio = document.querySelector(query),
-                                                value; 
+                                                value;
                                         if (src.checked === false) {
                                                 //clear option
                                                 delete formOptions[src.name];
                                                 if(checkedRadio){
                                                         checkedRadio.checked = false;
-                                                        
+
                                                 }
                                                 break;
                                         }
-                                        
-                                                
-                                        if(checkedRadio){ 
+
+
+                                        if(checkedRadio){
                                                 value = checkedRadio.value;
                                         }else{
-                                                firstRadio.checked = true; 
+                                                firstRadio.checked = true;
                                                 value = firstRadio.value
                                         }
-                                        formOptions[src.name] = value; 
+                                        formOptions[src.name] = value;
                                         break;
                                 }
-        
+
                         case ("radio"):
                                 {
                                         //remove the "*Rad part" from the element's name
                                         var name = src.name.match(/(\w*)(?=Rad)/)[0];
                                         //add it
-                                        form[name].checked = "checked"; 
+                                        form[name].checked = "checked";
                                         formOptions[name] = src.value;
                                         break;
                                 }
